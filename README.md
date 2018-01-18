@@ -12,7 +12,7 @@ This repository contains an Emacs configuration. No warranty given; use at your 
 2. Set your old .emacs aside, if it exists: `mv ~/.emacs ~/.emacs.bak`
 3. Clone the repository to ~/.emacs.d: `git clone <URL TO THIS REPO> ~/.emacs.d`
 4. Copy .emacs to home directory: `cp ~/.emacs.d/config/.emacs ~/.emacs`
-5. Start emacs - you will see packages automatically installed and process shoudl complete in a few minutes.
+5. Start emacs - you will see packages automatically installed and process should complete in a few minutes. This installation step will only happen once, after which you are expected to keep your packages up-to-date manually.
 
 # User Specific Settings
 If you wish to personalize your configuration, create a directory with your user name under .emacs.d/config/ and add whatever config files you need there. The config files are read in alphabetic order, so I like to use a number-based file naming convention to control the order in which separate files are read. Please see my config folder for an illustrative example (my user name is `mpemer`.
