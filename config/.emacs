@@ -40,7 +40,7 @@
     ("89336ca71dae5068c165d932418a368a394848c3b8881b2f96807405d8c6b5b6" "dcf7154867ba67b250fe2c5cdc15a7d170acd9cbe6707cc36d9dd1462282224d" default)))
  '(package-selected-packages
    (quote
-    (gruber-darker-theme slime org-sync org-pdfview org-page org-jira org-ac org-bullets org-beautify-theme org-alert org-mime ox-pandoc pandoc-mode pandoc org-plus-contrib edit-server neotree magit groovy-mode markdown-mode cider ace-window))))
+    (copy-as-format emacs-slack gruber-darker-theme slime org-sync org-pdfview org-page org-jira org-ac org-bullets org-beautify-theme org-alert org-mime ox-pandoc pandoc-mode pandoc org-plus-contrib edit-server neotree magit groovy-mode markdown-mode cider ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

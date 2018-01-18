@@ -25,6 +25,8 @@
 
 	symon
 
+	copy-as-format
+	
 	org-beautify-theme
 	gruber-darker-theme
 	))
@@ -40,3 +42,4 @@
 (package-initialize)
 (unless (file-exists-p package-user-dir) (package-refresh-contents))
 (dolist (package package-list) (unless (package-installed-p package) (package-install package)))
+
