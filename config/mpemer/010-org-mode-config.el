@@ -157,9 +157,8 @@
 	;; org-caldav configuration - we use either this or org-gcal
 	(setq org-caldav-url 'google
 	      org-caldav-inbox "~/org/plan.org"
-	      org-caldav-files '("~/org/plan.org")
-	      org-caldav-calendars
-	      '((:calendar-id "pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" :files ("~/org/plan.org"))))
+	      org-caldav-files '("~/org/plan.org"))
+	      ;;org-caldav-calendars '((:calendar-id "my-calendar-id-from-google" :files ("~/org/plan.org"))))
 
 	(defun my/org-caldav-sync ()
 	  (interactive)
@@ -186,5 +185,4 @@
 			 (setq remaining-retries (- remaining-retries 1)))
 		     (error "%s" (error-message-string ex)))))))))
 
-	(global-set-key (kbd "C-c os") 'my/org-caldav-sync)
-	))) ;;end org-caldav
+	(global-set-key (kbd "C-c os") 'my/org-caldav-sync))))
