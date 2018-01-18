@@ -1,6 +1,6 @@
 # Emacs Configuration Files
 
-This repository contains an Emacs configuration.
+This repository contains an Emacs configuration. No warranty given; use at your own risk.
 
 # Requirements
 
