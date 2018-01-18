@@ -1,6 +1,6 @@
 *
 !config
-!config/*
+!config/**
 !.gitignore
 !README.md
 
