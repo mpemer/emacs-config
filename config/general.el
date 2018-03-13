@@ -68,3 +68,6 @@
 ;; Run emacs server (so we can use emacsclient) if it is not already started
 (require 'server)
 (unless (server-running-p) (server-start))
+
+
+(edit-server-start)

@@ -86,6 +86,7 @@
   (interactive)
   (org-sort-entries nil ?f #'my/org-sort-key))
 
+(global-set-key (kbd "C-c os") 'my/org-sort-entries)
 
 
 (define-key global-map "\C-cc" 'org-capture)
@@ -107,7 +108,7 @@
   (find-file (concat org-directory "/archive.org)")))
 (defun mp-emacs ()
   (interactive)
-  (find-file "~/.emacs.d/.emacs"))
+  (find-file "~/.emacs.d/config/.emacs"))
 
 (global-set-key (kbd "C-c on") 'mp-org-notes)
 (global-set-key (kbd "C-c oo") 'mp-org-plan)
@@ -185,4 +186,4 @@
 			 (setq remaining-retries (- remaining-retries 1)))
 		     (error "%s" (error-message-string ex)))))))))
 
-	(global-set-key (kbd "C-c os") 'my/org-caldav-sync))))
+	(global-set-key (kbd "C-c oS") 'my/org-caldav-sync))))

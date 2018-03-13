@@ -3,6 +3,7 @@
  	cider
  	markdown-mode
  	groovy-mode
+	haskell-mode
  	magit
  	neotree
 	edit-server
