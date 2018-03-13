@@ -107,7 +107,7 @@
   (find-file (concat org-directory "/archive.org)")))
 (defun mp-emacs ()
   (interactive)
-  (find-file "~/.emacs.d/.emacs"))
+  (find-file "~/.emacs.d/config/.emacs"))
 
 (global-set-key (kbd "C-c on") 'mp-org-notes)
 (global-set-key (kbd "C-c oo") 'mp-org-plan)

@@ -65,6 +65,11 @@
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
 
+
+
+(setf confluence-url "https://iteego.jira.com/wiki/rpc/xmlrpc")
+(global-set-key (kbd "C-x wf") 'confluence-get-page)
+
 ;; Run emacs server (so we can use emacsclient) if it is not already started
 (require 'server)
 (unless (server-running-p) (server-start))
