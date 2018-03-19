@@ -28,7 +28,11 @@
 
 	symon
 
+	confluence
+	
 	copy-as-format
+
+	yaml-mode
 	
 	org-beautify-theme
 	gruber-darker-theme
