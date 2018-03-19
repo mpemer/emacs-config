@@ -8,6 +8,8 @@
  	neotree
 	edit-server
 
+	wgrep
+	
 	org-mime
 	org-plus-contrib
 	org-alert
