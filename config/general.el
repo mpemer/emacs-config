@@ -40,6 +40,7 @@
       indent-tabs-mode nil
       tab-width 2
       column-number-mode t
+      visual-line-mode t
       display-time-day-and-date t
       display-time-24hr-format t
       backup-by-copying t      ; don't clobber symlinks
