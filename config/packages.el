@@ -9,6 +9,7 @@
 	edit-server
 
 	wgrep
+	company
 	
 	org-mime
 	org-plus-contrib
@@ -25,7 +26,7 @@
 	ox-pandoc
 
 	slime
-
+	
 	symon
 
 	confluence
@@ -39,10 +40,10 @@
 	))
 
 (setq package-user-dir "~/.emacs.d/elpa"
-      package-archives '(("elpa" . "http://tromey.com/elpa/")
-                         ("gnu" . "https://elpa.gnu.org/packages/")
+      package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")))
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
+			 ("elpa" . "http://tromey.com/elpa/")))
 
 ;; make sure to have downloaded archive description.
 ;; Or use package-archive-contents as suggested by Nicolas Dudebout

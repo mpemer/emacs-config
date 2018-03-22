@@ -1,6 +1,13 @@
 ;; Navigation
 (global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
 (global-set-key (kbd "M-q") 'ace-window)
+(global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
+;; Remap the window management keys to something more manageable
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+
 
 ;; MaGIT
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -66,9 +73,32 @@
 (display-time)
 
 
-
 (setf confluence-url "https://iteego.jira.com/wiki/rpc/xmlrpc")
 (global-set-key (kbd "C-x wf") 'confluence-get-page)
+
+;; ;;
+;; ;; Auto-complete
+
+(global-company-mode)
+(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+(add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+(add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
+
+(require 'color)
+;; (let ((bg (face-attribute 'default :background)))
+;;   (custom-set-faces
+;;    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+;;    `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+;;    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+;;    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+;;    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+;;
+
+(setq cider-jdk-src-paths '("~/src/clojure"
+                            "~/src/openjdk-8"))
+(setq cider-font-lock-dynamically '(macro core function var))
+(add-hook 'cider-mode-hook #'eldoc-mode)
+(setq cider-overlays-use-font-lock t)
 
 ;; Run emacs server (so we can use emacsclient) if it is not already started
 (require 'server)
