@@ -41,7 +41,10 @@
  '(package-selected-packages
    (quote
     (company-mode company wgrep haskell-mode copy-as-format emacs-slack gruber-darker-theme slime org-sync org-pdfview org-page org-jira org-ac org-bullets org-beautify-theme org-alert org-mime ox-pandoc pandoc-mode pandoc org-plus-contrib edit-server neotree magit groovy-mode markdown-mode cider ace-window)))
- '(safe-local-variable-values (quote ((epa-encrypt-to "mpemer@gmail.com")))))
+ '(safe-local-variable-values
+   (quote
+    ((auto-revert-mode . 1)
+     (epa-encrypt-to "mpemer@gmail.com")))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
