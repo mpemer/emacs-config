@@ -8,6 +8,23 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
+;; Email
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "marcus@pemer.com" nil))
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587
+      starttls-gnutls-program "/usr/local/bin/gnutls-cli"
+      starttls-extra-arguments nil
+      starttls-use-gnutls t
+      mail-self-blind nil
+      compose-mail-user-agent-warnings nil
+      mail-default-headers "From: Marcus Pemer <marcus@pemer.io>")
+
+(defun my-message-add-bcc ()
+  (message-add-header "BCC: marcus@pemer.io"))
+(add-hook 'message-send-hook 'my-message-add-bcc)
 
 ;; MaGIT
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -20,6 +37,14 @@
 
 ;; Org
 (setq org-export-with-toc nil)
+
+;;(add-hook 'message-mode-hook
+;;          (lambda ()
+;;            (local-set-key "\C-c\M-o" 'org-mime-htmlize)))
+;;
+;;(add-hook 'org-mode-hook
+;;          (lambda ()
+;;            (local-set-key "\C-c\M-o" 'org-mime-org-buffer-htmlize)))
 
 ;; NeoTree
 (global-set-key [f12] 'neotree-toggle)
@@ -61,6 +86,8 @@
       mouse-wheel-follow-mouse 't ;scroll window under mouse
       scroll-step 2 ;keyboard scroll one line at a time
       epg-gpg-program "gpg2")
+
+(setq epa-pinentry-mode 'loopback)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)

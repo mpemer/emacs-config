@@ -37,6 +37,8 @@
 	
 	org-beautify-theme
 	gruber-darker-theme
+
+;;	bbdb ;;manually installed with specific version
 	))
 
 (setq package-user-dir "~/.emacs.d/elpa"
@@ -50,4 +52,6 @@
 (package-initialize)
 (unless (file-exists-p package-user-dir) (package-refresh-contents))
 (dolist (package package-list) (unless (package-installed-p package) (package-install package)))
+
+(require 'bbdb)
 
