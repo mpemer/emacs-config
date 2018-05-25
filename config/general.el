@@ -59,9 +59,10 @@
       mouse-wheel-progressive-speed nil
       mouse-wheel-progressive-speed 1 ;don't accelerate scrolling
       mouse-wheel-follow-mouse 't ;scroll window under mouse
-      scroll-step 2 ;keyboard scroll one line at a time
-      epg-gpg-program "gpg2")
+      scroll-step 2) ;keyboard scroll one line at a time
+;;      epg-gpg-program "gpg")
 
+(custom-set-variables '(epg-gpg-program "/usr/local/bin/gpg"))
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)

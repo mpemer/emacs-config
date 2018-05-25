@@ -42,8 +42,8 @@
 (setq package-user-dir "~/.emacs.d/elpa"
       package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")
-			 ("elpa" . "http://tromey.com/elpa/")))
+			 ("elpa" . "http://tromey.com/elpa/")
+			 ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 ;; make sure to have downloaded archive description.
 ;; Or use package-archive-contents as suggested by Nicolas Dudebout
