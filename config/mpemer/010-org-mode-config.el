@@ -135,7 +135,7 @@
 
 	(setq plstore-cache-passphrase-for-symmetric-encryption t
 
-	      org-directory "~/org"
+	      org-directory "~/Dropbox/org"
 	      org-caldav-save-directory "~/Dropbox/org/.org-caldav-state"
 	      ;;"~/org/tasks.org"
 	      org-agenda-files '("~/Dropbox/org/notes.org"
