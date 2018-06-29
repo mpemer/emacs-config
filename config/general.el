@@ -34,6 +34,8 @@
 (setq cider-show-error-buffer 'only-in-repl)
 (global-set-key (kbd "<insert>") 'cider-pprint-eval-defun-at-point)
 (add-hook 'cider-mode-hook 'turn-on-eldoc-mode)
+(setq cider-lein-parameters "repl :headless :host localhost")
+
 
 ;; Org
 (setq org-export-with-toc nil)
