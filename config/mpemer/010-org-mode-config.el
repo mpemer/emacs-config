@@ -47,6 +47,9 @@
 ;; right-alt+w
 (global-set-key (kbd "∑") 'my/to-scrum-notes)
 
+(global-set-key (kbd "C-c ol") 'org-store-link)
+(global-set-key (kbd "C-c oa") 'org-agenda)
+
 
 (defun todo-to-int (todo)
   "Convert todo item to int value, for sorting"
