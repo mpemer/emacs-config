@@ -114,12 +114,12 @@
 (global-set-key (kbd "C-c oo") 'mp-org-tasks)
 (global-set-key (kbd "C-c ot") 'mp-org-tasks)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
-(global-set-key (kbd "C-c OO") 'mp-org-archive)
-(global-set-key (kbd "C-c oe") 'mp-emacs)
 
 (defun my/org-sort-entries ()
   (interactive)
   (org-sort-entries nil ?f #'my/org-sort-key))
+
+(setq org-archive-location (concat "archive/%s::"))
 
 ;;(setq package-check-signature nil)
 ;;(require 'org-gcal)
