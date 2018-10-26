@@ -106,9 +106,6 @@
 (defun mp-org-goals ()
   (interactive)
   (find-file (concat org-directory "/goals.org")))
-(defun mp-org-archive ()
-  (interactive)
-  (find-file (concat org-directory "/archive.org)")))
 (defun mp-emacs ()
   (interactive)
   (find-file "~/.emacs.d/config/.emacs"))
@@ -117,7 +114,6 @@
 (global-set-key (kbd "C-c oo") 'mp-org-tasks)
 (global-set-key (kbd "C-c ot") 'mp-org-tasks)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
-(global-set-key (kbd "C-c oa") 'mp-org-archive)
 (global-set-key (kbd "C-c OO") 'mp-org-archive)
 (global-set-key (kbd "C-c oe") 'mp-emacs)
 

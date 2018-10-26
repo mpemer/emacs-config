@@ -8,6 +8,10 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
+
+
+(global-set-key (kbd "C-<return>") 'magit-stage-all-and-commit)
+
 ;; Email
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
