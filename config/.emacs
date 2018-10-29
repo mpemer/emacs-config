@@ -34,18 +34,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (gruber-darker)))
+ '(custom-enabled-themes (quote (lagavulin)))
  '(custom-safe-themes
    (quote
-    ("89336ca71dae5068c165d932418a368a394848c3b8881b2f96807405d8c6b5b6" "dcf7154867ba67b250fe2c5cdc15a7d170acd9cbe6707cc36d9dd1462282224d" default)))
- '(package-selected-packages
-   (quote
-    (puppet-mode bbdb company-mode company wgrep haskell-mode copy-as-format emacs-slack gruber-darker-theme slime org-sync org-pdfview org-page org-jira org-ac org-bullets org-beautify-theme org-alert org-mime ox-pandoc pandoc-mode pandoc org-plus-contrib edit-server neotree magit groovy-mode markdown-mode cider ace-window)))
- '(safe-local-variable-values
-   (quote
-    ((auto-revert-mode . 1)
-     (epa-encrypt-to "mpemer@gmail.com"))))
- '(send-mail-function (quote mailclient-send-it)))
+    ("018d40c4ffe70e1863259f0b4614c52bab0cf8e04aeff812b9236fbb184e282e" "3a2a801198c8c3b6cbaa0e2a180176d706c17cc2067abd01898a79e1616a6692" "dd2ef0ab91224977210ee1f1bc5fef4fabff6490d94501df8d2e3661a1536c88" default)))
+ '(frame-brackground-mode (quote dark)))
 ;; '(send-mail-function (quote mailclient-send-it)))
  ;;'(send-mail-function (quote sendmail-send-it)))
 (custom-set-faces
