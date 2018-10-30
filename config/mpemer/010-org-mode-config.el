@@ -114,7 +114,6 @@
 (global-set-key (kbd "C-c oo") 'mp-org-tasks)
 (global-set-key (kbd "C-c ot") 'mp-org-tasks)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
-(global-set-key (kbd "C-c oe") 'mp-emacs)
 
 (defun my/org-sort-entries ()
   (interactive)

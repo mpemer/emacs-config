@@ -25,6 +25,8 @@
 	pandoc-mode
 	ox-pandoc
 
+	puppet-mode
+	
 	slime
 	
 	;;symon
