@@ -38,7 +38,10 @@
  '(custom-safe-themes
    (quote
     ("018d40c4ffe70e1863259f0b4614c52bab0cf8e04aeff812b9236fbb184e282e" "3a2a801198c8c3b6cbaa0e2a180176d706c17cc2067abd01898a79e1616a6692" "dd2ef0ab91224977210ee1f1bc5fef4fabff6490d94501df8d2e3661a1536c88" default)))
- '(frame-brackground-mode (quote dark)))
+ '(frame-brackground-mode (quote dark))
+ '(package-selected-packages
+   (quote
+    (puppet-mode yaml-mode wgrep symon slime pandoc-mode pandoc ox-pandoc org-plus-contrib org-pdfview org-mime org-jira org-bullets org-beautify-theme org-alert org-ac oauth2 neotree markdown-mode magit haskell-mode gruber-darker-theme groovy-mode edit-server copy-as-format confluence company cider ace-window))))
 ;; '(send-mail-function (quote mailclient-send-it)))
  ;;'(send-mail-function (quote sendmail-send-it)))
 (custom-set-faces
