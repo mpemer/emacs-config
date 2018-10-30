@@ -19,7 +19,7 @@
 	org-jira
 	org-pdfview
 
-	oauth2
+	;;oauth2
 	
 	pandoc
 	pandoc-mode
@@ -27,13 +27,13 @@
 
 	slime
 	
-	symon
+	;;symon
 
-	confluence
+	;;confluence
 	
 	copy-as-format
 
-	yaml-mode
+	;;yaml-mode
 	
 	org-beautify-theme
 	gruber-darker-theme
