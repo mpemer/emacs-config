@@ -91,6 +91,8 @@
 
 (define-key global-map "\C-cc" 'org-capture)
 
+(setq org-directory "~/Dropbox/org")
+
 (defun mp-org-notes ()
   (interactive)
   (find-file (concat org-directory "/notes.org")))
