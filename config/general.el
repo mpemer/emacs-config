@@ -8,6 +8,10 @@
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
+
+
+(global-set-key (kbd "C-<return>") 'magit-stage-all-and-commit)
+
 ;; Email
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
@@ -90,6 +94,8 @@
 ;;      epg-gpg-program "gpg")
 
 (setq epa-pinentry-mode 'loopback)
+;(pinentry-start)
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
@@ -109,7 +115,7 @@
 ;; ;; Auto-complete
 
 (global-company-mode)
-(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+;;(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
 (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
 

@@ -47,6 +47,9 @@
 ;; right-alt+w
 (global-set-key (kbd "∑") 'my/to-scrum-notes)
 
+(global-set-key (kbd "C-c ol") 'org-store-link)
+(global-set-key (kbd "C-c oa") 'org-agenda)
+
 
 (defun todo-to-int (todo)
   "Convert todo item to int value, for sorting"
@@ -105,23 +108,20 @@
 (defun mp-org-goals ()
   (interactive)
   (find-file (concat org-directory "/goals.org")))
-(defun mp-org-archive ()
-  (interactive)
-  (find-file (concat org-directory "/archive.org)")))
 (defun mp-emacs ()
   (interactive)
   (find-file "~/.emacs.d/config/.emacs"))
 
 (global-set-key (kbd "C-c on") 'mp-org-notes)
-(global-set-key (kbd "C-c oo") 'mp-org-plan)
+(global-set-key (kbd "C-c oo") 'mp-org-tasks)
+(global-set-key (kbd "C-c ot") 'mp-org-tasks)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
-(global-set-key (kbd "C-c oa") 'mp-org-archive)
-(global-set-key (kbd "C-c OO") 'mp-org-archive)
-(global-set-key (kbd "C-c oe") 'mp-emacs)
 
 (defun my/org-sort-entries ()
   (interactive)
   (org-sort-entries nil ?f #'my/org-sort-key))
+
+(setq org-archive-location (concat "archive/%s::"))
 
 ;;(setq package-check-signature nil)
 ;;(require 'org-gcal)
@@ -141,6 +141,7 @@
 	      org-caldav-save-directory "~/Dropbox/org/.org-caldav-state"
 	      ;;"~/org/tasks.org"
 	      org-agenda-files '("~/Dropbox/org/notes.org"
+				 "~/Dropbox/org/tasks.org"
 				 "~/Dropbox/org/plan.org"
 				 "~/Dropbox/org/journal.org")
 	      
@@ -149,7 +150,7 @@
 	      org-icalendad-timezone "Europe/Wien"
 	      
 	      org-capture-templates
-	      '(( "t" "Task" entry (file+headline "~/Dropbox/org/plan.org" "Tasks") "** TODO [#A] %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n" :prepend t)
+	      '(( "t" "Task" entry (file "~/Dropbox/org/tasks.org") "* TODO [#B] %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n" :prepend t)
 		("a" "Appointment" entry (file+headline "~/Dropbox/org/plan.org" "Plan") "** %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
 		("g" "Goal" entry (file+headline "~/Dropbox/org/plan.org" "Goals") "** %?\n%u" :prepend t)
 		("n" "Note" entry (file+headline "~/Dropbox/org/notes.org" "Notes") "** %?\n%u" :prepend t)
@@ -160,7 +161,7 @@
 	;; org-caldav configuration - we use either this or org-gcal
 	(setq org-caldav-url 'google
 	      org-caldav-inbox "~/Dropbox/org/plan.org"
-	      org-caldav-files '("~/Dropbox/org/plan.org"))
+	      org-caldav-files '("~/Dropbox/org/tasks.org" "~/Dropbox/org/plan.org"))
 	      ;;org-caldav-calendars '((:calendar-id "my-calendar-id-from-google" :files ("~/Dropbox/org/plan.org"))))
 
 	(defun my/org-caldav-sync ()
