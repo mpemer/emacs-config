@@ -129,6 +129,8 @@
 ;;    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
 ;;
 
+(add-to-list 'auto-mode-alist '("\\.eml\\'" . markdown-mode))
+
 (setq cider-jdk-src-paths '("~/src/clojure"
                             "~/src/openjdk-8"))
 (setq cider-font-lock-dynamically '(macro core function var))
