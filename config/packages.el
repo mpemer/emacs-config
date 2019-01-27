@@ -28,14 +28,19 @@
 	puppet-mode
 	
 	slime
-	
+
+	nov ;; epub reader
 	;;symon
 
 	;;confluence
 	
 	copy-as-format
 
-	;;yaml-mode
+	yaml-mode
+
+	dockerfile-mode
+
+	writeroom-mode
 	
 	org-beautify-theme
 	gruber-darker-theme

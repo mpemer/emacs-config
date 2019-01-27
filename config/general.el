@@ -1,16 +1,12 @@
 ;; Navigation
 (global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
-(global-set-key (kbd "M-q") 'ace-window)
+(global-set-key (kbd "M-z") 'ace-window)
 (global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
 ;; Remap the window management keys to something more manageable
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
-
-
-
-(global-set-key (kbd "C-<return>") 'magit-stage-all-and-commit)
 
 ;; Email
 (setq message-send-mail-function 'smtpmail-send-it
@@ -107,6 +103,10 @@
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
 
+;; Yaml mode
+(add-hook 'yaml-mode-hook
+          (lambda ()
+            (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
 
 (setf confluence-url "https://iteego.jira.com/wiki/rpc/xmlrpc")
 (global-set-key (kbd "C-x wf") 'confluence-get-page)
@@ -131,6 +131,7 @@
 
 (add-to-list 'auto-mode-alist '("\\.eml\\'" . markdown-mode))
 
+(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 (setq cider-jdk-src-paths '("~/src/clojure"
                             "~/src/openjdk-8"))
 (setq cider-font-lock-dynamically '(macro core function var))
