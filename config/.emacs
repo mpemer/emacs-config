@@ -22,6 +22,8 @@
 (load "~/.emacs.d/config/narrow-or-widen.el")
 (load "~/.emacs.d/config/pretty-print-xml-region.el")
 
+(add-to-list 'load-path "~/.emacs.d/config/")
+
 ;; User-specific settings (files containing secret things are pgp encrypted)
 (let ((config-path (concat "~/.emacs.d/config/" (getenv "USER"))))
   (if (file-exists-p config-path)
@@ -37,11 +39,11 @@
  '(custom-enabled-themes (quote (gruber-darker)))
  '(custom-safe-themes
    (quote
-    ("89336ca71dae5068c165d932418a368a394848c3b8881b2f96807405d8c6b5b6" "018d40c4ffe70e1863259f0b4614c52bab0cf8e04aeff812b9236fbb184e282e" "3a2a801198c8c3b6cbaa0e2a180176d706c17cc2067abd01898a79e1616a6692" "dd2ef0ab91224977210ee1f1bc5fef4fabff6490d94501df8d2e3661a1536c88" default)))
+    ("47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" "89336ca71dae5068c165d932418a368a394848c3b8881b2f96807405d8c6b5b6" "018d40c4ffe70e1863259f0b4614c52bab0cf8e04aeff812b9236fbb184e282e" "3a2a801198c8c3b6cbaa0e2a180176d706c17cc2067abd01898a79e1616a6692" "dd2ef0ab91224977210ee1f1bc5fef4fabff6490d94501df8d2e3661a1536c88" default)))
  '(frame-brackground-mode (quote dark))
  '(package-selected-packages
    (quote
-    (writeroom-mode nov dockerfile-mode puppet-mode yaml-mode wgrep symon slime pandoc-mode pandoc ox-pandoc org-plus-contrib org-pdfview org-mime org-jira org-bullets org-beautify-theme org-alert org-ac oauth2 neotree markdown-mode magit haskell-mode gruber-darker-theme groovy-mode edit-server copy-as-format confluence company cider ace-window)))
+    (kubernetes k8s-mode writeroom-mode nov dockerfile-mode puppet-mode yaml-mode wgrep symon slime pandoc-mode pandoc ox-pandoc org-plus-contrib org-pdfview org-mime org-jira org-bullets org-beautify-theme org-alert org-ac oauth2 neotree markdown-mode magit haskell-mode gruber-darker-theme groovy-mode edit-server copy-as-format confluence company cider ace-window)))
  '(safe-local-variable-values
    (quote
     ((epa-encrypt-to "mpemer@gmail.com")

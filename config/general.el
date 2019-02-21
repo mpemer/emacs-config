@@ -30,6 +30,8 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x C-g") 'magit-status)
 
+(setq inferior-lisp-program "sbcl")
+
 ;; Cider
 (setq cider-show-error-buffer 'only-in-repl)
 (global-set-key (kbd "<insert>") 'cider-pprint-eval-defun-at-point)

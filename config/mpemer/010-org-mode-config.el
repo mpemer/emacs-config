@@ -7,6 +7,8 @@
 (require 'ox-deck)
 (require 'ox-taskjuggler)
 (require 'ox-s5)
+(require 'ox-md)
+(require 'ox-coleslaw)
 
 ;; org-crypt settings
 ;; I don't use this much anymore, but keeping it
