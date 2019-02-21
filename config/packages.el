@@ -45,6 +45,9 @@
 	org-beautify-theme
 	gruber-darker-theme
 
+	k8s-mode
+	kubernetes
+	
 ;;	bbdb ;;manually installed with specific version
 	))
 
@@ -53,6 +56,7 @@
                          ("org" . "http://orgmode.org/elpa/")
 			 ("elpa" . "http://tromey.com/elpa/")
 			 ("melpa" . "https://melpa.org/packages/")))
+;;			 ("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 ;; make sure to have downloaded archive description.
 ;; Or use package-archive-contents as suggested by Nicolas Dudebout
