@@ -6,6 +6,8 @@
 ;; You may delete these explanatory comments.
 ;;(package-initialize)
 
+(setq ad-redefinition-action 'accept)
+
 ;; There are some precompilation warnings that are suppressed
 ;; only by vaccously declaring some variables.
 ;; I keep these declarations in defvars.el
