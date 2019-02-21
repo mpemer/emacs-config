@@ -6,15 +6,17 @@
 ;; You may delete these explanatory comments.
 ;;(package-initialize)
 
+;; Suppress warnings
+;; https://andrewjamesjohnson.com/suppressing-ad-handle-definition-warnings-in-emacs/
 (setq ad-redefinition-action 'accept)
 
 ;; There are some precompilation warnings that are suppressed
-;; only by vaccously declaring some variables.
+;; only by vacuously declaring some variables.
 ;; I keep these declarations in defvars.el
 (load "~/.emacs.d/config/defvars.el")
 
 ;; Initialize package system and declare/install all packages we use
-(load "~/.emacs.d/config/packages.el")
+;;(load "~/.emacs.d/config/packages.el")
 
 ;; General settings
 (load "~/.emacs.d/config/general.el")
@@ -47,7 +49,7 @@
  '(frame-brackground-mode (quote dark))
  '(package-selected-packages
    (quote
-    (kubernetes k8s-mode writeroom-mode nov dockerfile-mode puppet-mode yaml-mode wgrep symon slime pandoc-mode pandoc ox-pandoc org-plus-contrib org-pdfview org-mime org-jira org-bullets org-beautify-theme org-alert org-ac oauth2 neotree markdown-mode magit haskell-mode gruber-darker-theme groovy-mode edit-server copy-as-format confluence company cider ace-window)))
+    (os-coleslaw os-md ox-s5 ox-taskjuggler ox-deck ox-confluence org-secretary ord-mime org-depend yaml use-package kubernetes k8s-mode writeroom-mode nov dockerfile-mode puppet-mode yaml-mode wgrep symon slime pandoc-mode pandoc ox-pandoc org-plus-contrib org-pdfview org-mime org-jira org-bullets org-beautify-theme org-alert org-ac oauth2 neotree markdown-mode magit haskell-mode gruber-darker-theme groovy-mode edit-server copy-as-format confluence company cider ace-window)))
  '(safe-local-variable-values
    (quote
     ((epa-encrypt-to "mpemer@gmail.com")
@@ -61,8 +63,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 181 :width normal)))))
-
-;;(add-to-list 'default-frame-alist
-;;	     '(font . "DejaVu Sans Mono-16"))
-
-;;(set-background-color "black")

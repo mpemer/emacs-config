@@ -1,14 +1,34 @@
 ;; ORG-MODE CONFIG CHANGES
 
-(require 'org-depend)
-(require 'org-mime)
-(require 'org-secretary)
-(require 'ox-confluence)
-(require 'ox-deck)
-(require 'ox-taskjuggler)
-(require 'ox-s5)
-(require 'ox-md)
-(require 'ox-coleslaw)
+;; First make sure the packages are installed
+(let ((package-list '(org-mime
+		      org-plus-contrib
+		      org-alert
+		      org-bullets
+		      org-ac
+		      org-jira
+		      org-pdfview
+		      org-beautify-theme
+		      org-mime
+		      )))
+  (dolist (package package-list) (progn
+				   (ensure-package-installed package)
+				   (use-package package))))
+
+;; Then make sure some additionals are loaded
+(let ((package-list '(org-mime
+		      org-depend
+		      org-secretary
+		      ox-confluence
+		      ox-deck
+		      ox-taskjuggler
+		      ox-s5
+		      ox-md
+		      ox-coleslaw
+		      ox-pandoc
+		      )))
+  (dolist (package package-list) (require package)))
+
 
 ;; org-crypt settings
 ;; I don't use this much anymore, but keeping it
@@ -18,6 +38,7 @@
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
+(setq org-export-with-toc nil)
 
 (defun my/reformat-for-scrum-notes ()
   "Reformat org to confluence scrum notes"

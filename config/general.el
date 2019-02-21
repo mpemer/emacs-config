@@ -1,12 +1,127 @@
-;; Navigation
-(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
-(global-set-key (kbd "M-z") 'ace-window)
-(global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
-;; Remap the window management keys to something more manageable
-(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "S-C-<down>") 'shrink-window)
-(global-set-key (kbd "S-C-<up>") 'enlarge-window)
+(setq package-user-dir "~/.emacs.d/elpa"
+      package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
+			 ("elpa" . "http://tromey.com/elpa/")
+			 ("melpa" . "https://melpa.org/packages/")))
+
+(defun ensure-package-installed (package)
+  (unless (package-installed-p package) (package-install package)))
+
+;; make sure to have downloaded archive description.
+;; Or use package-archive-contents as suggested by Nicolas Dudebout
+(package-initialize)
+(unless (file-exists-p package-user-dir) (package-refresh-contents))
+(ensure-package-installed 'use-package)
+
+;; Packages that don't have individual configs go here
+(let ((package-list
+       '(ace-window
+ 	groovy-mode
+	haskell-mode
+	edit-server
+	wgrep
+	pandoc
+	pandoc-mode
+	puppet-mode      
+	copy-as-format
+	yaml-mode
+	writeroom-mode
+	dockerfile-mode
+	k8s-mode
+	kubernetes
+	gruber-darker-theme
+	)))
+  (dolist (package package-list)
+    (progn (ensure-package-installed package)
+	   (use-package package))))
+
+
+;; ace-window
+(progn
+  (ensure-package-installed 'ace-window)
+  (use-package ace-window
+    :config (progn
+	      (global-set-key (kbd "M-z") 'ace-window))))
+
+;; magit
+(progn
+  (ensure-package-installed 'magit)
+  (use-package magit
+    :config
+    (progn
+      (global-set-key (kbd "C-x g") 'magit-status)
+      (global-set-key (kbd "C-x C-g") 'magit-status))))
+
+;; slime
+(progn
+  (ensure-package-installed 'slime)
+  (use-package slime
+    :config
+    (setq inferior-lisp-program "sbcl")))
+
+;; cider
+(progn
+  (ensure-package-installed 'cider)
+  (use-package cider
+    :config (progn
+	      (global-set-key (kbd "<insert>") 'cider-pprint-eval-defun-at-point)
+	      (setq cider-show-error-buffer 'only-in-repl)
+	      (setq cider-lein-parameters "repl :headless :host localhost")
+	      (setq cider-jdk-src-paths '("~/src/clojure"
+					  "~/src/openjdk-8"))
+	      (setq cider-font-lock-dynamically '(macro core function var))
+	      (setq cider-overlays-use-font-lock t)
+	      (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+	      (add-hook 'cider-mode-hook 'turn-on-eldoc-mode)
+	      (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
+	      (add-hook 'cider-mode-hook #'eldoc-mode))))
+
+;; neotree - tree file view
+(progn
+  (ensure-package-installed 'neotree)
+  (use-package neotree
+    :config (progn
+	      (global-set-key [f12] 'neotree-toggle))))
+
+;; yaml-mode
+(progn
+  (ensure-package-installed 'yaml-mode)
+  (use-package yaml-mode
+    :config (progn
+	      (add-hook 'yaml-mode-hook
+			(lambda ()
+			  (define-key yaml-mode-map "\C-m" 'newline-and-indent))))))
+
+
+;; Auto-complete framework (COMPlete ANYthing)
+(progn
+  (ensure-package-installed 'company)
+  (use-package company
+    :config (progn
+	      (global-company-mode))))
+;;	    (global-set-key (kbd "TAB") #'company-indent-or-complete-common)))
+
+
+
+(require 'color)
+
+;; Markdown mode
+(progn
+  (ensure-package-installed 'markdown-mode)
+  (use-package markdown-mode
+    :config (progn
+	      (add-to-list 'auto-mode-alist '("\\.eml\\'" . markdown-mode)))))
+
+
+;; EPUB Reader
+(progn
+  (ensure-package-installed 'nov)
+  (use-package nov
+    :config (progn
+	      (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))))
+
+
+
 
 ;; Email
 (setq message-send-mail-function 'smtpmail-send-it
@@ -26,34 +141,14 @@
   (message-add-header "BCC: marcus@pemer.io"))
 (add-hook 'message-send-hook 'my-message-add-bcc)
 
-;; MaGIT
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x C-g") 'magit-status)
-
-(setq inferior-lisp-program "sbcl")
-
-;; Cider
-(setq cider-show-error-buffer 'only-in-repl)
-(global-set-key (kbd "<insert>") 'cider-pprint-eval-defun-at-point)
-(add-hook 'cider-mode-hook 'turn-on-eldoc-mode)
-(setq cider-lein-parameters "repl :headless :host localhost")
-
-;; Lisp
-(setq inferior-lisp-program "sbcl")
-
-;; Org
-(setq org-export-with-toc nil)
-
-;;(add-hook 'message-mode-hook
-;;          (lambda ()
-;;            (local-set-key "\C-c\M-o" 'org-mime-htmlize)))
-;;
-;;(add-hook 'org-mode-hook
-;;          (lambda ()
-;;            (local-set-key "\C-c\M-o" 'org-mime-org-buffer-htmlize)))
-
-;; NeoTree
-(global-set-key [f12] 'neotree-toggle)
+;; Navigation
+(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
+(global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
+;; Remap the window management keys to something more manageable
+(global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 ;; Text scaling
 (global-set-key (kbd "C-=") 'text-scale-increase)
@@ -108,40 +203,6 @@
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
 
-;; Yaml mode
-(add-hook 'yaml-mode-hook
-          (lambda ()
-            (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
-
-(setf confluence-url "https://iteego.jira.com/wiki/rpc/xmlrpc")
-(global-set-key (kbd "C-x wf") 'confluence-get-page)
-
-;; ;;
-;; ;; Auto-complete
-
-(global-company-mode)
-;;(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
-(add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
-(add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
-
-(require 'color)
-;; (let ((bg (face-attribute 'default :background)))
-;;   (custom-set-faces
-;;    `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-;;    `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-;;    `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-;;    `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-;;    `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
-;;
-
-(add-to-list 'auto-mode-alist '("\\.eml\\'" . markdown-mode))
-
-(add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-(setq cider-jdk-src-paths '("~/src/clojure"
-                            "~/src/openjdk-8"))
-(setq cider-font-lock-dynamically '(macro core function var))
-(add-hook 'cider-mode-hook #'eldoc-mode)
-(setq cider-overlays-use-font-lock t)
 
 ;; Run emacs server (so we can use emacsclient) if it is not already started
 (require 'server)
