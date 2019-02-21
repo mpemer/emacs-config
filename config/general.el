@@ -36,6 +36,8 @@
 (add-hook 'cider-mode-hook 'turn-on-eldoc-mode)
 (setq cider-lein-parameters "repl :headless :host localhost")
 
+;; Lisp
+(setq inferior-lisp-program "sbcl")
 
 ;; Org
 (setq org-export-with-toc nil)
@@ -53,6 +55,7 @@
 
 ;; Text scaling
 (global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; Enable reopening of recent files via C-x C-r

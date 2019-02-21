@@ -36,10 +36,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
  '(custom-enabled-themes (quote (gruber-darker)))
  '(custom-safe-themes
    (quote
-    ("89336ca71dae5068c165d932418a368a394848c3b8881b2f96807405d8c6b5b6" "018d40c4ffe70e1863259f0b4614c52bab0cf8e04aeff812b9236fbb184e282e" "3a2a801198c8c3b6cbaa0e2a180176d706c17cc2067abd01898a79e1616a6692" "dd2ef0ab91224977210ee1f1bc5fef4fabff6490d94501df8d2e3661a1536c88" default)))
+    ("47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" "89336ca71dae5068c165d932418a368a394848c3b8881b2f96807405d8c6b5b6" "018d40c4ffe70e1863259f0b4614c52bab0cf8e04aeff812b9236fbb184e282e" "3a2a801198c8c3b6cbaa0e2a180176d706c17cc2067abd01898a79e1616a6692" "dd2ef0ab91224977210ee1f1bc5fef4fabff6490d94501df8d2e3661a1536c88" default)))
+ '(display-time-mode t)
  '(frame-brackground-mode (quote dark))
  '(package-selected-packages
    (quote
@@ -47,7 +49,8 @@
  '(safe-local-variable-values
    (quote
     ((epa-encrypt-to "mpemer@gmail.com")
-     (auto-revert-mode . 1)))))
+     (auto-revert-mode . 1))))
+ '(tool-bar-mode nil))
 ;; '(send-mail-function (quote mailclient-send-it)))
  ;;'(send-mail-function (quote sendmail-send-it)))
 (custom-set-faces
@@ -55,7 +58,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant normal :weight normal :height 181 :width normal)))))
 
 ;;(add-to-list 'default-frame-alist
 ;;	     '(font . "DejaVu Sans Mono-16"))
