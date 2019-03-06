@@ -13,6 +13,19 @@
 (unless (file-exists-p package-user-dir) (package-refresh-contents))
 (ensure-package-installed 'use-package)
 
+(progn
+  (ensure-package-installed 'quelpa)
+  (use-package quelpa
+    :config (progn
+	      (setq quelpa-upgrade-p t
+		    quelpa-self-upgrade-p nil))))
+
+(use-package coleslaw
+  :config (coleslaw-setup))
+;;  :init (quelpa 'coleslaw))
+
+
+
 ;; Packages that don't have individual configs go here
 (let ((package-list
        '(ace-window
