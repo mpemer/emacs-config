@@ -20,11 +20,27 @@
 	      (setq quelpa-upgrade-p t
 		    quelpa-self-upgrade-p nil))))
 
-(use-package coleslaw
-  :config (coleslaw-setup))
+(progn
+  (ensure-package-installed 'jira-markup-mode)
+  (use-package jira-markup-mode
+    :config (progn
+	      (add-to-list 'auto-mode-alist '(".*atlassian.*\\.txt$" . jira-markup-mode))
+	      (add-to-list 'auto-mode-alist '(".*iteego.jira.*\\.txt$" . jira-markup-mode)))))
+
+;;(use-package coleslaw
+;;  :config (coleslaw-setup))
 ;;  :init (quelpa 'coleslaw))
 
-
+(progn
+  (ensure-package-installed 'impatient-mode)
+  (use-package impatient-mode
+    :config (progn
+	      (defun markdown-html (buffer)
+		(princ (with-current-buffer buffer
+			 (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
+		       (current-buffer)))
+	      )
+    ))
 
 ;; Packages that don't have individual configs go here
 (let ((package-list
@@ -70,7 +86,14 @@
   (ensure-package-installed 'slime)
   (use-package slime
     :config
-    (setq inferior-lisp-program "sbcl")))
+    (progn
+      (setq inferior-lisp-program "sbcl")
+      (add-hook 'slime-connected-hook
+		(lambda ()
+		  (when (slime-eval `(cl:if (cl:find-package :cl21-user) t))
+		    (slime-repl-set-package :cl21-user)
+		    (slime-repl-eval-string "(cl21:enable-cl21-syntax)"))) t))))
+
 
 ;; cider
 (progn

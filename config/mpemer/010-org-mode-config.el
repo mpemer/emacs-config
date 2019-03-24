@@ -117,7 +117,7 @@
 
 (define-key global-map "\C-cc" 'org-capture)
 
-(setq org-directory "~/Dropbox/org")
+(setq org-directory "~/org")
 
 (defun mp-org-notes ()
   (interactive)
@@ -149,7 +149,7 @@
 ;;(setq package-check-signature nil)
 ;;(require 'org-gcal)
 (defun my/org-home (filename)
-  (concat "~/Dropbox/org/" filename))
+  (concat "~/org/" filename))
 
 (let* ((path "~/src/org-caldav")
        (filename (concat path "/org-caldav.el")))
@@ -160,32 +160,32 @@
 
 	(setq plstore-cache-passphrase-for-symmetric-encryption t
 
-	      org-directory "~/Dropbox/org"
-	      org-caldav-save-directory "~/Dropbox/org/.org-caldav-state"
+	      org-directory "~/org"
+	      org-caldav-save-directory "~/org/.org-caldav-state"
 	      ;;"~/org/tasks.org"
-	      org-agenda-files '("~/Dropbox/org/notes.org"
-				 "~/Dropbox/org/tasks.org"
-				 "~/Dropbox/org/plan.org"
-				 "~/Dropbox/org/journal.org")
+	      org-agenda-files '("~/org/notes.org"
+				 "~/org/tasks.org"
+				 "~/org/plan.org"
+				 "~/org/journal.org")
 	      
-	      org-default-notes-file "~/Dropbox/org/notes.org"
+	      org-default-notes-file "~/org/notes.org"
 	      
 	      org-icalendad-timezone "Europe/Wien"
 	      
 	      org-capture-templates
-	      '(( "t" "Task" entry (file "~/Dropbox/org/tasks.org") "* TODO [#B] %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n" :prepend t)
-		("a" "Appointment" entry (file+headline "~/Dropbox/org/plan.org" "Plan") "** %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
-		("g" "Goal" entry (file+headline "~/Dropbox/org/plan.org" "Goals") "** %?\n%u" :prepend t)
-		("n" "Note" entry (file+headline "~/Dropbox/org/notes.org" "Notes") "** %?\n%u" :prepend t)
-		("i" "Idea" entry (file+headline "~/Dropbox/org/notes.org" "Ideas") "** %?\n%T" :prepend t)
-		("l" "Link" entry (file+headline "~/Dropbox/org/notes.org" "Links") "** %? %^L %^g \n%T" :prepend t)
-		("j" "Journal" entry (file+datetree "~/Dropbox/org/journal.org") "* %?\nEntered on %U\n  %i\n  %a")))
+	      '(( "t" "Task" entry (file "~/org/tasks.org") "* TODO [#B] %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n" :prepend t)
+		("a" "Appointment" entry (file+headline "~/org/plan.org" "Plan") "** %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
+		("g" "Goal" entry (file+headline "~/org/plan.org" "Goals") "** %?\n%u" :prepend t)
+		("n" "Note" entry (file+headline "~/org/notes.org" "Notes") "** %?\n%u" :prepend t)
+		("i" "Idea" entry (file+headline "~/org/notes.org" "Ideas") "** %?\n%T" :prepend t)
+		("l" "Link" entry (file+headline "~/org/notes.org" "Links") "** %? %^L %^g \n%T" :prepend t)
+		("j" "Journal" entry (file+datetree "~/org/journal.org") "* %?\nEntered on %U\n  %i\n  %a")))
 	
 	;; org-caldav configuration - we use either this or org-gcal
 	(setq org-caldav-url 'google
-	      org-caldav-inbox "~/Dropbox/org/plan.org"
-	      org-caldav-files '("~/Dropbox/org/tasks.org" "~/Dropbox/org/plan.org"))
-	      ;;org-caldav-calendars '((:calendar-id "my-calendar-id-from-google" :files ("~/Dropbox/org/plan.org"))))
+	      org-caldav-inbox "~/org/plan.org"
+	      org-caldav-files '("~/org/tasks.org" "~/org/plan.org"))
+	      ;;org-caldav-calendars '((:calendar-id "my-calendar-id-from-google" :files ("~/org/plan.org"))))
 
 	(defun my/org-caldav-sync ()
 	  (interactive)

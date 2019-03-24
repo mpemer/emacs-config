@@ -49,7 +49,7 @@
  '(frame-brackground-mode (quote dark))
  '(package-selected-packages
    (quote
-    (quelpa os-coleslaw os-md ox-s5 ox-taskjuggler ox-deck ox-confluence org-secretary ord-mime org-depend yaml use-package kubernetes k8s-mode writeroom-mode nov dockerfile-mode puppet-mode yaml-mode wgrep symon slime pandoc-mode pandoc ox-pandoc org-plus-contrib org-pdfview org-mime org-jira org-bullets org-beautify-theme org-alert org-ac oauth2 neotree markdown-mode magit haskell-mode gruber-darker-theme groovy-mode edit-server copy-as-format confluence company cider ace-window)))
+    (jira-markup-mode impatient-mode quelpa os-coleslaw os-md ox-s5 ox-taskjuggler ox-deck ox-confluence org-secretary ord-mime org-depend yaml use-package kubernetes k8s-mode writeroom-mode nov dockerfile-mode puppet-mode yaml-mode wgrep symon slime pandoc-mode pandoc ox-pandoc org-plus-contrib org-pdfview org-mime org-jira org-bullets org-beautify-theme org-alert org-ac oauth2 neotree markdown-mode magit haskell-mode gruber-darker-theme groovy-mode edit-server copy-as-format confluence company cider ace-window)))
  '(safe-local-variable-values
    (quote
     ((epa-encrypt-to "mpemer@gmail.com")
