@@ -1,34 +1,79 @@
 ;; ORG-MODE CONFIG CHANGES
 
 ;; First make sure the packages are installed
-(let ((package-list '(org-mime
-		      org-plus-contrib
-		      org-alert
-		      org-bullets
-		      org-ac
-		      org-jira
+(let ((package-list '(
+		      ;; org-alert
+		      
+                      ;; https://github.com/jonnay/org-beautify-theme
+		      org-beautify-theme		      
+;;		      org-jira
 		      org-pdfview
-		      org-beautify-theme
-		      org-mime
+
 		      )))
   (dolist (package package-list) (progn
 				   (ensure-package-installed package)
 				   (use-package package))))
 
-;; Then make sure some additionals are loaded
-(let ((package-list '(org-mime
-		      org-depend
-		      org-secretary
-		      ox-confluence
-		      ox-deck
-		      ox-taskjuggler
-		      ox-s5
-		      ox-md
-		      ox-coleslaw
-		      ox-pandoc
-		      )))
-  (dolist (package package-list) (require package)))
 
+;; org-ac
+;; https://github.com/aki2o/org-ac
+(progn
+  (ensure-package-installed 'org-ac)
+  (use-package org-ac
+    :config (progn
+	      (org-ac/config-default))))
+
+;; org-bullets
+;; https://github.com/sabof/org-bullets
+(progn
+  (ensure-package-installed 'org-bullets)
+  (use-package org-bullets
+    :config (progn
+	      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
+
+;; org-mime
+;; https://orgmode.org/worg/org-contrib/org-mime.html
+(progn
+  (ensure-package-installed 'org-mime)
+  (use-package org-mime
+    :config (progn
+	      (setq org-mime-library 'mml))))
+
+;; ox-pandoc
+;; https://github.com/kawabata/ox-pandoc
+(progn
+  (ensure-package-installed 'ox-pandoc)
+  (use-package ox-pandoc))
+
+;; ob-clojure
+;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
+(progn
+;;  (ensure-package-installed 'ob-clojure)
+  (use-package ob-clojure
+    :config (progn
+	      (setq org-babel-clojure-backend 'cider))))
+
+;; ob-clojure
+;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
+(progn
+;;  (ensure-package-installed 'ob-clojure)
+;;  (use-package ob-sh)
+  (use-package ob-shell)
+  (use-package ob-lisp)
+;;  (use-package ob-)
+) 
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages '(
+			     ;;(clojure . t)
+			     (lisp . t)
+			     (shell . t)))
+
+;;(require 'ob-clojure)
+
+
+
+(setf org-enable-reveal-js-support nil)
 
 ;; org-crypt settings
 ;; I don't use this much anymore, but keeping it
@@ -38,7 +83,9 @@
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
+;;(comment
 (setq org-export-with-toc nil)
+;;(add-hook 'org-mode-hook #'visual-line-mode)
 
 (defun my/reformat-for-scrum-notes ()
   "Reformat org to confluence scrum notes"
@@ -71,8 +118,9 @@
 (global-set-key (kbd "∑") 'my/to-scrum-notes)
 
 (global-set-key (kbd "C-c ol") 'org-store-link)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c C-l") 'org-insert-link)
 (global-set-key (kbd "C-c oa") 'org-agenda)
-
 
 (defun todo-to-int (todo)
   "Convert todo item to int value, for sorting"
@@ -131,6 +179,9 @@
 (defun mp-org-goals ()
   (interactive)
   (find-file (concat org-directory "/goals.org")))
+(defun mp-org-journal ()
+  (interactive)
+  (find-file (concat org-directory "/journal.org")))
 (defun mp-emacs ()
   (interactive)
   (find-file "~/.emacs.d/config/.emacs"))
@@ -139,6 +190,8 @@
 (global-set-key (kbd "C-c oo") 'mp-org-tasks)
 (global-set-key (kbd "C-c ot") 'mp-org-tasks)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
+(global-set-key (kbd "C-c og") 'mp-org-goals)
+(global-set-key (kbd "C-c oj") 'mp-org-journal)
 
 (defun my/org-sort-entries ()
   (interactive)
@@ -165,7 +218,6 @@
 	      ;;"~/org/tasks.org"
 	      org-agenda-files '("~/org/notes.org"
 				 "~/org/tasks.org"
-				 "~/org/plan.org"
 				 "~/org/journal.org")
 	      
 	      org-default-notes-file "~/org/notes.org"
@@ -177,6 +229,7 @@
 		("a" "Appointment" entry (file+headline "~/org/plan.org" "Plan") "** %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
 		("g" "Goal" entry (file+headline "~/org/plan.org" "Goals") "** %?\n%u" :prepend t)
 		("n" "Note" entry (file+headline "~/org/notes.org" "Notes") "** %?\n%u" :prepend t)
+		("b" "Bookmark" entry (file+headline "~/org/notes.org" "Bookmarks") "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
 		("i" "Idea" entry (file+headline "~/org/notes.org" "Ideas") "** %?\n%T" :prepend t)
 		("l" "Link" entry (file+headline "~/org/notes.org" "Links") "** %? %^L %^g \n%T" :prepend t)
 		("j" "Journal" entry (file+datetree "~/org/journal.org") "* %?\nEntered on %U\n  %i\n  %a")))
@@ -213,3 +266,4 @@
 		     (error "%s" (error-message-string ex)))))))))
 
 	(global-set-key (kbd "C-c oS") 'my/org-caldav-sync))))
+;;)

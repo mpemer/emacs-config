@@ -1,0 +1,4 @@
+(progn
+  (ensure-package-installed 'puppet-mode)
+  (use-package puppet-mode))
+

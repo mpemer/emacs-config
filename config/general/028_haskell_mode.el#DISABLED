@@ -1,0 +1,4 @@
+(progn
+  (ensure-package-installed 'haskell-mode)
+  (use-package haskell-mode))
+

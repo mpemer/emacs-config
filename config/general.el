@@ -20,162 +20,16 @@
 	      (setq quelpa-upgrade-p t
 		    quelpa-self-upgrade-p nil))))
 
-(progn
-  (ensure-package-installed 'jira-markup-mode)
-  (use-package jira-markup-mode
-    :config (progn
-	      (add-to-list 'auto-mode-alist '(".*atlassian.*\\.txt$" . jira-markup-mode))
-	      (add-to-list 'auto-mode-alist '(".*iteego.jira.*\\.txt$" . jira-markup-mode)))))
+(add-to-list 'load-path "~/.emacs.d/config/")
 
-;;(use-package coleslaw
-;;  :config (coleslaw-setup))
-;;  :init (quelpa 'coleslaw))
-
-(progn
-  (ensure-package-installed 'impatient-mode)
-  (use-package impatient-mode
-    :config (progn
-	      (defun markdown-html (buffer)
-		(princ (with-current-buffer buffer
-			 (format "<!DOCTYPE html><html><title>Impatient Markdown</title><xmp theme=\"united\" style=\"display:none;\"> %s  </xmp><script src=\"http://strapdownjs.com/v/0.2/strapdown.js\"></script></html>" (buffer-substring-no-properties (point-min) (point-max))))
-		       (current-buffer)))
-	      )
-    ))
-
-;; Packages that don't have individual configs go here
-(let ((package-list
-       '(ace-window
- 	groovy-mode
-	haskell-mode
-	edit-server
-	wgrep
-	pandoc
-	pandoc-mode
-	puppet-mode      
-	copy-as-format
-	yaml-mode
-	writeroom-mode
-	dockerfile-mode
-	k8s-mode
-	kubernetes
-	gruber-darker-theme
-	)))
-  (dolist (package package-list)
-    (progn (ensure-package-installed package)
-	   (use-package package))))
-
-
-;; ace-window
-(progn
-  (ensure-package-installed 'ace-window)
-  (use-package ace-window
-    :config (progn
-	      (global-set-key (kbd "M-z") 'ace-window))))
-
-;; magit
-(progn
-  (ensure-package-installed 'magit)
-  (use-package magit
-    :config
-    (progn
-      (global-set-key (kbd "C-x g") 'magit-status)
-      (global-set-key (kbd "C-x C-g") 'magit-status))))
-
-;; slime
-(progn
-  (ensure-package-installed 'slime)
-  (use-package slime
-    :config
-    (progn
-      (setq inferior-lisp-program "sbcl")
-      (add-hook 'slime-connected-hook
-		(lambda ()
-		  (when (slime-eval `(cl:if (cl:find-package :cl21-user) t))
-		    (slime-repl-set-package :cl21-user)
-		    (slime-repl-eval-string "(cl21:enable-cl21-syntax)"))) t))))
-
-
-;; cider
-(progn
-  (ensure-package-installed 'cider)
-  (use-package cider
-    :config (progn
-	      (global-set-key (kbd "<insert>") 'cider-pprint-eval-defun-at-point)
-	      (setq cider-show-error-buffer 'only-in-repl)
-	      (setq cider-lein-parameters "repl :headless :host localhost")
-	      (setq cider-jdk-src-paths '("~/src/clojure"
-					  "~/src/openjdk-8"))
-	      (setq cider-font-lock-dynamically '(macro core function var))
-	      (setq cider-overlays-use-font-lock t)
-	      (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
-	      (add-hook 'cider-mode-hook 'turn-on-eldoc-mode)
-	      (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
-	      (add-hook 'cider-mode-hook #'eldoc-mode))))
-
-;; neotree - tree file view
-(progn
-  (ensure-package-installed 'neotree)
-  (use-package neotree
-    :config (progn
-	      (global-set-key [f12] 'neotree-toggle))))
-
-;; yaml-mode
-(progn
-  (ensure-package-installed 'yaml-mode)
-  (use-package yaml-mode
-    :config (progn
-	      (add-hook 'yaml-mode-hook
-			(lambda ()
-			  (define-key yaml-mode-map "\C-m" 'newline-and-indent))))))
-
-
-;; Auto-complete framework (COMPlete ANYthing)
-(progn
-  (ensure-package-installed 'company)
-  (use-package company
-    :config (progn
-	      (global-company-mode))))
-;;	    (global-set-key (kbd "TAB") #'company-indent-or-complete-common)))
-
-
+(let ((config-path "~/.emacs.d/config/general"))
+  (if (file-exists-p config-path)
+      (dolist (file-name (directory-files config-path))
+	(if (or (string-match-p "\.el$" file-name)
+		(string-match-p "\.el.gpg$" file-name))
+	    (load (concat config-path "/" file-name))))))
 
 (require 'color)
-
-;; Markdown mode
-(progn
-  (ensure-package-installed 'markdown-mode)
-  (use-package markdown-mode
-    :config (progn
-	      (add-to-list 'auto-mode-alist '("\\.eml\\'" . markdown-mode)))))
-
-
-;; EPUB Reader
-(progn
-  (ensure-package-installed 'nov)
-  (use-package nov
-    :config (progn
-	      (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))))
-
-
-
-
-;; Email
-(setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "marcus@pemer.com" nil))
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587
-      starttls-gnutls-program "/usr/local/bin/gnutls-cli"
-      starttls-extra-arguments nil
-      starttls-use-gnutls t
-      mail-self-blind nil
-      compose-mail-user-agent-warnings nil
-      mail-default-headers "From: Marcus Pemer <marcus@pemer.io>")
-
-(defun my-message-add-bcc ()
-  (message-add-header "BCC: marcus@pemer.io"))
-(add-hook 'message-send-hook 'my-message-add-bcc)
 
 ;; Navigation
 (global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
@@ -230,7 +84,7 @@
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(menu-bar-mode -1)
+;;(menu-bar-mode -1)
 (delete-selection-mode 1)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
@@ -239,10 +93,3 @@
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
 
-
-;; Run emacs server (so we can use emacsclient) if it is not already started
-(require 'server)
-(unless (server-running-p) (server-start))
-
-
-(edit-server-start)

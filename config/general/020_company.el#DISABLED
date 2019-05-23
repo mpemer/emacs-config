@@ -1,0 +1,10 @@
+
+;; Auto-complete framework (COMPlete ANYthing)
+(progn
+  (ensure-package-installed 'company)
+  (use-package company
+    :config (progn
+	      (global-company-mode))))
+;;	    (global-set-key (kbd "TAB") #'company-indent-or-complete-common)))
+
+

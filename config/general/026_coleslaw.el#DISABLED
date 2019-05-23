@@ -1,0 +1,3 @@
+(use-package coleslaw
+ :config (coleslaw-setup)
+ :init (quelpa 'coleslaw))
