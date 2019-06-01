@@ -115,12 +115,10 @@
   (clipboard-kill-ring-save (point-min) (point-max)))
 
 ;; right-alt+w
-(global-set-key (kbd "∑") 'my/to-scrum-notes)
+(progn
+  (global-set-key (kbd "∑") 'my/to-scrum-notes)
 
-(global-set-key (kbd "C-c ol") 'org-store-link)
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c C-l") 'org-insert-link)
-(global-set-key (kbd "C-c oa") 'org-agenda)
+
 
 (defun todo-to-int (todo)
   "Convert todo item to int value, for sorting"
@@ -161,9 +159,6 @@
   (org-sort-entries nil ?f #'my/org-sort-key))
 
 (global-set-key (kbd "C-c os") 'my/org-sort-entries)
-
-
-(define-key global-map "\C-cc" 'org-capture)
 
 (setq org-directory "~/org")
 
@@ -216,25 +211,34 @@
 	      org-directory "~/org"
 	      org-caldav-save-directory "~/org/.org-caldav-state"
 	      ;;"~/org/tasks.org"
-	      org-agenda-files '("~/org/notes.org"
-				 "~/org/tasks.org"
-				 "~/org/journal.org")
+	      org-agenda-files '("~/org"
+				 "~/kohler/org"
+				 "~/iteego/org"
+				 "~/pemer/org")
 	      
-	      org-default-notes-file "~/org/notes.org"
+	      org-default-notes-file "~/org/refile.org"
 	      
-	      org-icalendad-timezone "Europe/Wien"
-	      
-	      org-capture-templates
-	      '(( "t" "Task" entry (file "~/org/tasks.org") "* TODO [#B] %?\nDEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+0d\"))\n%a\n" :prepend t)
-		("a" "Appointment" entry (file+headline "~/org/plan.org" "Plan") "** %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
-		("g" "Goal" entry (file+headline "~/org/plan.org" "Goals") "** %?\n%u" :prepend t)
-		("n" "Note" entry (file+headline "~/org/notes.org" "Notes") "** %?\n%u" :prepend t)
-		("b" "Bookmark" entry (file+headline "~/org/notes.org" "Bookmarks") "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n" :empty-lines 1)
-		("i" "Idea" entry (file+headline "~/org/notes.org" "Ideas") "** %?\n%T" :prepend t)
-		("l" "Link" entry (file+headline "~/org/notes.org" "Links") "** %? %^L %^g \n%T" :prepend t)
-		("j" "Journal" entry (file+datetree "~/org/journal.org") "* %?\nEntered on %U\n  %i\n  %a")))
+	      org-icalendad-timezone "Europe/Wien")
+
+	(setq org-capture-templates
+	      (quote (("t" "todo" entry (file "~/org/refile.org")
+		       "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
+		      ("r" "respond" entry (file "~/org/refile.org")
+		       "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+		      ("n" "note" entry (file "~/org/refile.org")
+		       "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
+		      ("j" "Journal" entry (file+datetree "~/org/diary.org")
+		       "* %?\n%U\n" :clock-in t :clock-resume t)
+		      ("w" "org-protocol" entry (file "~/org/refile.org")
+		       "* TODO Review %c\n%U\n" :immediate-finish t)
+		      ("m" "Meeting" entry (file "~/org/refile.org")
+		       "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+		      ("p" "Phone call" entry (file "~/org/refile.org")
+		       "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t))))
+
+	 
 	
-	;; org-caldav configuration - we use either this or org-gcal
+	;; Org-caldav configuration - we use either this or org-gcal
 	(setq org-caldav-url 'google
 	      org-caldav-inbox "~/org/plan.org"
 	      org-caldav-files '("~/org/tasks.org" "~/org/plan.org"))
@@ -267,3 +271,345 @@
 
 	(global-set-key (kbd "C-c oS") 'my/org-caldav-sync))))
 ;;)
+
+
+;; (defun my/org-read-datetree-date (d)
+;;   "Parse a time string D and return a date to pass to the datetree functions."
+;;   (let ((dtmp (nthcdr 3 (parse-time-string d))))
+;;     (list (cadr dtmp) (car dtmp) (caddr dtmp))))
+ 
+(defun my/org-read-datetree-date (d)
+  "Parse a time string D and return a date to pass to the datetree functions."
+  (let ((dtmp (nthcdr 3 (parse-time-string d))))
+    (list (cadr dtmp) (car dtmp) (caddr dtmp))))
+
+(defun my/org-refile-to-archive-datetree ()
+  "Refile an entry to a datetree under an archive."
+  (interactive)
+  (require 'org-datetree)
+  (let ((datetree-date (my/org-read-datetree-date (org-read-date t nil))))
+    (org-refile nil nil (list nil "~/org/journal.org" nil
+                              (save-excursion
+                                (org-datetree-find-date-create datetree-date)))))
+  (setq this-command 'my/org-refile-to-journal))
+
+;; (defun my/org-refile-to-archive-datetree ()
+;;   "Refile an entry to a datetree under an archive."
+;;   (interactive)
+;;   (require 'org-datetree)
+;;   (let ((datetree-date (my/org-read-datetree-date (org-read-date t nil))))
+;;     (org-refile nil nil (list nil (buffer-file-name) nil
+;;                               (save-excursion
+;;                                 (org-datetree-find-date-create datetree-date)))))
+;;   (setq this-command 'my/org-refile-to-journal))
+
+
+
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c C-l") 'org-insert-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c C-a") 'org-agenda)
+(global-set-key (kbd "C-c b") 'org-switchb)
+(global-set-key (kbd "C-c C-b") 'org-switchb)
+(global-set-key (kbd "<f12>") 'org-agenda)
+(global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
+(global-set-key (kbd "C-c c") 'org-capture)
+
+;;(global-set-key (kbd "<f12>") 'org-agenda)
+;;(global-set-key (kbd "<f5>") 'bh/org-todo)
+;;(global-set-key (kbd "<S-f5>") 'bh/widen)
+;;(global-set-key (kbd "<f7>") 'bh/set-truncate-lines)
+;;(global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
+;;(global-set-key (kbd "<f9> <f9>") 'bh/show-org-agenda)
+;;(global-set-key (kbd "<f9> b") 'bbdb)
+;;(global-set-key (kbd "<f9> c") 'calendar)
+;;(global-set-key (kbd "<f9> f") 'boxquote-insert-file)
+;;(global-set-key (kbd "<f9> g") 'gnus)
+;;(global-set-key (kbd "<f9> h") 'bh/hide-other)
+;;(global-set-key (kbd "<f9> n") 'bh/toggle-next-task-display)
+
+;;(global-set-key (kbd "<f9> I") 'bh/punch-in)
+;;(global-set-key (kbd "<f9> O") 'bh/punch-out)
+
+;;(global-set-key (kbd "<f9> o") 'bh/make-org-scratch)
+
+;;(global-set-key (kbd "<f9> r") 'boxquote-region)
+;;(global-set-key (kbd "<f9> s") 'bh/switch-to-scratch)
+
+;;(global-set-key (kbd "<f9> t") 'bh/insert-inactive-timestamp)
+;;(global-set-key (kbd "<f9> T") 'bh/toggle-insert-inactive-timestamp)
+
+;;(global-set-key (kbd "<f9> v") 'visible-mode)
+;;(global-set-key (kbd "<f9> l") 'org-toggle-link-display)
+;;(global-set-key (kbd "<f9> SPC") 'bh/clock-in-last-task)
+(global-set-key (kbd "C-<f9>") 'previous-buffer)
+;;(global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
+;;(global-set-key (kbd "C-x n r") 'narrow-to-region)
+(global-set-key (kbd "C-<f10>") 'next-buffer)
+;;(global-set-key (kbd "<f11>") 'org-clock-goto)
+;;(global-set-key (kbd "C-<f11>") 'org-clock-in)
+;;(global-set-key (kbd "C-s-<f12>") 'bh/save-then-publish))
+;;(global-set-key (kbd "C-c c") 'org-capture)
+
+(defun bh/hide-other ()
+  (interactive)
+  (save-excursion
+    (org-back-to-heading 'invisible-ok)
+    (hide-other)
+    (org-cycle)
+    (org-cycle)
+    (org-cycle)))
+
+(defun bh/set-truncate-lines ()
+  "Toggle value of truncate-lines and refresh window display."
+  (interactive)
+  (setq truncate-lines (not truncate-lines))
+  ;; now refresh window display (an idiom from simple.el):
+  (save-excursion
+    (set-window-start (selected-window)
+                      (window-start (selected-window)))))
+
+(defun bh/make-org-scratch ()
+  (interactive)
+  (find-file "/tmp/publish/scratch.org")
+  (gnus-make-directory "/tmp/publish"))
+
+(defun bh/switch-to-scratch ()
+  (interactive)
+  (switch-to-buffer "*scratch*"))
+
+;; Remove empty LOGBOOK drawers on clock out
+(defun bh/remove-empty-drawer-on-clock-out ()
+  (interactive)
+  (save-excursion
+    (beginning-of-line 0)
+    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+
+(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+
+
+;;;; REFILE
+
+; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                 (org-agenda-files :maxlevel . 9))))
+
+; Use full outline paths for refile targets - we file directly with IDO
+(setq org-refile-use-outline-path t)
+
+; Targets complete directly with IDO
+(setq org-outline-path-complete-in-steps nil)
+
+; Allow refile to create parent tasks with confirmation
+(setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+; Use IDO for both buffer and file completion and ido-everywhere to t
+(setq org-completion-use-ido t)
+(setq ido-everywhere t)
+(setq ido-max-directory-size 100000)
+(ido-mode (quote both))
+; Use the current window when visiting files and buffers with ido
+(setq ido-default-file-method 'selected-window)
+(setq ido-default-buffer-method 'selected-window)
+; Use the current window for indirect buffer display
+(setq org-indirect-buffer-display 'current-window)
+
+
+;;;; Refile settings
+; Exclude DONE state tasks from refile targets
+(defun bh/verify-refile-target ()
+  "Exclude todo keywords with a done state from refile targets"
+  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+(setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+;;;; END REFILE
+
+(setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
+
+(setq org-todo-keyword-faces
+      (quote (("TODO" :foreground "darkred" :weight bold)
+              ("NEXT" :foreground "blue" :weight bold)
+              ("DONE" :foreground "forest green" :weight bold)
+              ("WAITING" :foreground "orange" :weight bold)
+              ("HOLD" :foreground "magenta" :weight bold)
+              ("CANCELLED" :foreground "forest green" :weight bold)
+              ("MEETING" :foreground "forest green" :weight bold)
+              ("PHONE" :foreground "forest green" :weight bold))))
+
+(setq org-use-fast-todo-selection t)
+(setq org-treat-S-cursor-todo-selection-as-state-change nil)
+
+(setq org-todo-state-tags-triggers
+      (quote (("CANCELLED" ("CANCELLED" . t))
+              ("WAITING" ("WAITING" . t))
+              ("HOLD" ("WAITING") ("HOLD" . t))
+              (done ("WAITING") ("HOLD"))
+              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+
+
+;;;; AGENDA
+
+(progn
+;; Do not dim blocked tasks
+(setq org-agenda-dim-blocked-tasks nil)
+
+;; Compact the block agenda view
+(setq org-agenda-compact-blocks t)
+
+;; Custom agenda command definitions
+(setq org-agenda-custom-commands
+      (quote (("N" "Notes" tags "NOTE"
+               ((org-agenda-overriding-header "Notes")
+                (org-tags-match-list-sublevels t)))
+              ("h" "Habits" tags-todo "STYLE=\"habit\""
+               ((org-agenda-overriding-header "Habits")
+                (org-agenda-sorting-strategy
+                 '(todo-state-down effort-up category-keep))))
+              (" " "Agenda"
+               ((agenda "" nil)
+                (tags "REFILE"
+                      ((org-agenda-overriding-header "Tasks to Refile")
+                       (org-tags-match-list-sublevels nil)))
+                (tags-todo "-CANCELLED/!"
+                           ((org-agenda-overriding-header "Stuck Projects")
+                            (org-agenda-skip-function 'bh/skip-non-stuck-projects)
+                            (org-agenda-sorting-strategy
+                             '(category-keep))))
+                (tags-todo "-HOLD-CANCELLED/!"
+                           ((org-agenda-overriding-header "Projects")
+                            (org-agenda-skip-function 'bh/skip-non-projects)
+                            (org-tags-match-list-sublevels 'indented)
+                            (org-agenda-sorting-strategy
+                             '(category-keep))))
+                (tags-todo "-CANCELLED/!NEXT"
+                           ((org-agenda-overriding-header (concat "Project Next Tasks"
+                                                                  (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                      ""
+                                                                    " (including WAITING and SCHEDULED tasks)")))
+                            (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
+                            (org-tags-match-list-sublevels t)
+                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-sorting-strategy
+                             '(todo-state-down effort-up category-keep))))
+                (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                           ((org-agenda-overriding-header (concat "Project Subtasks"
+                                                                  (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                      ""
+                                                                    " (including WAITING and SCHEDULED tasks)")))
+                            (org-agenda-skip-function 'bh/skip-non-project-tasks)
+                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-sorting-strategy
+                             '(category-keep))))
+                (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
+                           ((org-agenda-overriding-header (concat "Standalone Tasks"
+                                                                  (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                      ""
+                                                                    " (including WAITING and SCHEDULED tasks)")))
+                            (org-agenda-skip-function 'bh/skip-project-tasks)
+                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-sorting-strategy
+                             '(category-keep))))
+                (tags-todo "-CANCELLED+WAITING|HOLD/!"
+                           ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
+                                                                  (if bh/hide-scheduled-and-waiting-next-tasks
+                                                                      ""
+                                                                    " (including WAITING and SCHEDULED tasks)")))
+                            (org-agenda-skip-function 'bh/skip-non-tasks)
+                            (org-tags-match-list-sublevels nil)
+                            (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
+                            (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
+                (tags "-REFILE/"
+                      ((org-agenda-overriding-header "Tasks to Archive")
+                       (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
+                       (org-tags-match-list-sublevels nil))))
+               nil))))
+)
+
+(defun bh/org-auto-exclude-function (tag)
+  "Automatic task exclusion in the agenda with / RET"
+  (and (cond
+        ((string= tag "hold")
+         t))
+       (concat "-" tag)))
+
+(setq org-agenda-auto-exclude-function 'bh/org-auto-exclude-function)
+
+;;;; END AGENDA
+
+
+; Tags with fast selection keys
+(setq org-tag-alist (quote ((:startgroup)
+                            ("@errand" . ?e)
+                            ("@office" . ?o)
+                            ("@home" . ?H)
+                            (:endgroup)
+                            ("WAITING" . ?w)
+                            ("HOLD" . ?h)
+                            ("PERSONAL" . ?P)
+                            ("WORK" . ?W)
+                            ("ORG" . ?O)
+                            ("crypt" . ?E)
+                            ("NOTE" . ?n)
+                            ("CANCELLED" . ?c)
+                            ("FLAGGED" . ??))))
+
+; Allow setting single tags without the menu
+(setq org-fast-tag-selection-single-key (quote expert))
+
+; For tag searches ignore tasks with scheduled and deadline dates
+(setq org-agenda-tags-todo-honor-ignore-options t)
+
+
+
+;;;; PHONE
+
+(require 'bbdb)
+(require 'bbdb-com)
+
+(global-set-key (kbd "<f9> p") 'bh/phone-call)
+
+;;
+;; Phone capture template handling with BBDB lookup
+;; Adapted from code by Gregory J. Grubbs
+(defun bh/phone-call ()
+  "Return name and company info for caller from bbdb lookup"
+  (interactive)
+  (let* (name rec caller)
+    (setq name (completing-read "Who is calling? "
+                                (bbdb-hashtable)
+                                'bbdb-completion-predicate
+                                'confirm))
+    (when (> (length name) 0)
+      ; Something was supplied - look it up in bbdb
+      (setq rec
+            (or (first
+                 (or (bbdb-search (bbdb-records) name nil nil)
+                     (bbdb-search (bbdb-records) nil name nil)))
+                name)))
+
+    ; Build the bbdb link if we have a bbdb record, otherwise just return the name
+    (setq caller (cond ((and rec (vectorp rec))
+                        (let ((name (bbdb-record-name rec))
+                              (company (bbdb-record-company rec)))
+                          (concat "[[bbdb:"
+                                  name "]["
+                                  name "]]"
+                                  (when company
+                                    (concat " - " company)))))
+                       (rec)
+                       (t "NameOfCaller")))
+    (insert caller)))
+
+
+;;;; END PHONE
