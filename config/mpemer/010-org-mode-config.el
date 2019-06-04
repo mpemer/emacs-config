@@ -61,7 +61,7 @@
   (use-package ob-shell)
   (use-package ob-lisp)
 ;;  (use-package ob-)
-) 
+)
 
 (org-babel-do-load-languages
  'org-babel-load-languages '(
@@ -115,7 +115,7 @@
   (clipboard-kill-ring-save (point-min) (point-max)))
 
 ;; right-alt+w
-  (global-set-key (kbd "∑") 'my/to-scrum-notes)
+(global-set-key (kbd "∑") 'my/to-scrum-notes)
 
 
 
@@ -163,7 +163,7 @@
 
 (defun mp-org-notes ()
   (interactive)
-  (find-file (concat org-directory "/gtd.org")))
+  (find-file (concat org-directory "/notes.org")))
 (defun mp-org-plan ()
   (interactive)
   (find-file (concat org-directory "/plan.org")))
@@ -181,8 +181,7 @@
   (find-file "~/.emacs.d/config/.emacs"))
 
 ;;(current-time)
-(nth 4 (apply #'encode-time (parse-time-string (current-time-string)))
- 
+     
 (global-set-key (kbd "C-c on") 'mp-org-notes)
 (global-set-key (kbd "C-c oo") 'mp-org-tasks)
 (global-set-key (kbd "C-c ot") 'mp-org-tasks)
@@ -195,7 +194,7 @@
   (org-sort-entries nil ?f #'my/org-sort-key))
 
 ;;(setq org-archive-location (concat "archive/%s::"))
-(setq org-archive-location (concat org-directory "/journal.org::datetree/*"))
+(setq org-archive-location (concat org-directory "/journal/archive.org::datetree/*"))
 ;;#+ARCHIVE: %s_archive.org::datetree/*
 
 ;;(setq package-check-signature nil)
@@ -270,23 +269,19 @@
 			 "~/iteego/org"
 			 "~/pemer/org")
       
-      org-default-notes-file "~/org/gtd.org"
+      org-default-notes-file "~/org/notes.org"
       
       org-icalendad-timezone "Europe/Wien")
 
 (setq org-capture-templates
-      (quote (("t" "todo" entry (file "~/org/notes.org")
+      (quote (("t" "TODO" entry (file "~/org/notes.org")
 	       "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("r" "respond" entry (file "~/org/notes.org")
-	       "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-	      ("n" "note" entry (file "~/org/notes.org")
-	       "* %? :NOTE:\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("j" "Journal" entry (file+datetree "~/org/diary.org")
-	       "* %?\n%U\n" :clock-in t :clock-resume t)
-	      ("w" "org-protocol" entry (file "~/org/notes.org")
-	       "* TODO Review %c\n%U\n" :immediate-finish t)
+	      ("r" "Respond" entry (file "~/org/notes.org")
+	       "* NEXT Respond to %:from on %:subject\n:PROPERTIES:\n:SCHEDULED: %t\n%U\n:END:\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+	      ("n" "Note" entry (file "~/org/notes.org")
+	       "* %? :NOTE:\n:PROPERTIES:\n:CREATED: %t\n:END:\n%U\n%a\n" :clock-in t :clock-resume t)
 	      ("m" "Meeting" entry (file "~/org/notes.org")
-	       "* MEETING with %? :MEETING:\n%U" :clock-in t :clock-resume t)
+	       "* MEETING with %? :MEETING:\n:PROPERTIES:\n:SCHEDULED: %t\n:END:\n%U" :clock-in t :clock-resume t)
 	      ("p" "Phone call" entry (file "~/org/notes.org")
 	       "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t))))
 
