@@ -1,8 +1,9 @@
 (setq package-user-dir "~/.emacs.d/elpa"
       package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("org" . "http://orgmode.org/elpa/")
+			 ("melpa" . "https://melpa.org/packages/")
 			 ("elpa" . "http://tromey.com/elpa/")
-			 ("melpa" . "https://melpa.org/packages/")))
+			 ))
 
 (defun ensure-package-installed (package)
   (unless (package-installed-p package) (package-install package)))
