@@ -42,7 +42,8 @@
  '(custom-safe-themes
    (quote
     ("4639288d273cbd3dc880992e6032f9c817f17c4a91f00f3872009a099f5b3f84" "47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" default)))
+ '(org-export-backends (quote (ascii beamer html icalendar latex md odt org)))
  '(package-selected-packages
    (quote
-    (ob-clojure expand-region powerline writeroom-mode pandoc pandoc-mode groovy-mode kubernetes k8s-mode dockerfile-mode nov markdown-mode jira-markup-mode yaml-mode cider magit ace-window bbdb-vcard bbdb-csv-import bbdb-ext bbdb edit-server gruber-darker-theme quelpa use-package slime)))
+    (ox-md ox-markdown ob-clojure expand-region powerline writeroom-mode pandoc pandoc-mode groovy-mode kubernetes k8s-mode dockerfile-mode nov markdown-mode jira-markup-mode yaml-mode cider magit ace-window bbdb-vcard bbdb-csv-import bbdb-ext bbdb edit-server gruber-darker-theme quelpa use-package slime)))
  '(safe-local-variable-values (quote ((auto-revert-mode . 1)))))
