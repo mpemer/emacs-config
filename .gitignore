@@ -3,5 +3,4 @@
 !config/**
 !.gitignore
 !README.md
-
 *.log

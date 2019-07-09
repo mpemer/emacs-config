@@ -84,7 +84,7 @@
 ;(pinentry-start)
 
 (setq-default abbrev-mode t)
-(read-abbrev-file "~/.emacs.d/abbrev_defs")
+(read-abbrev-file "~/.emacs.d/config/abbrev_defs")
 (setq save-abbrevs t)
 
 (tool-bar-mode -1)
