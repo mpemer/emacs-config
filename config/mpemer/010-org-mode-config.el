@@ -44,6 +44,8 @@
   (ensure-package-installed 'ox-pandoc)
   (use-package ox-pandoc))
 
+(require 'ox-confluence)
+
 ;; ob-clojure
 ;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
 (progn
