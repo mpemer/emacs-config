@@ -83,6 +83,10 @@
 (setq epa-pinentry-mode 'loopback)
 ;(pinentry-start)
 
+(setq-default abbrev-mode t)
+(read-abbrev-file "~/.emacs.d/abbrev_defs")
+(setq save-abbrevs t)
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 ;;(menu-bar-mode -1)

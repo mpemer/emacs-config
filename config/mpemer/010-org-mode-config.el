@@ -14,7 +14,6 @@
 				   (ensure-package-installed package)
 				   (use-package package))))
 
-
 ;; org-ac
 ;; https://github.com/aki2o/org-ac
 (progn
@@ -167,15 +166,9 @@
 (defun mp-org-plan ()
   (interactive)
   (find-file (concat org-directory "/plan.org")))
-(defun mp-org-tasks ()
+(defun mp-org-bookmarks ()
   (interactive)
-  (find-file (concat org-directory "/tasks.org")))
-(defun mp-org-goals ()
-  (interactive)
-  (find-file (concat org-directory "/goals.org")))
-(defun mp-org-journal ()
-  (interactive)
-  (find-file (concat org-directory "/journal/archive.org")))
+  (find-file (concat org-directory "/bookmarks.org")))
 (defun mp-emacs ()
   (interactive)
   (find-file "~/.emacs.d/config/.emacs"))
@@ -183,18 +176,16 @@
 ;;(current-time)
      
 (global-set-key (kbd "C-c on") 'mp-org-notes)
-(global-set-key (kbd "C-c oo") 'mp-org-tasks)
-(global-set-key (kbd "C-c ot") 'mp-org-tasks)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
-(global-set-key (kbd "C-c og") 'mp-org-goals)
-(global-set-key (kbd "C-c oj") 'mp-org-journal)
+(global-set-key (kbd "C-c ob") 'mp-org-bookmarks)
 
 (defun my/org-sort-entries ()
   (interactive)
   (org-sort-entries nil ?f #'my/org-sort-key))
 
-;;(setq org-archive-location (concat "archive/%s::"))
-(setq org-archive-location (concat org-directory "/journal/archive.org::datetree/*"))
+;; By default, archive into the same file name under archive subfolder, but fold items into datetree
+(setq org-archive-location (concat "archive/%s::datetree/"))
+;;(setq org-archive-location (concat org-directory "/journal/archive.org::datetree/*"))
 ;;#+ARCHIVE: %s_archive.org::datetree/*
 
 ;;(setq package-check-signature nil)
@@ -262,15 +253,11 @@
 ;; 	(global-set-key (kbd "C-c oS") 'my/org-caldav-sync))))
 
 
+(setq prj-folders '("pemer" "mercury" "iteego" "kohler" "mrmaster" "personal"))
 
 (setq org-directory "~/org"
-      org-agenda-files '("~/org"
-			 "~/kohler/org"
-			 "~/iteego/org"
-			 "~/pemer/org")
-      
+      org-agenda-files (cons "~/org" (mapcar (lambda (folder) (concat "~/" folder "/org")) prj-folders))
       org-default-notes-file "~/org/notes.org"
-      
       org-icalendad-timezone "Europe/Wien")
 
 (setq org-capture-templates
@@ -370,12 +357,17 @@
 
 ;;;; REFILE
 
-; Targets include this file and any file contributing to the agenda - up to 9 levels deep
-(setq org-refile-targets (quote ((nil :maxlevel . 9)
-                                 (org-agenda-files :maxlevel . 9))))
+; Targets include this file and any file contributing to the agenda - up to 3 levels deep
+(setq org-refile-targets (quote ((nil :maxlevel . 3)
+                                 (org-agenda-files :maxlevel . 3))))
+
+(setq org-refile-targets (quote ((nil :maxlevel . 3)
+                                 (org-agenda-files :maxlevel . 3))))
+
+
 
 ; Use full outline paths for refile targets - we file directly with IDO
-(setq org-refile-use-outline-path t)
+(setq org-refile-use-outline-path 'file)
 
 ; Targets complete directly with IDO
 (setq org-outline-path-complete-in-steps nil)
@@ -387,7 +379,7 @@
 (setq org-completion-use-ido t)
 (setq ido-everywhere t)
 (setq ido-max-directory-size 100000)
-(ido-mode (quote both))
+(ido-mode 'both)
 ; Use the current window when visiting files and buffers with ido
 (setq ido-default-file-method 'selected-window)
 (setq ido-default-buffer-method 'selected-window)
@@ -396,12 +388,12 @@
 
 
 ;;;; Refile settings
-; Exclude DONE state tasks from refile targets
-(defun bh/verify-refile-target ()
-  "Exclude todo keywords with a done state from refile targets"
-  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-
-(setq org-refile-target-verify-function 'bh/verify-refile-target)
+;;;; Exclude DONE state tasks from refile targets
+;;(defun bh/verify-refile-target ()
+;;  "Exclude todo keywords with a done state from refile targets"
+;;  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+;;
+;;(setq org-refile-target-verify-function 'bh/verify-refile-target)
 
 ;;;; END REFILE
 
@@ -588,3 +580,10 @@
 
 
 ;; ;;;; END PHONE
+
+
+
+(with-eval-after-load 'org       
+  (setq org-startup-indented t) ; Enable `org-indent-mode' by default
+  (add-hook 'org-mode-hook #'visual-line-mode)
+  (add-hook 'org-mode-hook #'flyspell-mode))
