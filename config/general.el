@@ -87,6 +87,14 @@
 (read-abbrev-file "~/.emacs.d/config/abbrev_defs")
 (setq save-abbrevs t)
 
+;; Increase minibuffer font size
+(dolist
+    (buf (list " *Minibuf-0*" " *Minibuf-1*" " *Echo Area 0*" " *Echo Area 1*" "*Quail Completions*"))
+  (when (get-buffer buf)
+    (with-current-buffer buf
+      (setq-local face-remapping-alist '((default (:height 1.5)))))))
+
+
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 ;;(menu-bar-mode -1)

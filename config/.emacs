@@ -45,5 +45,10 @@
  '(org-export-backends (quote (ascii beamer html icalendar latex md odt org)))
  '(package-selected-packages
    (quote
-    (ox-confluence htmlize ox-md ox-markdown ob-clojure expand-region powerline writeroom-mode pandoc pandoc-mode groovy-mode kubernetes k8s-mode dockerfile-mode nov markdown-mode jira-markup-mode yaml-mode cider magit ace-window bbdb-vcard bbdb-csv-import bbdb-ext bbdb edit-server gruber-darker-theme quelpa use-package slime)))
- '(safe-local-variable-values (quote ((auto-revert-mode . 1)))))
+    (dash-functional ox-confluence htmlize ox-md ox-markdown ob-clojure expand-region powerline writeroom-mode pandoc pandoc-mode groovy-mode kubernetes k8s-mode dockerfile-mode nov markdown-mode jira-markup-mode yaml-mode cider magit ace-window bbdb-vcard bbdb-csv-import bbdb-ext bbdb edit-server gruber-darker-theme quelpa use-package slime)))
+ '(safe-local-variable-values
+   (quote
+    ((epa-encrypt-to "mpemer@gmail.com")
+     (auto-revert-mode . 1))))
+ '(sql-database "atgprd")
+ '(sql-oracle-login-params (quote (user password database))))
