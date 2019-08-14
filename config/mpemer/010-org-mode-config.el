@@ -197,12 +197,13 @@
 
 ;; oauth2
 
-(progn
-  (ensure-package-installed 'oauth2)
-  (use-package oauth2
-    :config (progn
-	      (setq plstore-cache-passphrase-for-symmetric-encryption t))))
-		    ;; org-caldav-oauth2-providers '((google
+;;(progn
+;;  (ensure-package-installed 'oauth2)
+;;  (use-package oauth2
+;;    :config (progn
+;;	      (setq plstore-cache-passphrase-for-symmetric-encryption t))))
+
+;; org-caldav-oauth2-providers '((google
 		    ;; 				   "https://accounts.google.com/o/oauth2/v2/auth"
 		    ;; 				   "https://www.googleapis.com/oauth2/v4/token"
 		    ;; 				   "https://www.googleapis.com/auth/calendar"
@@ -400,12 +401,13 @@
 ;;;; END REFILE
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+      (quote ((sequence "TODO(t)" "NEXT(n)" "IP(p)" "|" "DONE(d)")
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING" "EVENT"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "darkred" :weight bold)
               ("NEXT" :foreground "blue" :weight bold)
+              ("IP" :foreground "blue" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
               ("HOLD" :foreground "magenta" :weight bold)
@@ -422,9 +424,9 @@
               ("WAITING" ("WAITING" . t))
               ("HOLD" ("WAITING") ("HOLD" . t))
               (done ("WAITING") ("HOLD"))
-              ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
-              ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
+              ("TODO" ("WAITING") ("IP") ("CANCELLED") ("HOLD"))
+              ("NEXT" ("WAITING") ("IP")("CANCELLED") ("HOLD"))
+              ("DONE" ("WAITING") ("IP")("CANCELLED") ("HOLD")))))
 
 
 ;;;; AGENDA
@@ -524,6 +526,7 @@
                             ("@home" . ?H)
                             (:endgroup)
                             ("WAITING" . ?w)
+                            ("IP" . ?i)
                             ("HOLD" . ?h)
                             ("PERSONAL" . ?P)
                             ("WORK" . ?W)
