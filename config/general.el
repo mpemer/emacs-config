@@ -1,7 +1,8 @@
 (setq package-user-dir "~/.emacs.d/elpa"
+      gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
       package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("org" . "http://orgmode.org/elpa/")
 			 ("melpa" . "https://melpa.org/packages/")
+                         ("org" . "http://orgmode.org/elpa/")
 			 ("elpa" . "http://tromey.com/elpa/")
 			 ))
 
@@ -20,6 +21,8 @@
     :config (progn
 	      (setq quelpa-upgrade-p t
 		    quelpa-self-upgrade-p nil))))
+
+(ensure-package-installed 'queue)
 
 (add-to-list 'load-path "~/.emacs.d/config/")
 
