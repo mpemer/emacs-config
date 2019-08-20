@@ -4,7 +4,7 @@
   "Prompt user to pick a kohler db connection from a list, then connect to it."
   (interactive)
 
-  (flet ((orcl (ip port sid)
+  (cl-flet ((orcl (ip port sid)
 	       (format "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(Host=%s)(Port=%s))(CONNECT_DATA=(SID=%s)))"
 		       ip port sid)))
 
