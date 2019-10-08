@@ -35,6 +35,13 @@
 
 (require 'color)
 
+;; I like to copy stuff from web pages and make org mode documents out of them.
+(defun html-to-org-region (&optional b e)
+  (interactive "r")
+  (shell-command-on-region b e "pandoc -f html -t markdown_github-raw_html | pandoc -f markdown -t org" (current-buffer) t))
+;;  (comment-region (mark) (point)))
+(global-set-key (kbd "C-c C-i C-o") 'html-to-org-region)
+
 ;; Navigation
 (global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
 (global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
