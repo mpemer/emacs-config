@@ -2,13 +2,20 @@
 
 ;; First make sure the packages are installed
 (let ((package-list '(
-		      ;; org-alert
-		      
-                      ;; https://github.com/jonnay/org-beautify-theme
+		      org-alert
 		      org-beautify-theme		      
-;;		      org-jira
+		      org-ehtml
+		      org-jira
 		      org-pdfview
-
+		      ox-asciidoc
+		      ox-clip
+		      ox-epub
+		      ox-jira
+		      ox-minutes
+		      ox-pandoc ;; https://github.com/kawabata/ox-pandoc
+		      ox-slack
+		      ox-twbs
+		      ox-odt ;; https://github.com/kjambunathan/org-mode-ox-odt/blob/master/README.md
 		      )))
   (dolist (package package-list) (progn
 				   (ensure-package-installed package)
@@ -38,12 +45,6 @@
     :config (progn
 	      (setq org-mime-library 'mml))))
 
-;; ox-pandoc
-;; https://github.com/kawabata/ox-pandoc
-(progn
-  (ensure-package-installed 'ox-pandoc)
-  (use-package ox-pandoc))
-
 (require 'ox-confluence)
 
 ;; ob-clojure
@@ -59,20 +60,43 @@
 (progn
 ;;  (ensure-package-installed 'ob-clojure)
 ;;  (use-package ob-sh)
-  (use-package ob-shell)
+  (use-package ob-clojure)
+  (use-package ob-css)
+  (use-package ob-emacs-lisp)
+  (use-package ob-java)
+  (use-package ob-js)
   (use-package ob-lisp)
+  (use-package ob-org)
+  (use-package ob-python)
+  (use-package ob-ruby)
+  (use-package ob-sass)
+  (use-package ob-sed)
+  (use-package ob-shell)
+  (use-package ob-sql)  
 ;;  (use-package ob-)
 )
 
 (org-babel-do-load-languages
  'org-babel-load-languages '(
-			     ;;(clojure . t)
+			     (clojure . t)
+			     (css . t)
+			     (emacs-lisp . t)
+			     (java . t)
+			     (js . t)
 			     (lisp . t)
-			     (shell . t)))
+			     (org . t)
+			     (python . t)
+			     (ruby . t)
+			     (sass . t)
+			     (sed . t)
+			     (shell . t)
+			     (sql . t)
+			     ))
 
-;;(require 'ob-clojure)
 
-
+(add-to-list 'org-latex-packages-alist '("" "listings" nil))
+(setq org-latex-listings t)
+(setq org-latex-listings-options '(("breaklines" "true")))
 
 (setf org-enable-reveal-js-support nil)
 
@@ -86,7 +110,37 @@
 
 ;;(comment
 (setq org-export-with-toc nil)
-;;(add-hook 'org-mode-hook #'visual-line-mode)
+(add-hook 'org-mode-hook #'visual-line-mode)
+
+;; (defun my/org-inline-css-hook (exporter)
+;;   "Insert custom inline css to automatically set the
+;; background of code to whatever theme I'm using's background"
+;;   (when (eq exporter 'html)
+;;     (let* ((my-pre-bg (face-background 'default))
+;;            (my-pre-fg (face-foreground 'default)))
+;;       (setq
+;;        org-html-head-extra
+;;        (concat
+;;         org-html-head-extra
+;;         (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
+;;                 my-pre-bg my-pre-fg))))))
+
+;; (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
+
+(defun my/org-print-wrap-hook (exporter)
+  (when (eq exporter 'html)
+    "@media print {
+       pre {
+         white-space: pre-wrap;
+       }
+      }"))
+
+(add-hook 'org-export-before-processing-hook 'my/org-print-wrap-hook)
+
+;; If I wanted to remove the above and instead use css styling for exported code blocks
+(setq org-html-htmlize-output-type 'css)
+;;(setq org-html-htmlize-output-type 'inline-css)
+
 
 (defun my/reformat-for-scrum-notes ()
   "Reformat org to confluence scrum notes"

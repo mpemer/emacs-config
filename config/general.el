@@ -1,8 +1,9 @@
 (setq package-user-dir "~/.emacs.d/elpa"
       gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
       package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			 ("ox-odt" . "https://kjambunathan.github.io/elpa/")
 			 ("melpa" . "https://melpa.org/packages/")
-                         ("org" . "http://orgmode.org/elpa/")
+                         ("org" . "https://orgmode.org/elpa/")
 			 ("elpa" . "http://tromey.com/elpa/")
 			 ))
 
@@ -11,9 +12,14 @@
 
 ;; make sure to have downloaded archive description.
 ;; Or use package-archive-contents as suggested by Nicolas Dudebout
+(setq package-check-signature nil)
 (package-initialize)
 (unless (file-exists-p package-user-dir) (package-refresh-contents))
 (ensure-package-installed 'use-package)
+
+(progn
+  (ensure-package-installed 'color-theme-modern)
+  (use-package color-theme-modern))
 
 (progn
   (ensure-package-installed 'quelpa)
@@ -23,6 +29,18 @@
 		    quelpa-self-upgrade-p nil))))
 
 (ensure-package-installed 'queue)
+
+
+(progn
+  (ensure-package-installed 'highlight-indent-guides)
+  (use-package highlight-indent-guides
+    :config (progn
+	      (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+	      (setq highlight-indent-guides-method 'fill))))
+;;            (setq highlight-indent-guides-method 'character))))
+;;	      (setq highlight-indent-guides-method 'column)
+
+
 
 (add-to-list 'load-path "~/.emacs.d/config/")
 
