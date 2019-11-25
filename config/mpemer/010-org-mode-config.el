@@ -7,12 +7,12 @@
 		      org-ehtml
 		      org-jira
 		      org-pdfview
+		      ox-pandoc ;; https://github.com/kawabata/ox-pandoc
 		      ox-asciidoc
 		      ox-clip
 		      ox-epub
 		      ox-jira
 		      ox-minutes
-		      ox-pandoc ;; https://github.com/kawabata/ox-pandoc
 		      ox-slack
 		      ox-twbs
 		      ox-odt ;; https://github.com/kjambunathan/org-mode-ox-odt/blob/master/README.md
@@ -23,6 +23,21 @@
 
 ;; org-ac
 ;; https://github.com/aki2o/org-ac
+(progn
+  (ensure-package-installed 'org-gcal)
+  (use-package org-gcal
+    :config (progn
+	     (setq org-gcal-client-id "441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com"
+		   org-gcal-client-secret "GdpE7SUxUWXbMiOG9USuIpsA"
+		   org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org"))
+		   org-gcal-header-alist '(("441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
+		   org-gcal-auto-archive nil
+		   org-gcal-notify-p nil)
+	     (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+	     (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))))
+
+;;					  ("another-mail@gmail.com" .  "~/task.org")))))
+
 (progn
   (ensure-package-installed 'org-ac)
   (use-package org-ac
@@ -403,13 +418,13 @@
 ;;   (switch-to-buffer "*scratch*"))
 
 ;; Remove empty LOGBOOK drawers on clock out
-(defun bh/remove-empty-drawer-on-clock-out ()
-  (interactive)
-  (save-excursion
-    (beginning-of-line 0)
-    (org-remove-empty-drawer-at "LOGBOOK" (point))))
+;; (defun bh/remove-empty-drawer-on-clock-out ()
+;;   (interactive)
+;;   (save-excursion
+;;     (beginning-of-line 0)
+;;     (org-remove-empty-drawer-at "LOGBOOK" (point))))
 
-(add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
+;; (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
 
 
 ;;;; REFILE
@@ -646,3 +661,7 @@
   (setq org-startup-indented t) ; Enable `org-indent-mode' by default
   (add-hook 'org-mode-hook #'visual-line-mode)
   (add-hook 'org-mode-hook #'flyspell-mode))
+
+;; By default, save openoffice exports as ms word documents
+(setq org-export-odt-preferred-output-format "docx")
+(setq org-odt-preferred-output-format "docx")

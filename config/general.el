@@ -1,8 +1,8 @@
 (setq package-user-dir "~/.emacs.d/elpa"
       gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
-      package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+      package-archives '(("melpa" . "https://melpa.org/packages/")
+			 ("gnu" . "https://elpa.gnu.org/packages/")
 			 ("ox-odt" . "https://kjambunathan.github.io/elpa/")
-			 ("melpa" . "https://melpa.org/packages/")
                          ("org" . "https://orgmode.org/elpa/")
 			 ("elpa" . "http://tromey.com/elpa/")
 			 ))
@@ -18,8 +18,16 @@
 (ensure-package-installed 'use-package)
 
 (progn
+  (ensure-package-installed 'oauth2)
+  (use-package oauth2))
+
+(progn
   (ensure-package-installed 'color-theme-modern)
   (use-package color-theme-modern))
+
+(progn
+  (ensure-package-installed 'default-text-scale)
+  (use-package default-text-scale))
 
 (progn
   (ensure-package-installed 'quelpa)
@@ -36,9 +44,12 @@
   (use-package highlight-indent-guides
     :config (progn
 	      (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-	      (setq highlight-indent-guides-method 'fill))))
-;;            (setq highlight-indent-guides-method 'character))))
-;;	      (setq highlight-indent-guides-method 'column)
+	      (setq highlight-indent-guides-auto-odd-face-perc 5)
+	      (setq highlight-indent-guides-auto-even-face-perc 5)
+	      (setq highlight-indent-guides-auto-character-face-perc 50)
+;;	      (setq highlight-indent-guides-method 'fill))))
+            (setq highlight-indent-guides-method 'character))))
+;;	      (setq highlight-indent-guides-method 'column))))
 
 
 
@@ -120,7 +131,7 @@
     (buf (list " *Minibuf-0*" " *Minibuf-1*" " *Echo Area 0*" " *Echo Area 1*" "*Quail Completions*"))
   (when (get-buffer buf)
     (with-current-buffer buf
-      (setq-local face-remapping-alist '((default (:height 1.5)))))))
+      (setq-local face-remapping-alist '((default (:height 1.2)))))))
 
 
 (tool-bar-mode -1)

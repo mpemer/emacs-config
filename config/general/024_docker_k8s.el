@@ -2,7 +2,7 @@
 (let ((package-list
        '(
 	 dockerfile-mode
-	 k8s-mode
+	 ;;k8s-mode
 	 kubernetes
 	 )))
   (dolist (package package-list)
