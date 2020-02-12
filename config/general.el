@@ -30,6 +30,10 @@
   (use-package default-text-scale))
 
 (progn
+  (ensure-package-installed 'default-text-scale)
+  (use-package default-text-scale))
+
+(progn
   (ensure-package-installed 'quelpa)
   (use-package quelpa
     :config (progn
@@ -136,7 +140,7 @@
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-;;(menu-bar-mode -1)
+(menu-bar-mode -1)
 (delete-selection-mode 1)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)

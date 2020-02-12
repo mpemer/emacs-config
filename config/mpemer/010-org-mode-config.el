@@ -21,8 +21,6 @@
 				   (ensure-package-installed package)
 				   (use-package package))))
 
-;; org-ac
-;; https://github.com/aki2o/org-ac
 (progn
   (ensure-package-installed 'org-gcal)
   (use-package org-gcal
@@ -38,29 +36,29 @@
 
 ;;					  ("another-mail@gmail.com" .  "~/task.org")))))
 
-(progn
-  (ensure-package-installed 'org-ac)
-  (use-package org-ac
-    :config (progn
-	      (org-ac/config-default))))
+;;(progn
+;;  (ensure-package-installed 'org-ac)
+;;  (use-package org-ac
+;;    :config (progn
+;;	      (org-ac/config-default))))
 
 ;; org-bullets
 ;; https://github.com/sabof/org-bullets
-(progn
-  (ensure-package-installed 'org-bullets)
-  (use-package org-bullets
-    :config (progn
-	      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
+;;(progn
+;;  (ensure-package-installed 'org-bullets)
+;;  (use-package org-bullets
+;;    :config (progn
+;;	      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
 
 ;; org-mime
 ;; https://orgmode.org/worg/org-contrib/org-mime.html
-(progn
-  (ensure-package-installed 'org-mime)
-  (use-package org-mime
-    :config (progn
-	      (setq org-mime-library 'mml))))
-
-(require 'ox-confluence)
+;;(progn
+;;  (ensure-package-installed 'org-mime)
+;;  (use-package org-mime
+;;    :config (progn
+;;	      (setq org-mime-library 'mml))))
+;;
+;;(require 'ox-confluence)
 
 ;; ob-clojure
 ;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
