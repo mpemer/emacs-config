@@ -1,9 +1,9 @@
 (setq package-user-dir "~/.emacs.d/elpa"
-      gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
-      package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-			 ("ox-odt" . "https://kjambunathan.github.io/elpa/")
-			 ("melpa" . "https://melpa.org/packages/")
+      ;;gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
+      package-archives '(("ox-odt" . "https://kjambunathan.github.io/elpa/")
                          ("org" . "https://orgmode.org/elpa/")
+			 ("gnu" . "https://elpa.gnu.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")
 			 ("elpa" . "http://tromey.com/elpa/")
 			 ))
 
