@@ -1,5 +1,5 @@
 (setq package-user-dir "~/.emacs.d/elpa"
-      gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
+      gnutls-algorithm-priority "NORMAL:-VERS-TLS1.2"
       package-archives '(("melpa" . "https://melpa.org/packages/")
 			 ("gnu" . "https://elpa.gnu.org/packages/")
 			 ("ox-odt" . "https://kjambunathan.github.io/elpa/")
