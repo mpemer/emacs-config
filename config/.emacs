@@ -64,6 +64,7 @@
  '(fci-rule-color "#383838")
  '(frame-brackground-mode (quote dark))
  '(hl-sexp-background-color "#efebe9")
+ '(mouse-wheel-progressive-speed 1)
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
@@ -99,4 +100,5 @@
      (320 . "#8CD0D3")
      (340 . "#94BFF3")
      (360 . "#DC8CC3"))))
- '(vc-annotate-very-old-color "#DC8CC3"))
+ '(vc-annotate-very-old-color "#DC8CC3")
+ '(xterm-mouse-mode t))
