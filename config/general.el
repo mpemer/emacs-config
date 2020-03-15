@@ -55,7 +55,11 @@
             (setq highlight-indent-guides-method 'character))))
 ;;	      (setq highlight-indent-guides-method 'column))))
 
-
+;; Send emacs kill ring to remote clipboard
+(progn
+  (ensure-package-installed 'clipetty)
+  (use-package clipetty
+    :config (global-clipetty-mode)))
 
 (add-to-list 'load-path "~/.emacs.d/config/")
 
