@@ -262,67 +262,6 @@
 (defun my/org-home (filename)
   (concat "~/org/" filename))
 
-;; oauth2
-
-;;(progn
-;;  (ensure-package-installed 'oauth2)
-;;  (use-package oauth2
-;;    :config (progn
-;;	      (setq plstore-cache-passphrase-for-symmetric-encryption t))))
-
-;; org-caldav-oauth2-providers '((google
-		    ;; 				   "https://accounts.google.com/o/oauth2/v2/auth"
-		    ;; 				   "https://www.googleapis.com/oauth2/v4/token"
-		    ;; 				   "https://www.googleapis.com/auth/calendar"
-		    ;; 				   "https://apidata.googleusercontent.com/caldav/v2/%s/events"))))))
-
-
-;; (setq org-caldav-calendars
-;;   '((:calendar-id "pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" :files ("~/org/plan.org")
-;;      :inbox "~/org/refile.org")))
-
-;; (let* ((path "~/src/org-caldav")
-;;        (filename (concat path "/org-caldav.el")))
-;;   (if (file-exists-p filename)
-;;       (progn
-;; 	(add-to-list 'load-path path)
-;; 	(require 'org-caldav)
-;; 	(setq org-caldav-url 'google
-;; 	      org-icalendar-timezone "UTC"
-;; 	      org-caldav-oauth2-client-id "931083343613-1u4fv2nb4tf1ktgq2678it8o3jtj3qlq.apps.googleusercontent.com"
-;; 	      org-caldav-oauth2-client-secret "4TDz6ByKh341Ik3mzHU7wAlB"
-;; 	      org-caldav-inbox "~/org/plan.org"
-;; 	      org-caldav-files '("~/org/tasks.org" "~/org/plan.org"))
-;; 	      ;;org-caldav-calendars '((:calendar-id "my-calendar-id-from-google" :files ("~/org/plan.org"))))
-
-;; 	(defun my/org-caldav-sync ()
-;; 	  (interactive)
-;; 	  (let ((message-log-max))
-;; 	    (message "Synchronizing calendars..."))
-;; 	  (let ((remaining-retries 3))
-;; 	    (while (> remaining-retries 0)
-;; 	      (condition-case ex                  ;
-;; 		  (progn
-;; 		    (org-caldav-sync)
-;; 		    (setq remaining-retries 0)) ;; all done
-;; 		('error
-;; 		 (progn 
-;; 		   (if (string-match-p "https://apidata.googleusercontent.com/caldav/v2.*401 Unauthorized"
-;; 				       (error-message-string ex))
-;; 		       (progn
-;; 			 (kill-matching-buffers-no-ask
-;; 			  "^ \\*http apidata\\.googleusercontent\\.com:443\\*.*" t)
-;; 			 (let ((message-log-max))
-;; 			   (message "Retrying to synchronize calenders..."))
-;; 			 ;; There was a synchronization error, most likely due to an
-;; 			 ;; expired oauth2 access token. Trying again should work fine.
-;; 			 (sleep-for 1)
-;; 			 (setq remaining-retries (- remaining-retries 1)))
-;; 		     (error "%s" (error-message-string ex)))))))))
-
-;; 	(global-set-key (kbd "C-c oS") 'my/org-caldav-sync))))
-
-
 (setq prj-folders '("pemer" "mercury" "iteego" "kohler" "mrmaster" "personal"))
 
 (setq org-directory "~/org"
