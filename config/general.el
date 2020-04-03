@@ -21,9 +21,9 @@
   (ensure-package-installed 'oauth2)
   (use-package oauth2))
 
-(progn
-  (ensure-package-installed 'color-theme-modern)
-  (use-package color-theme-modern))
+;;(progn
+;;  (ensure-package-installed 'color-theme-modern)
+;;  (use-package color-theme-modern))
 
 (progn
   (ensure-package-installed 'default-text-scale)

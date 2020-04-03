@@ -29,45 +29,38 @@
 		(string-match-p "\.el.gpg$" file-name))
 	    (load (concat config-path "/" file-name))))))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:foreground "#e4e4ef" :background "#181818"))))
- '(term-color-black ((t (:foreground "#313131" :background "#141414"))))
- '(term-color-blue ((t (:foreground "#7587A6" :background "#5d6c84"))))
- '(term-color-cyan ((t (:foreground "#5d8084" :background "#41595c"))))
- '(term-color-green ((t (:foreground "#8F9D6A" :background "#646d4a"))))
- '(term-color-magenta ((t (:foreground "#EE799F" :background "#EF2929"))))
- '(term-color-red ((t (:foreground "#CF6A4C" :background "#a3472c"))))
- '(term-color-white ((t (:foreground "#CACACA" :background "#5F5A60"))))
- '(term-color-yellow ((t (:foreground "#efa510" :background "#CDA869"))))
- '(term-default-bg-color ((t (:inherit term-color-black))))
- '(term-default-fg-color ((t (:inherit term-color-white)))))
+ (custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+  '(default ((t (:foreground "#e4e4ef" :background "#181818")))))
+;;  '(term-color-black ((t (:foreground "#313131" :background "#141414"))))
+;;  '(term-color-blue ((t (:foreground "#7587A6" :background "#5d6c84"))))
+;;  '(term-color-cyan ((t (:foreground "#5d8084" :background "#41595c"))))
+;;  '(term-color-green ((t (:foreground "#8F9D6A" :background "#646d4a"))))
+;;  '(term-color-magenta ((t (:foreground "#EE799F" :background "#EF2929"))))
+;;  '(term-color-red ((t (:foreground "#CF6A4C" :background "#a3472c"))))
+;;  '(term-color-white ((t (:foreground "#CACACA" :background "#5F5A60"))))
+;;  '(term-color-yellow ((t (:foreground "#efa510" :background "#CDA869"))))
+;;  '(term-default-bg-color ((t (:inherit term-color-black))))
+;;  '(term-default-fg-color ((t (:inherit term-color-white)))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(ansi-color-names-vector
-   ["#3F3F3F" "#CC9393" "#7F9F7F" "#F0DFAF" "#8CD0D3" "#DC8CC3" "#93E0E3" "#DCDCCC"])
- '(company-quickhelp-color-background "#4F4F4F")
- '(company-quickhelp-color-foreground "#DCDCCC")
- '(custom-enabled-themes (quote (gruber-darker)))
+ '(column-number-mode t)
+ '(custom-enabled-themes (quote (org-beautify tangotango)))
  '(custom-safe-themes
    (quote
-    ("fb09acc5f09e521581487697c75b71414830b1b0a2405c16a9ece41b2ae64222" "72c530c9c8f3561b5ab3bf5cda948cd917de23f48d9825b7a781fe1c0d737f2f" "0e8c264f24f11501d3f0cabcd05e5f9811213f07149e4904ed751ffdcdc44739" "deb7ae3a735635a85c984ece4ce70317268df6027286998b0ea3d10f00764c9b" "d8a7a7d2cffbc55ec5efbeb5d14a5477f588ee18c5cddd7560918f9674032727" "f3455b91943e9664af7998cc2c458cfc17e674b6443891f519266e5b3c51799d" "672bb062b9c92e62d7c370897b131729c3f7fd8e8de71fc00d70c5081c80048c" "3f5f69bfa958dcf04066ab2661eb2698252c0e40b8e61104e3162e341cee1eb9" "70b2d5330a8dd506accac4b51aaa7e43039503d000852d7d152aec2ce779d96d" "713f898dd8c881c139b62cf05b7ac476d05735825d49006255c0a31f9a4f46ab" "9dc64d345811d74b5cd0dac92e5717e1016573417b23811b2c37bb985da41da2" "8530b2f7b281ea6f263be265dd8c75b502ecd7a30b9a0f28fa9398739e833a35" "cdb4ffdecc682978da78700a461cdc77456c3a6df1c1803ae2dd55c59fa703e3" "fa2af0c40576f3bde32290d7f4e7aa865eb6bf7ebe31eb9e37c32aa6f4ae8d10" "85d1dbf2fc0e5d30f236712b831fb24faf6052f3114964fdeadede8e1b329832" "d8dc153c58354d612b2576fea87fe676a3a5d43bcc71170c62ddde4a1ad9e1fb" "4639288d273cbd3dc880992e6032f9c817f17c4a91f00f3872009a099f5b3f84" "47ec21abaa6642fefec1b7ace282221574c2dd7ef7715c099af5629926eb4fd7" default)))
- '(fci-rule-color "#383838")
- '(frame-brackground-mode (quote dark))
- '(hl-sexp-background-color "#efebe9")
+    ("713f898dd8c881c139b62cf05b7ac476d05735825d49006255c0a31f9a4f46ab" "4639288d273cbd3dc880992e6032f9c817f17c4a91f00f3872009a099f5b3f84" default)))
+ '(display-time-mode t)
+ ;;'(frame-brackground-mode (quote dark))
+ '(frame-background-mode (quote dark))
+ '(menu-bar-mode nil)
  '(mouse-wheel-progressive-speed 1)
- '(nrepl-message-colors
-   (quote
-    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-export-backends (quote (ascii beamer html icalendar latex md odt org)))
  '(package-selected-packages
    (quote
@@ -77,28 +70,14 @@
    (quote
     ((epa-encrypt-to "marcus@pemer.io")
      (auto-revert-mode . 1))))
+ '(show-paren-mode t)
  '(sql-database "atgprd")
  '(sql-oracle-login-params (quote (user password database)))
- '(vc-annotate-background "#2B2B2B")
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#BC8383")
-     (40 . "#CC9393")
-     (60 . "#DFAF8F")
-     (80 . "#D0BF8F")
-     (100 . "#E0CF9F")
-     (120 . "#F0DFAF")
-     (140 . "#5F7F5F")
-     (160 . "#7F9F7F")
-     (180 . "#8FB28F")
-     (200 . "#9FC59F")
-     (220 . "#AFD8AF")
-     (240 . "#BFEBBF")
-     (260 . "#93E0E3")
-     (280 . "#6CA0A3")
-     (300 . "#7CB8BB")
-     (320 . "#8CD0D3")
-     (340 . "#94BFF3")
-     (360 . "#DC8CC3"))))
- '(vc-annotate-very-old-color "#DC8CC3")
+ '(tool-bar-mode nil)
  '(xterm-mouse-mode t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
