@@ -21,44 +21,32 @@
 				   (ensure-package-installed package)
 				   (use-package package))))
 
+
+;; (progn
+;;   (ensure-package-installed 'org-gcal)
+;;   (use-package org-gcal
+;;     :config (progn
+;; 	     (setq org-gcal-client-id "441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com"
+;; 		   org-gcal-client-secret "GdpE7SUxUWXbMiOG9USuIpsA"
+;; 		   org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org"))
+;; 		   org-gcal-header-alist '(("441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
+;; 		   org-gcal-auto-archive nil
+;; 		   org-gcal-notify-p nil)
+;; 	     (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
+;; 	     (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))))
+
+
 (progn
-  (ensure-package-installed 'org-gcal)
-  (use-package org-gcal
+  (require 'org-num)
+  (add-hook 'org-mode-hook #'org-num-mode))
+
+(progn
+  (ensure-package-installed 'org-fancy-priorities)
+  (use-package org-fancy-priorities
     :config (progn
-	     (setq org-gcal-client-id "441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com"
-		   org-gcal-client-secret "GdpE7SUxUWXbMiOG9USuIpsA"
-		   org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org"))
-		   org-gcal-header-alist '(("441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
-		   org-gcal-auto-archive nil
-		   org-gcal-notify-p nil)
-	     (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
-	     (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))))
-
-;;					  ("another-mail@gmail.com" .  "~/task.org")))))
-
-;;(progn
-;;  (ensure-package-installed 'org-ac)
-;;  (use-package org-ac
-;;    :config (progn
-;;	      (org-ac/config-default))))
-
-;; org-bullets
-;; https://github.com/sabof/org-bullets
-;;(progn
-;;  (ensure-package-installed 'org-bullets)
-;;  (use-package org-bullets
-;;    :config (progn
-;;	      (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))))
-
-;; org-mime
-;; https://orgmode.org/worg/org-contrib/org-mime.html
-;;(progn
-;;  (ensure-package-installed 'org-mime)
-;;  (use-package org-mime
-;;    :config (progn
-;;	      (setq org-mime-library 'mml))))
-;;
-;;(require 'ox-confluence)
+	      (unless (char-displayable-p ?❗)
+		(setq org-fancy-priorities-list '("HIGH" "MID" "LOW" "OPTIONAL")))
+		(add-hook 'org-mode-hook #'org-fancy-priorities-mode))))
 
 ;; ob-clojure
 ;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
@@ -68,10 +56,7 @@
     :config (progn
 	      (setq org-babel-clojure-backend 'cider))))
 
-;; ob-clojure
-;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
 (progn
-;;  (ensure-package-installed 'ob-clojure)
 ;;  (use-package ob-sh)
   (use-package ob-clojure)
   (use-package ob-css)
@@ -121,24 +106,7 @@
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
-;;(comment
 (setq org-export-with-toc nil)
-(add-hook 'org-mode-hook #'visual-line-mode)
-
-;; (defun my/org-inline-css-hook (exporter)
-;;   "Insert custom inline css to automatically set the
-;; background of code to whatever theme I'm using's background"
-;;   (when (eq exporter 'html)
-;;     (let* ((my-pre-bg (face-background 'default))
-;;            (my-pre-fg (face-foreground 'default)))
-;;       (setq
-;;        org-html-head-extra
-;;        (concat
-;;         org-html-head-extra
-;;         (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
-;;                 my-pre-bg my-pre-fg))))))
-
-;; (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
 
 (defun my/org-print-wrap-hook (exporter)
   (when (eq exporter 'html)
@@ -184,8 +152,6 @@
 
 ;; right-alt+w
 (global-set-key (kbd "∑") 'my/to-scrum-notes)
-
-
 
 (defun todo-to-int (todo)
   "Convert todo item to int value, for sorting"
@@ -241,9 +207,7 @@
 (defun mp-emacs ()
   (interactive)
   (find-file "~/.emacs.d/config/.emacs"))
-
-;;(current-time)
-     
+    
 (global-set-key (kbd "C-c on") 'mp-org-notes)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
 (global-set-key (kbd "C-c ob") 'mp-org-bookmarks)
@@ -254,11 +218,7 @@
 
 ;; By default, archive into the same file name under archive subfolder, but fold items into datetree
 (setq org-archive-location (concat "archive/%s::datetree/"))
-;;(setq org-archive-location (concat org-directory "/journal/archive.org::datetree/*"))
-;;#+ARCHIVE: %s_archive.org::datetree/*
 
-;;(setq package-check-signature nil)
-;;(require 'org-gcal)
 (defun my/org-home (filename)
   (concat "~/org/" filename))
 
@@ -290,79 +250,8 @@
 (global-set-key (kbd "<f12>") 'org-agenda)
 (global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
 (global-set-key (kbd "C-c c") 'org-capture)
-
-;;(global-set-key (kbd "<f12>") 'org-agenda)
-;;(global-set-key (kbd "<f5>") 'bh/org-todo)
-;;(global-set-key (kbd "<S-f5>") 'bh/widen)
-;;(global-set-key (kbd "<f7>") 'bh/set-truncate-lines)
-;;(global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
-;;(global-set-key (kbd "<f9> <f9>") 'bh/show-org-agenda)
-;;(global-set-key (kbd "<f9> b") 'bbdb)
-;;(global-set-key (kbd "<f9> c") 'calendar)
-;;(global-set-key (kbd "<f9> f") 'boxquote-insert-file)
-;;(global-set-key (kbd "<f9> g") 'gnus)
-;;(global-set-key (kbd "<f9> h") 'bh/hide-other)
-;;(global-set-key (kbd "<f9> n") 'bh/toggle-next-task-display)
-
-;;(global-set-key (kbd "<f9> I") 'bh/punch-in)
-;;(global-set-key (kbd "<f9> O") 'bh/punch-out)
-
-;;(global-set-key (kbd "<f9> o") 'bh/make-org-scratch)
-
-;;(global-set-key (kbd "<f9> r") 'boxquote-region)
-;;(global-set-key (kbd "<f9> s") 'bh/switch-to-scratch)
-
-;;(global-set-key (kbd "<f9> t") 'bh/insert-inactive-timestamp)
-;;(global-set-key (kbd "<f9> T") 'bh/toggle-insert-inactive-timestamp)
-
-;;(global-set-key (kbd "<f9> v") 'visible-mode)
-;;(global-set-key (kbd "<f9> l") 'org-toggle-link-display)
-;;(global-set-key (kbd "<f9> SPC") 'bh/clock-in-last-task)
 (global-set-key (kbd "C-<f9>") 'previous-buffer)
-;;(global-set-key (kbd "M-<f9>") 'org-toggle-inline-images)
-;;(global-set-key (kbd "C-x n r") 'narrow-to-region)
 (global-set-key (kbd "C-<f10>") 'next-buffer)
-;;(global-set-key (kbd "<f11>") 'org-clock-goto)
-;;(global-set-key (kbd "C-<f11>") 'org-clock-in)
-;;(global-set-key (kbd "C-s-<f12>") 'bh/save-then-publish))
-;;(global-set-key (kbd "C-c c") 'org-capture)
-
-;; (defun bh/hide-other ()
-;;   (interactive)
-;;   (save-excursion
-;;     (org-back-to-heading 'invisible-ok)
-;;     (hide-other)
-;;     (org-cycle)
-;;     (org-cycle)
-;;     (org-cycle)))
-
-;; (defun bh/set-truncate-lines ()
-;;   "Toggle value of truncate-lines and refresh window display."
-;;   (interactive)
-;;   (setq truncate-lines (not truncate-lines))
-;;   ;; now refresh window display (an idiom from simple.el):
-;;   (save-excursion
-;;     (set-window-start (selected-window)
-;;                       (window-start (selected-window)))))
-
-;; (defun bh/make-org-scratch ()
-;;   (interactive)
-;;   (find-file "/tmp/publish/scratch.org")
-;;   (gnus-make-directory "/tmp/publish"))
-
-;; (defun bh/switch-to-scratch ()
-;;   (interactive)
-;;   (switch-to-buffer "*scratch*"))
-
-;; Remove empty LOGBOOK drawers on clock out
-;; (defun bh/remove-empty-drawer-on-clock-out ()
-;;   (interactive)
-;;   (save-excursion
-;;     (beginning-of-line 0)
-;;     (org-remove-empty-drawer-at "LOGBOOK" (point))))
-
-;; (add-hook 'org-clock-out-hook 'bh/remove-empty-drawer-on-clock-out 'append)
-
 
 ;;;; REFILE
 
@@ -372,7 +261,6 @@
 
 (setq org-refile-targets (quote ((nil :maxlevel . 3)
                                  (org-agenda-files :maxlevel . 3))))
-
 
 
 ; Use full outline paths for refile targets - we file directly with IDO
@@ -394,15 +282,6 @@
 (setq ido-default-buffer-method 'selected-window)
 ; Use the current window for indirect buffer display
 (setq org-indirect-buffer-display 'current-window)
-
-
-;;;; Refile settings
-;;;; Exclude DONE state tasks from refile targets
-;;(defun bh/verify-refile-target ()
-;;  "Exclude todo keywords with a done state from refile targets"
-;;  (not (member (nth 2 (org-heading-components)) org-done-keywords)))
-;;
-;;(setq org-refile-target-verify-function 'bh/verify-refile-target)
 
 ;;;; END REFILE
 
@@ -443,76 +322,6 @@
 ;; Compact the block agenda view
 (setq org-agenda-compact-blocks t)
 
-;; Custom agenda command definitions
-;; (setq org-agenda-custom-commands
-;;       (quote (("N" "Notes" tags "NOTE"
-;;                ((org-agenda-overriding-header "Notes")
-;;                 (org-tags-match-list-sublevels t)))
-;;               (" " "Agenda"
-;;                ((agenda "" nil)
-;;                 (tags "REFILE"
-;;                       ((org-agenda-overriding-header "Tasks to Refile")
-;;                        (org-tags-match-list-sublevels nil)))
-;;                 (tags-todo "-CANCELLED/!"
-;;                            ((org-agenda-overriding-header "Stuck Projects")
-;;                             (org-agenda-skip-function 'bh/skip-non-stuck-projects)
-;;                             (org-agenda-sorting-strategy
-;;                              '(category-keep))))
-;;                 (tags-todo "-HOLD-CANCELLED/!"
-;;                            ((org-agenda-overriding-header "Projects")
-;;                             (org-agenda-skip-function 'bh/skip-non-projects)
-;;                             (org-tags-match-list-sublevels 'indented)
-;;                             (org-agenda-sorting-strategy
-;;                              '(category-keep))))
-;;                 (tags-todo "-CANCELLED/!NEXT"
-;;                            ((org-agenda-overriding-header (concat "Project Next Tasks"
-;;                                                                   (if bh/hide-scheduled-and-waiting-next-tasks
-;;                                                                       ""
-;;                                                                     " (including WAITING and SCHEDULED tasks)")))
-;;                             (org-agenda-skip-function 'bh/skip-projects-and-habits-and-single-tasks)
-;;                             (org-tags-match-list-sublevels t)
-;;                             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-sorting-strategy
-;;                              '(todo-state-down effort-up category-keep))))
-;;                 (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
-;;                            ((org-agenda-overriding-header (concat "Project Subtasks"
-;;                                                                   (if bh/hide-scheduled-and-waiting-next-tasks
-;;                                                                       ""
-;;                                                                     " (including WAITING and SCHEDULED tasks)")))
-;;                             (org-agenda-skip-function 'bh/skip-non-project-tasks)
-;;                             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-sorting-strategy
-;;                              '(category-keep))))
-;;                 (tags-todo "-REFILE-CANCELLED-WAITING-HOLD/!"
-;;                            ((org-agenda-overriding-header (concat "Standalone Tasks"
-;;                                                                   (if bh/hide-scheduled-and-waiting-next-tasks
-;;                                                                       ""
-;;                                                                     " (including WAITING and SCHEDULED tasks)")))
-;;                             (org-agenda-skip-function 'bh/skip-project-tasks)
-;;                             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-todo-ignore-with-date bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-sorting-strategy
-;;                              '(category-keep))))
-;;                 (tags-todo "-CANCELLED+WAITING|HOLD/!"
-;;                            ((org-agenda-overriding-header (concat "Waiting and Postponed Tasks"
-;;                                                                   (if bh/hide-scheduled-and-waiting-next-tasks
-;;                                                                       ""
-;;                                                                     " (including WAITING and SCHEDULED tasks)")))
-;;                             (org-agenda-skip-function 'bh/skip-non-tasks)
-;;                             (org-tags-match-list-sublevels nil)
-;;                             (org-agenda-todo-ignore-scheduled bh/hide-scheduled-and-waiting-next-tasks)
-;;                             (org-agenda-todo-ignore-deadlines bh/hide-scheduled-and-waiting-next-tasks)))
-;;                 (tags "-REFILE/"
-;;                       ((org-agenda-overriding-header "Tasks to Archive")
-;;                        (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
-;;                        (org-tags-match-list-sublevels nil))))
-;;                nil))))
-
 (defun bh/org-auto-exclude-function (tag)
   "Automatic task exclusion in the agenda with / RET"
   (and (cond
@@ -531,16 +340,19 @@
                             ("@office" . ?o)
                             ("@home" . ?H)
                             (:endgroup)
-                            ("WAITING" . ?w)
-                            ("IP" . ?i)
-                            ("HOLD" . ?h)
-                            ("PERSONAL" . ?P)
-                            ("WORK" . ?W)
-                            ("ORG" . ?O)
+                            ("waiting" . ?w)
+                            ("ip" . ?p)
+			    ("iteego" . ?i)
+			    ("kohler" . ?k)
+			    ("mrmaster" . ?m)
+                            ("hold" . ?h)
+                            ("personal" . ?P)
+                            ("work" . ?W)
+                            ("org" . ?O)
                             ("crypt" . ?E)
-                            ("NOTE" . ?n)
-                            ("CANCELLED" . ?c)
-                            ("FLAGGED" . ??))))
+                            ("note" . ?n)
+                            ("cancel" . ?c)
+                            ("flag" . ??))))
 
 ; Allow setting single tags without the menu
 (setq org-fast-tag-selection-single-key (quote expert))
@@ -548,56 +360,13 @@
 ; For tag searches ignore tasks with scheduled and deadline dates
 (setq org-agenda-tags-todo-honor-ignore-options t)
 
-
-
-;; ;;;; PHONE
-
-;; (require 'bbdb)
-;; (require 'bbdb-com)
-
-;; (global-set-key (kbd "<f9> p") 'bh/phone-call)
-
-;; ;;
-;; ;; Phone capture template handling with BBDB lookup
-;; ;; Adapted from code by Gregory J. Grubbs
-;; (defun bh/phone-call ()
-;;   "Return name and company info for caller from bbdb lookup"
-;;   (interactive)
-;;   (let* (name rec caller)
-;;     (setq name (completing-read "Who is calling? "
-;;                                 (bbdb-hashtable)
-;;                                 'bbdb-completion-predicate
-;;                                 'confirm))
-;;     (when (> (length name) 0)
-;;       ; Something was supplied - look it up in bbdb
-;;       (setq rec
-;;             (or (first
-;;                  (or (bbdb-search (bbdb-records) name nil nil)
-;;                      (bbdb-search (bbdb-records) nil name nil)))
-;;                 name)))
-
-;;     ; Build the bbdb link if we have a bbdb record, otherwise just return the name
-;;     (setq caller (cond ((and rec (vectorp rec))
-;;                         (let ((name (bbdb-record-name rec))
-;;                               (company (bbdb-record-company rec)))
-;;                           (concat "[[bbdb:"
-;;                                   name "]["
-;;                                   name "]]"
-;;                                   (when company
-;;                                     (concat " - " company)))))
-;;                        (rec)
-;;                        (t "NameOfCaller")))
-;;     (insert caller)))
-
-
-;; ;;;; END PHONE
-
-
-
 (with-eval-after-load 'org       
-  (setq org-startup-indented t) ; Enable `org-indent-mode' by default
-  (add-hook 'org-mode-hook #'visual-line-mode)
-  (add-hook 'org-mode-hook #'flyspell-mode))
+  (setq org-startup-indented t ; Enable `org-indent-mode' by default
+	org-src-tab-acts-natively t)
+
+  (add-hook 'org-mode-hook (lambda ()
+			     visual-line-mode
+			     flyspell-mode)))
 
 ;; By default, save openoffice exports as ms word documents
 (setq org-export-odt-preferred-output-format "docx")
