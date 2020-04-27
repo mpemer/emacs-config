@@ -1,5 +1,15 @@
 (ensure-package-installed 'ido) (use-package ido)
 
+;;; ---------------------------------------------------------------------
+;;; Set up for Oracle
+(let ((oracle-home (shell-command-to-string ". ~/.zshrc; echo -n $ORACLE_HOME")))
+  (if oracle-home
+      (setenv "ORACLE_HOME" oracle-home))
+  (setenv "PATH" (concat (getenv "PATH") oracle-home))
+  (setenv "LD_LIBRARY_PATH" oracle-home)
+  (add-to-list 'exec-path oracle-home)
+  )
+
 (defun my/kohler-db ()
   "Prompt user to pick a kohler db connection from a list, then connect to it."
   (interactive)
