@@ -154,3 +154,5 @@
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
 
+(set-cursor-color "#eebbaa")
+
