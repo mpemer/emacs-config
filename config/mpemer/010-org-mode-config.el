@@ -373,3 +373,10 @@
 ;; By default, save openoffice exports as ms word documents
 (setq org-export-odt-preferred-output-format "docx")
 (setq org-odt-preferred-output-format "docx")
+
+;; Make it so that Agenda view stops warning about deadlines once item has been scheduled
+(setq org-agenda-skip-deadline-prewarning-if-scheduled t)
+
+(advice-add 'org-refile :after
+	    (lambda (&rest _)
+	      (org-save-all-org-buffers)))
