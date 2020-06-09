@@ -3,7 +3,7 @@
 ;; First make sure the packages are installed
 (let ((package-list '(
 		      org-alert
-		      org-beautify-theme		      
+		      ;;org-beautify-theme		      
 		      org-ehtml
 		      org-jira
 		      org-pdfview
@@ -21,7 +21,6 @@
 				   (ensure-package-installed package)
 				   (use-package package))))
 
-
 (progn
   (ensure-package-installed 'org-gcal)
   (use-package org-gcal
@@ -37,18 +36,17 @@
 
 (setq org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
 
-
 (progn
   (require 'org-num)
   (add-hook 'org-mode-hook #'org-num-mode))
 
-(progn
-  (ensure-package-installed 'org-fancy-priorities)
-  (use-package org-fancy-priorities
-    :config (progn
-	      (unless (char-displayable-p ?❗)
-		(setq org-fancy-priorities-list '("HIGH" "MID" "LOW" "OPTIONAL")))
-		(add-hook 'org-mode-hook #'org-fancy-priorities-mode))))
+;; (progn
+;;   (ensure-package-installed 'org-fancy-priorities)
+;;   (use-package org-fancy-priorities
+;;     :config (progn
+;; 	      (unless (char-displayable-p ?❗)
+;; 		(setq org-fancy-priorities-list '("HIGH" "MID" "LOW" "OPTIONAL")))
+;; 		(add-hook 'org-mode-hook #'org-fancy-priorities-mode))))
 
 ;; ob-clojure
 ;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
@@ -97,7 +95,6 @@
 (add-to-list 'org-latex-packages-alist '("" "listings" nil))
 (setq org-latex-listings t)
 (setq org-latex-listings-options '(("breaklines" "true")))
-
 (setf org-enable-reveal-js-support nil)
 
 ;; org-crypt settings
@@ -124,6 +121,8 @@
 (setq org-html-htmlize-output-type 'css)
 ;;(setq org-html-htmlize-output-type 'inline-css)
 
+(setq org-lowest-priority ?F
+      org-default-priority ?B)
 
 (defun my/reformat-for-scrum-notes ()
   "Reformat org to confluence scrum notes"
@@ -203,6 +202,15 @@
 (defun mp-org-plan ()
   (interactive)
   (find-file (concat org-directory "/plan.org")))
+(defun mp-org-iteego ()
+  (interactive)
+  (find-file "~/iteego/org/iteego.org"))
+(defun mp-org-kohler ()
+  (interactive)
+  (find-file "~/kohler/org/kohler.org"))
+(defun mp-org-mercury ()
+  (interactive)
+  (find-file "~/mercury/org/mercury.org"))
 (defun mp-org-bookmarks ()
   (interactive)
   (find-file (concat org-directory "/bookmarks.org")))
@@ -212,6 +220,9 @@
     
 (global-set-key (kbd "C-c on") 'mp-org-notes)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
+(global-set-key (kbd "C-c oi") 'mp-org-iteego)
+(global-set-key (kbd "C-c ok") 'mp-org-kohler)
+(global-set-key (kbd "C-c om") 'mp-org-mercury)
 (global-set-key (kbd "C-c ob") 'mp-org-bookmarks)
 
 (defun my/org-sort-entries ()
@@ -232,16 +243,12 @@
       org-icalendad-timezone "Europe/Wien")
 
 (setq org-capture-templates
-      (quote (("t" "TODO" entry (file "~/org/notes.org")
-	       "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("r" "Respond" entry (file "~/org/notes.org")
-	       "* NEXT Respond to %:from on %:subject\n:PROPERTIES:\n:SCHEDULED: %t\n%U\n:END:\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
-	      ("n" "Note" entry (file "~/org/notes.org")
-	       "* %? :NOTE:\n:PROPERTIES:\n:CREATED: %t\n:END:\n%U\n%a\n" :clock-in t :clock-resume t)
-	      ("m" "Meeting" entry (file "~/org/notes.org")
-	       "* MEETING with %? :MEETING:\n:PROPERTIES:\n:SCHEDULED: %t\n:END:\n%U" :clock-in t :clock-resume t)
-	      ("p" "Phone call" entry (file "~/org/notes.org")
-	       "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t))))
+      (quote (("t" "TODO" entry (file+headline "~/org/notes.org" "Tasks")
+	       "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\nDEADLINE: %t\nSCHEDULED: \n")
+	      ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
+	       "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	      ("m" "Meeting" entry (file+headlines "~/org/notes.org" "Meetings")
+	       "* Meeting with %?\n:PROPERTIES:\n:CREATED: %U\n:SCHEDULED: %t\n:END:\n"))))
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c C-l") 'org-insert-link)
@@ -289,19 +296,18 @@
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "IP(p)" "|" "DONE(d)")
-              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING" "EVENT"))))
+              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING" "EVENT"))))
 
 (setq org-todo-keyword-faces
-      (quote (("TODO" :foreground "darkred" :weight bold)
-              ("NEXT" :foreground "blue" :weight bold)
-              ("IP" :foreground "blue" :weight bold)
+      (quote (("TODO" :foreground "light gray" :weight bold)
+              ("NEXT" :foreground "light blue" :weight bold)
+              ("IP" :foreground "light blue" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
               ("HOLD" :foreground "magenta" :weight bold)
               ("CANCELLED" :foreground "forest green" :weight bold)
               ("MEETING" :foreground "forest green" :weight bold)
-              ("PHONE" :foreground "forest green" :weight bold)
-	      ("EVENT" :foreground "blue" :weight bold))))
+	      ("EVENT" :foreground "light blue" :weight bold))))
 
 (setq org-use-fast-todo-selection t)
 (setq org-treat-S-cursor-todo-selection-as-state-change nil)
@@ -338,23 +344,24 @@
 
 ; Tags with fast selection keys
 (setq org-tag-alist (quote ((:startgroup)
-                            ("@errand" . ?e)
-                            ("@office" . ?o)
-                            ("@home" . ?H)
-                            (:endgroup)
+                            ;;("@errand" . ?e)
+                            ;;("@office" . ?o)
+                            ;;("@home" . ?H)
+                            
                             ("waiting" . ?w)
                             ("ip" . ?p)
-			    ("iteego" . ?i)
-			    ("kohler" . ?k)
-			    ("mrmaster" . ?m)
+                            ("crypt" . ?c)
                             ("hold" . ?h)
-                            ("personal" . ?P)
-                            ("work" . ?W)
-                            ("org" . ?O)
-                            ("crypt" . ?E)
                             ("note" . ?n)
-                            ("cancel" . ?c)
-                            ("flag" . ??))))
+			    ("iteego" . ?I)
+			    ("kohler" . ?K)
+			    ("mrmaster" . ?M)
+                            ("personal" . ?P)
+                            ("ratum" . ?R)
+                            ("org" . ?O)
+                            ("cancel" . ?C)
+                            ("flag" . ??)
+			    (:endgroup))))
 
 ; Allow setting single tags without the menu
 (setq org-fast-tag-selection-single-key (quote expert))
@@ -362,13 +369,12 @@
 ; For tag searches ignore tasks with scheduled and deadline dates
 (setq org-agenda-tags-todo-honor-ignore-options t)
 
-(with-eval-after-load 'org       
-  (setq org-startup-indented t ; Enable `org-indent-mode' by default
-	org-src-tab-acts-natively t)
-
+(with-eval-after-load 'org
+  ;;(setq org-startup-indented t) ; Enable `org-indent-mode' by default
+  (setq org-src-tab-acts-natively t)
   (add-hook 'org-mode-hook (lambda ()
-			     visual-line-mode
-			     flyspell-mode)))
+			     (visual-line-mode)
+			     (flyspell-mode))))
 
 ;; By default, save openoffice exports as ms word documents
 (setq org-export-odt-preferred-output-format "docx")
@@ -380,3 +386,12 @@
 (advice-add 'org-refile :after
 	    (lambda (&rest _)
 	      (org-save-all-org-buffers)))
+
+;; (add-hook 'focus-in-hook 
+;;   (lambda () (progn 
+;;     (setq org-tags-column (- 5 (window-body-width)))) (org-align-all-tags)))
+
+;; (add-hook 'focus-out-hook 
+;;   (lambda () (progn 
+;;     (setq org-tags-column (- 5 (window-body-width)))) (org-align-all-tags)))
+
