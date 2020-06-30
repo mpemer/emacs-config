@@ -60,12 +60,17 @@
   (use-package highlight-indent-guides
     :config (progn
 	      (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-	      (setq highlight-indent-guides-auto-odd-face-perc 5)
-	      (setq highlight-indent-guides-auto-even-face-perc 5)
-	      (setq highlight-indent-guides-auto-character-face-perc 50)
+	      (set-face-background 'highlight-indent-guides-odd-face "gray9")
+	      (set-face-background 'highlight-indent-guides-even-face "gray12")
+	      (set-face-foreground 'highlight-indent-guides-character-face "gray12")
+;;	      (setq highlight-indent-guides-auto-odd-face-perc 5)
+;;	      (setq highlight-indent-guides-auto-even-face-perc 5)
+;;	      (setq highlight-indent-guides-auto-character-face-perc 50)
 ;;	      (setq highlight-indent-guides-method 'fill))))
             (setq highlight-indent-guides-method 'character))))
 ;;	      (setq highlight-indent-guides-method 'column))))
+
+
 
 ;; Send emacs kill ring to remote clipboard
 (progn
@@ -164,6 +169,14 @@
 
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
+
+
+(progn
+  (ensure-package-installed 'gruber-darker-theme)
+  (use-package gruber-darker-theme))
+;;    :config (global-clipetty-mode)))
+
+
 
 (set-cursor-color "#eebbaa")
 
