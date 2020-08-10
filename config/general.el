@@ -22,9 +22,9 @@
   (ensure-package-installed 'oauth2)
   (use-package oauth2))
 
-(progn
-  (ensure-package-installed 'monokai-theme)
-  (use-package monokai-theme))
+;;(progn
+;;  (ensure-package-installed 'monokai-theme)
+;;  (use-package monokai-theme))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -171,10 +171,10 @@
 (display-time)
 
 
-(progn
-  (ensure-package-installed 'gruber-darker-theme)
-  (use-package gruber-darker-theme))
-;;    :config (global-clipetty-mode)))
+;;(progn
+;;  (ensure-package-installed 'gruber-darker-theme)
+;;  (use-package gruber-darker-theme))
+;;;;    :config (global-clipetty-mode)))
 
 
 
