@@ -22,9 +22,9 @@
   (ensure-package-installed 'oauth2)
   (use-package oauth2))
 
-;;(progn
-;;  (ensure-package-installed 'monokai-theme)
-;;  (use-package monokai-theme))
+(progn
+  (ensure-package-installed 'monokai-theme)
+  (use-package monokai-theme))
 
 ;;(custom-set-faces
 ;; ;; custom-set-faces was added by Custom.
@@ -33,9 +33,9 @@
 ;; ;; If there is more than one, they won't work right.
 ;; '(default ((t (:inherit nil :stipple nil :background "#0b0600" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "Bits" :family "Bitstream Vera Sans Mono")))))
 
-(progn
-  (ensure-package-installed 'color-theme-modern)
-  (use-package color-theme-modern))
+;;(progn
+;;  (ensure-package-installed 'color-theme-modern)
+;;  (use-package color-theme-modern))
 
 (progn
   (ensure-package-installed 'default-text-scale)
