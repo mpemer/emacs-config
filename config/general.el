@@ -26,7 +26,17 @@
   (ensure-package-installed 'monokai-theme)
   (use-package monokai-theme))
 
-;;(custom-set-faces
+(defun toggle-darkroom-mode ()
+  (interactive)
+  (darkroom-mode))
+
+(progn
+  (ensure-package-installed 'darkroom)
+  (use-package darkroom
+    :config (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
+
+
+;;(Custom-set-faces
 ;; ;; custom-set-faces was added by Custom.
 ;; ;; If you edit it by hand, you could mess it up, so be careful.
 ;; ;; Your init file should contain only one such instance.
