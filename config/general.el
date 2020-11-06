@@ -23,8 +23,15 @@
   (use-package oauth2))
 
 (progn
-  (ensure-package-installed 'monokai-theme)
-  (use-package monokai-theme))
+  (ensure-package-installed 'flycheck)
+  (use-package flycheck))
+
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+(progn
+  (ensure-package-installed 'flycheck-clj-kondo)
+  (use-package flycheck-clj-kondo
+    :config (require 'flycheck-clj-kondo)))
 
 (defun toggle-darkroom-mode ()
   (interactive)
@@ -35,6 +42,7 @@
   (use-package darkroom
     :config (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
 
+(global-set-key (kbd "<C-f11>") 'toggle-frame-fullscreen)
 
 ;;(Custom-set-faces
 ;; ;; custom-set-faces was added by Custom.
@@ -42,10 +50,6 @@
 ;; ;; Your init file should contain only one such instance.
 ;; ;; If there is more than one, they won't work right.
 ;; '(default ((t (:inherit nil :stipple nil :background "#0b0600" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "Bits" :family "Bitstream Vera Sans Mono")))))
-
-;;(progn
-;;  (ensure-package-installed 'color-theme-modern)
-;;  (use-package color-theme-modern))
 
 (progn
   (ensure-package-installed 'default-text-scale)
@@ -65,20 +69,20 @@
 (ensure-package-installed 'queue)
 
 
-(progn
-  (ensure-package-installed 'highlight-indent-guides)
-  (use-package highlight-indent-guides
-    :config (progn
-	      (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-	      (set-face-background 'highlight-indent-guides-odd-face "gray9")
-	      (set-face-background 'highlight-indent-guides-even-face "gray12")
-	      (set-face-foreground 'highlight-indent-guides-character-face "gray12")
-;;	      (setq highlight-indent-guides-auto-odd-face-perc 5)
-;;	      (setq highlight-indent-guides-auto-even-face-perc 5)
-;;	      (setq highlight-indent-guides-auto-character-face-perc 50)
-;;	      (setq highlight-indent-guides-method 'fill))))
-            (setq highlight-indent-guides-method 'character))))
-;;	      (setq highlight-indent-guides-method 'column))))
+;; (progn
+;;   (ensure-package-installed 'highlight-indent-guides)
+;;   (use-package highlight-indent-guides
+;;     :config (progn
+;; 	      (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+;; 	      (set-face-background 'highlight-indent-guides-odd-face "gray9")
+;; 	      (set-face-background 'highlight-indent-guides-even-face "gray12")
+;; 	      (set-face-foreground 'highlight-indent-guides-character-face "gray12")
+;; ;;	      (setq highlight-indent-guides-auto-odd-face-perc 5)
+;; ;;	      (setq highlight-indent-guides-auto-even-face-perc 5)
+;; ;;	      (setq highlight-indent-guides-auto-character-face-perc 50)
+;; ;;	      (setq highlight-indent-guides-method 'fill))))
+;;             (setq highlight-indent-guides-method 'character))))
+;; ;;	      (setq highlight-indent-guides-method 'column))))
 
 
 
@@ -185,8 +189,4 @@
 ;;  (ensure-package-installed 'gruber-darker-theme)
 ;;  (use-package gruber-darker-theme))
 ;;;;    :config (global-clipetty-mode)))
-
-
-
-(set-cursor-color "#eebbaa")
 

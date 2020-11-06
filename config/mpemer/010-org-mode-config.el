@@ -395,3 +395,57 @@
 ;;   (lambda () (progn 
 ;;     (setq org-tags-column (- 5 (window-body-width)))) (org-align-all-tags)))
 
+
+(setq org-crypt-key "marcus@pemer.io")
+;;
+
+;; (if (file-exists-p "~/src/org-caldav/org-caldav.el")
+;;     (setq org-caldav-oauth2-client-id "931083343613-1u4fv2nb4tf1ktgq2678it8o3jtj3qlq.apps.googleusercontent.com"
+;; 	  org-caldav-oauth2-client-secret "4TDz6ByKh341Ik3mzHU7wAlB"
+;; 	  org-caldav-calendar-id "pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com"
+;; 	  org-caldav-calendars '((:calendar-id "pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" :files ("~/org/plan.org")))))
+
+
+;; (add-to-list 'load-path "/home/mpemer/src/org-gcal.el")
+;; (require 'org-gcal)
+
+;; ;;(progn
+;; ;;  (ensure-package-installed 'org-gcal)
+;; ;;  (use-package org-gcal
+;; ;;    :config
+;;     (setq org-gcal-client-id "441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com"
+;; 		  org-gcal-client-secret "GdpE7SUxUWXbMiOG9USuIpsA"
+;; 		  org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org"))
+;; 		  org-gcal-up-days 30
+;; 		  org-gcal-down-days 365)
+;; ;;))
+
+;; (global-set-key (kbd "C-c oS") 'org-gcal-sync)
+;; (global-set-key (kbd "C-c od") 'org-gcal-delete-at-point)
+
+
+(add-to-list 'load-path "~/src/org-caldav")
+(require 'org-caldav)
+(progn
+	     (setq plstore-cache-passphrase-for-symmetric-encryption t
+		   org-caldav-url 'google
+		   org-caldav-calendar-id "pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com"
+		   org-caldav-inbox "~/org/plan.org"
+		   org-caldav-files '("~/org/plan.org")
+		   org-caldav-debug-level 2
+		   org-icalendar-timezone "UTC"
+		   org-caldav-oauth2-client-id "931083343613-n93s4de581lin78uknno7fs15pkmevl1.apps.googleusercontent.com"
+		   org-caldav-oauth2-client-secret "zuDwQKI-9b0g9-tidkgcYqsa"
+		   org-caldav-save-directory "~/org/org-caldav-state.el"
+		   org-caldav-debug-level 2)
+ 	     (global-set-key (kbd "C-c oS") 'org-caldav-sync))
+(setq plstore-cache-passphrase-for-symmetric-encryption t)
+
+
+
+
+(require 'org-gcal)
+(setq org-gcal-client-id "931083343613-n93s4de581lin78uknno7fs15pkmevl1.apps.googleusercontent.com"
+      org-gcal-client-secret "zuDwQKI-9b0g9-tidkgcYqsa"
+      org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
+
