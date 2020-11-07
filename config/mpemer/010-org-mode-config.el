@@ -384,7 +384,7 @@
 ;;     (setq org-tags-column (- 5 (window-body-width)))) (org-align-all-tags)))
 
 
-(setq org-crypt-key "marcus@pemer.io")
+(setq org-crypt-key "1D151FF890EE620251BC79A4E594D6C2CC9E1BAA")
 ;;
 
 ;; (if (file-exists-p "~/src/org-caldav/org-caldav.el")
