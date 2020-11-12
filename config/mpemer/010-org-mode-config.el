@@ -21,18 +21,6 @@
 				   (ensure-package-installed package)
 				   (use-package package))))
 
-(progn
-  (ensure-package-installed 'org-gcal)
-  (use-package org-gcal
-    :config (progn
-	      (setq org-gcal-client-id "441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com"
-		    org-gcal-client-secret "GdpE7SUxUWXbMiOG9USuIpsA"
-		    org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org"))
-		    org-gcal-header-alist '(("441016108337-1hupr92oqr0kbk71uiuhe377ji6n6pqm.apps.googleusercontent.com" . "#+PROPERTY: TIMELINE_FACE \"pink\"\n"))
-		    org-gcal-auto-archive nil
-		    org-gcal-notify-p nil))))
-;;	      (add-hook 'org-agenda-mode-hook 'org-gcal-fetch)
-;;	      (add-hook 'org-capture-after-finalize-hook 'org-gcal-fetch))))
 
 (setq org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
 
@@ -396,7 +384,7 @@
 ;;     (setq org-tags-column (- 5 (window-body-width)))) (org-align-all-tags)))
 
 
-(setq org-crypt-key "marcus@pemer.io")
+(setq org-crypt-key "1D151FF890EE620251BC79A4E594D6C2CC9E1BAA")
 ;;
 
 ;; (if (file-exists-p "~/src/org-caldav/org-caldav.el")
