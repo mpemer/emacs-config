@@ -42,6 +42,7 @@
  '(custom-safe-themes
    (quote
     ("5f824cddac6d892099a91c3f612fcf1b09bb6c322923d779216ab2094375c5ee" default)))
+ '(darkroom-margins 0.2)
  '(debug-on-quit t)
  '(diary-entry-marker (quote font-lock-variable-name-face))
  '(display-time-mode t)
