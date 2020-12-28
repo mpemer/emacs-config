@@ -40,7 +40,10 @@
 (progn
   (ensure-package-installed 'darkroom)
   (use-package darkroom
-    :config (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
+    :config
+    (progn
+      (setq darkroom-margins 0.15)
+      (global-set-key (kbd "C-c d") 'toggle-darkroom-mode))))
 
 (global-set-key (kbd "<C-f11>") 'toggle-frame-fullscreen)
 
@@ -172,6 +175,17 @@
     (with-current-buffer buf
       (setq-local face-remapping-alist '((default (:height 1.2)))))))
 
+
+(defun toggle-maximize-buffer () "Maximize buffer"
+  (interactive)
+  (if (= 1 (length (window-list)))
+    (jump-to-register '_)
+    (progn
+      (set-register '_ (list (current-window-configuration)))
+      (delete-other-windows))))
+
+;; Bind it to a key.
+(global-set-key [(super shift return)] 'toggle-maximize-buffer)
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)

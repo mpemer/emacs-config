@@ -37,18 +37,16 @@
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(column-number-mode t)
- '(compilation-message-face (quote default))
- '(custom-enabled-themes (quote (gruber-darker)))
+ '(compilation-message-face 'default)
+ '(custom-enabled-themes '(gruber-darker))
  '(custom-safe-themes
-   (quote
-    ("5f824cddac6d892099a91c3f612fcf1b09bb6c322923d779216ab2094375c5ee" default)))
+   '("5f824cddac6d892099a91c3f612fcf1b09bb6c322923d779216ab2094375c5ee" default))
  '(darkroom-margins 0.2)
  '(debug-on-quit t)
- '(diary-entry-marker (quote font-lock-variable-name-face))
+ '(diary-entry-marker 'font-lock-variable-name-face)
  '(display-time-mode t)
  '(emms-mode-line-icon-image-cache
-   (quote
-    (image :type xpm :ascent center :data "/* XPM */
+   '(image :type xpm :ascent center :data "/* XPM */
 static char *note[] = {
 /* width height num_colors chars_per_pixel */
 \"    10   11        2            1\",
@@ -66,10 +64,9 @@ static char *note[] = {
 \"#..######.\",
 \"#######...\",
 \"######....\",
-\"#######..#\" };")))
+\"#######..#\" };"))
  '(gnus-mode-line-image-cache
-   (quote
-    (image :type xpm :ascent center :data "/* XPM */
+   '(image :type xpm :ascent center :data "/* XPM */
 static char *gnus-pointer[] = {
 /* width height num_colors chars_per_pixel */
 \"    18    13        2            1\",
@@ -89,22 +86,20 @@ static char *gnus-pointer[] = {
 \"######..###.######\",
 \"###....####.######\",
 \"###..######.######\",
-\"###########.######\" };")) t)
+\"###########.######\" };") t)
  '(magit-diff-use-overlays nil)
  '(menu-bar-mode nil)
  '(mouse-wheel-progressive-speed 1)
- '(org-export-backends (quote (ascii beamer html icalendar latex md odt org)))
+ '(org-export-backends '(ascii beamer html icalendar latex md odt org))
  '(org-tags-column 40)
  '(package-selected-packages
-   (quote
-    (flycheck-clj-kondo darkroom org-num w3m clipetty ddg circe lui websocket org-gcal oauth2 default-text-scale org-ehtml ox-twbs ox-minutes ox-epub ox-clip ox-asciidoc ox-pandoc ox-jira ox-slack org-alert org-pdfview org-jira ox-odt highlight-indent-guides multi-term dash-functional ox-confluence htmlize ox-md ox-markdown ob-clojure expand-region powerline writeroom-mode pandoc pandoc-mode groovy-mode kubernetes k8s-mode dockerfile-mode nov markdown-mode jira-markup-mode yaml-mode cider magit ace-window bbdb-vcard bbdb-csv-import bbdb-ext bbdb edit-server quelpa use-package slime)))
+   '(flycheck-clj-kondo darkroom org-num w3m clipetty ddg circe lui websocket org-gcal oauth2 default-text-scale org-ehtml ox-twbs ox-minutes ox-epub ox-clip ox-asciidoc ox-pandoc ox-jira ox-slack org-alert org-pdfview org-jira ox-odt highlight-indent-guides multi-term dash-functional ox-confluence htmlize ox-md ox-markdown ob-clojure expand-region powerline writeroom-mode pandoc pandoc-mode groovy-mode kubernetes k8s-mode dockerfile-mode nov markdown-mode jira-markup-mode yaml-mode cider magit ace-window bbdb-vcard bbdb-csv-import bbdb-ext bbdb edit-server quelpa use-package slime))
  '(safe-local-variable-values
-   (quote
-    ((epa-encrypt-to "marcus@pemer.io")
-     (auto-revert-mode . 1))))
+   '((epa-encrypt-to "marcus@pemer.io")
+     (auto-revert-mode . 1)))
  '(show-paren-mode t)
  '(sql-database "atgprd")
- '(sql-oracle-login-params (quote (user password database)))
+ '(sql-oracle-login-params '(user password database))
  '(tool-bar-mode nil)
  '(xterm-mouse-mode t))
 
