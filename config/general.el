@@ -47,17 +47,6 @@
 
 (global-set-key (kbd "<C-f11>") 'toggle-frame-fullscreen)
 
-;;(Custom-set-faces
-;; ;; custom-set-faces was added by Custom.
-;; ;; If you edit it by hand, you could mess it up, so be careful.
-;; ;; Your init file should contain only one such instance.
-;; ;; If there is more than one, they won't work right.
-;; '(default ((t (:inherit nil :stipple nil :background "#0b0600" :foreground "#F8F8F2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 110 :width normal :foundry "Bits" :family "Bitstream Vera Sans Mono")))))
-
-(progn
-  (ensure-package-installed 'default-text-scale)
-  (use-package default-text-scale))
-
 (progn
   (ensure-package-installed 'default-text-scale)
   (use-package default-text-scale))
@@ -70,23 +59,6 @@
 		    quelpa-self-upgrade-p nil))))
 
 (ensure-package-installed 'queue)
-
-
-;; (progn
-;;   (ensure-package-installed 'highlight-indent-guides)
-;;   (use-package highlight-indent-guides
-;;     :config (progn
-;; 	      (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-;; 	      (set-face-background 'highlight-indent-guides-odd-face "gray9")
-;; 	      (set-face-background 'highlight-indent-guides-even-face "gray12")
-;; 	      (set-face-foreground 'highlight-indent-guides-character-face "gray12")
-;; ;;	      (setq highlight-indent-guides-auto-odd-face-perc 5)
-;; ;;	      (setq highlight-indent-guides-auto-even-face-perc 5)
-;; ;;	      (setq highlight-indent-guides-auto-character-face-perc 50)
-;; ;;	      (setq highlight-indent-guides-method 'fill))))
-;;             (setq highlight-indent-guides-method 'character))))
-;; ;;	      (setq highlight-indent-guides-method 'column))))
-
 
 
 ;; Send emacs kill ring to remote clipboard
@@ -198,9 +170,7 @@
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
 
-
-;;(progn
-;;  (ensure-package-installed 'gruber-darker-theme)
-;;  (use-package gruber-darker-theme))
-;;;;    :config (global-clipetty-mode)))
-
+(progn
+  (ensure-package-installed 'gruber-darker-theme)
+  (use-package gruber-darker-theme
+    :config (global-clipetty-mode)))

@@ -3,10 +3,16 @@
 ;; First make sure the packages are installed
 (let ((package-list '(
 		      org-alert
-		      ;;org-beautify-theme		      
+;;		      org-beautify-theme		      
 		      org-ehtml
 		      org-jira
 		      org-pdfview
+		      )))
+  (dolist (package package-list) (progn
+				   (ensure-package-installed package)
+				   (use-package package))))
+
+(let ((package-list '(
 		      ox-pandoc ;; https://github.com/kawabata/ox-pandoc
 		      ox-asciidoc
 		      ox-clip
@@ -16,10 +22,13 @@
 		      ox-slack
 		      ox-twbs
 		      ox-odt ;; https://github.com/kjambunathan/org-mode-ox-odt/blob/master/README.md
+		      ox-hugo
 		      )))
   (dolist (package package-list) (progn
 				   (ensure-package-installed package)
-				   (use-package package))))
+				   (use-package package
+				     :ensure t
+				     :after ox))))
 
 
 (setq org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
@@ -105,12 +114,31 @@
 
 (add-hook 'org-export-before-processing-hook 'my/org-print-wrap-hook)
 
+
+(global-set-key (kbd "C-c C-.") 'org-insert-structure-template)
+
+
 ;; If I wanted to remove the above and instead use css styling for exported code blocks
 (setq org-html-htmlize-output-type 'css)
 ;;(setq org-html-htmlize-output-type 'inline-css)
 
 (setq org-lowest-priority ?F
       org-default-priority ?B)
+
+
+(setq org-structure-template-alist
+  '(("a" . "export ascii\n")
+    ("c" . "center\n")
+    ("C" . "comment\n")
+    ("e" . "example\n")
+    ("E" . "export")
+    ("h" . "export html\n")
+    ("l" . "export latex\n")
+    ("q" . "quote\n")
+    ("s" . "src")
+    ("v" . "verse\n")))
+
+
 
 (defun my/reformat-for-scrum-notes ()
   "Reformat org to confluence scrum notes"
@@ -362,7 +390,10 @@
   (setq org-src-tab-acts-natively t)
   (add-hook 'org-mode-hook (lambda ()
 			     (visual-line-mode)
-			     (flyspell-mode))))
+			     (flyspell-mode)
+			     (load-theme 'org-beautify))))
+
+;;(add-hook 'org-mode-hook (lambda () (load-theme 'org-beautify)))
 
 ;; By default, save openoffice exports as ms word documents
 (setq org-export-odt-preferred-output-format "docx")
