@@ -29,6 +29,15 @@
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 (progn
+  (ensure-package-installed 'zoom-window)
+  (use-package zoom-window
+    :config
+    (global-set-key (kbd "C-x C-z") 'zoom-window-zoom)
+    (custom-set-variables
+     '(zoom-window-mode-line-color "DarkGreen")) ))
+
+
+(progn
   (ensure-package-installed 'flycheck-clj-kondo)
   (use-package flycheck-clj-kondo
     :config (require 'flycheck-clj-kondo)))
