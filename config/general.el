@@ -87,6 +87,14 @@
 
 (require 'color)
 
+
+(progn
+  (ensure-package-installed 'graphviz-dot-mode)
+  (use-package graphviz-dot-mode
+    :config (setq graphviz-dot-indent-width 2)))
+
+
+
 ;; I like to copy stuff from web pages and make org mode documents out of them.
 (defun html-to-org-region (&optional b e)
   (interactive "r")
