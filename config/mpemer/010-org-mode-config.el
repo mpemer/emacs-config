@@ -1,9 +1,13 @@
+
+
+
 ;; ORG-MODE CONFIG CHANGES
 
+;;; Code:
 ;; First make sure the packages are installed
 (let ((package-list '(
 		      org-alert
-;;		      org-beautify-theme		      
+;;		      org-beautify-theme
 		      org-ehtml
 		      org-jira
 		      org-pdfview
@@ -54,36 +58,30 @@
 	      (setq org-babel-clojure-backend 'cider))))
 
 (progn
-;;  (use-package ob-sh)
   (use-package ob-clojure)
-  (use-package ob-css)
   (use-package ob-emacs-lisp)
   (use-package ob-java)
-  (use-package ob-js)
   (use-package ob-lisp)
   (use-package ob-org)
-  (use-package ob-python)
-  (use-package ob-ruby)
-  (use-package ob-sass)
-  (use-package ob-sed)
   (use-package ob-shell)
-  (use-package ob-sql)  
-;;  (use-package ob-)
+  (use-package ob-sql)
+  ;;(use-package ob-sh)
+  ;;(use-package ob-css)
+  ;;(use-package ob-js)
+  ;;(use-package ob-python)
+  ;;(use-package ob-ruby)
+  ;;(use-package ob-sass)
+  ;;(use-package ob-sed)
+  ;;(use-package ob-)
 )
 
 (org-babel-do-load-languages
  'org-babel-load-languages '(
 			     (clojure . t)
-			     (css . t)
 			     (emacs-lisp . t)
 			     (java . t)
-			     (js . t)
 			     (lisp . t)
 			     (org . t)
-			     (python . t)
-			     (ruby . t)
-			     (sass . t)
-			     (sed . t)
 			     (shell . t)
 			     (sql . t)
 			     ))
@@ -141,7 +139,7 @@
 
 
 (defun my/reformat-for-scrum-notes ()
-  "Reformat org to confluence scrum notes"
+  "Reformat org to confluence scrum notes."
   (interactive)
   (goto-char 0)
   (replace-regexp "^- " "*# ")
@@ -155,7 +153,7 @@
   (replace-regexp "^h4. " "**** "))
 
 (defun my/to-scrum-notes ()
-  "Convert region to scrum notes format"
+  "Convert region to scrum notes format."
   (interactive)
   (org-confluence-export-as-confluence)
   (switch-to-buffer "*org CONFLUENCE Export*")
@@ -171,17 +169,17 @@
 (global-set-key (kbd "∑") 'my/to-scrum-notes)
 
 (defun todo-to-int (todo)
-  "Convert todo item to int value, for sorting"
+  "Convert TODO item to int value, for sorting."
     (first (-non-nil
             (mapcar (lambda (keywords)
                       (let ((todo-seq
                              (-map (lambda (x) (first (split-string  x "(")))
-                                   (rest keywords)))) 
+                                   (rest keywords))))
                         (cl-position-if (lambda (x) (string= x todo)) todo-seq)))
                     org-todo-keywords))))
 
 (defun my/org-sort-key ()
-  "Assign an integer sort value to org entries based on type, priority and date"
+  "Assign an integer sort value to org entries based on type, priority and date."
   (let* ((todo-max (apply #'max (mapcar #'length org-todo-keywords)))
          (todo (org-entry-get (point) "TODO"))
          (todo-int (if todo (todo-to-int todo) todo-max))
@@ -204,7 +202,7 @@
 
 
 (defun my/org-sort-entries ()
-  "Sort ORG entries according to my rules"
+  "Sort ORG entries according to my rules."
   (interactive)
   (org-sort-entries nil ?f #'my/org-sort-key))
 
@@ -213,24 +211,31 @@
 (setq org-directory "~/org")
 
 (defun mp-org-notes ()
+  "Open notes.org."
   (interactive)
   (find-file (concat org-directory "/notes.org")))
 (defun mp-org-plan ()
+  "Open plan.org."
   (interactive)
   (find-file (concat org-directory "/plan.org")))
 (defun mp-org-iteego ()
+  "Open iteego.org."
   (interactive)
   (find-file "~/iteego/org/iteego.org"))
 (defun mp-org-kohler ()
+  "Open kohler.org."
   (interactive)
   (find-file "~/kohler/org/kohler.org"))
 (defun mp-org-mercury ()
+  "Open mercury.org."
   (interactive)
   (find-file "~/mercury/org/mercury.org"))
 (defun mp-org-bookmarks ()
+  "Open bookmarks.org."
   (interactive)
   (find-file (concat org-directory "/bookmarks.org")))
 (defun mp-emacs ()
+  "Open .emacs."
   (interactive)
   (find-file "~/.emacs.d/config/.emacs"))
     
@@ -249,6 +254,7 @@
 (setq org-archive-location (concat "archive/%s::datetree/"))
 
 (defun my/org-home (filename)
+  "Concat whatever FILENAME to the org-home path."
   (concat "~/org/" filename))
 
 (setq prj-folders '("pemer" "mercury" "iteego" "kohler" "mrmaster" "personal"))
@@ -308,15 +314,47 @@
 ; Use the current window for indirect buffer display
 (setq org-indirect-buffer-display 'current-window)
 
+;; Adds a CLOSED property time stamp to the TODO entry if marked as done
+(setq org-log-done 'time)
+
 ;;;; END REFILE
+(defun cmp-date-property (prop)
+  "Compare two `org-mode' agenda entries, `A' and `B', by some date property.
+
+If a is before b, return -1. If a is after b, return 1. If they
+are equal return nil."
+  (lexical-let ((prop prop))
+  #'(lambda (a b)
+
+    (let* ((a-pos (get-text-property 0 'org-marker a))
+           (b-pos (get-text-property 0 'org-marker b))
+           (a-date (or (org-entry-get a-pos prop)
+                       (format "<%s>" (org-read-date t nil "now"))))
+           (b-date (or (org-entry-get b-pos prop)
+                       (format "<%s>" (org-read-date t nil "now"))))
+           (cmp (compare-strings a-date nil nil b-date nil nil))
+           )
+      (if (eq cmp t) nil (signum cmp))
+      ))))
+
+(add-to-list 'org-agenda-custom-commands
+             '("z" "Tasks Overview"
+               tags "+TODO=\"DONE\"+CLOSED>\"<-3d>\""
+               ((org-agenda-cmp-user-defined (cmp-date-property
+                                              "CLOSED"))
+                (org-agenda-sorting-strategy '(user-defined-up)))))
+
+
+
+
 
 (setq org-todo-keywords
-      (quote ((sequence "TODO(t)" "NEXT(n)" "IP(p)" "|" "DONE(d)")
+      (quote ((sequence "TODO(t)" "PLAN(p)" "IP(i)" "|" "DONE(d)")
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "MEETING" "EVENT"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "light gray" :weight bold)
-              ("NEXT" :foreground "light blue" :weight bold)
+              ("PLAN" :foreground "light blue" :weight bold)
               ("IP" :foreground "light blue" :weight bold)
               ("DONE" :foreground "forest green" :weight bold)
               ("WAITING" :foreground "orange" :weight bold)
@@ -326,18 +364,34 @@
 	      ("EVENT" :foreground "light blue" :weight bold))))
 
 (setq org-use-fast-todo-selection t)
-(setq org-treat-S-cursor-todo-selection-as-state-change nil)
+(setq org-treat-S-cursor-todo-selection-as-state-change t)
 
-(setq org-todo-state-tags-triggers
-      (quote (("CANCELLED" ("CANCELLED" . t))
-              ("WAITING" ("WAITING" . t))
-              ("HOLD" ("WAITING") ("HOLD" . t))
-              (done ("WAITING") ("HOLD"))
-              ("TODO" ("WAITING") ("IP") ("CANCELLED") ("HOLD"))
-              ("NEXT" ("WAITING") ("IP")("CANCELLED") ("HOLD"))
-              ("DONE" ("WAITING") ("IP")("CANCELLED") ("HOLD")))))
+;; (setq org-todo-state-tags-triggers
+;;       (quote (("CANCELLED" ("CANCELLED" . t))
+;;               ("WAITING" ("WAITING" . t))
+;;               ("HOLD" ("WAITING") ("HOLD" . t))
+;;               (done ("WAITING") ("HOLD"))
+;;               ("TODO" ("WAITING") ("IP") ("CANCELLED") ("HOLD"))
+;;               ("PLAN" ("WAITING") ("IP")("CANCELLED") ("HOLD"))
+;;               ("DONE" ("WAITING") ("IP")("CANCELLED") ("HOLD")))))
 
 
+(defun elisp-showdoc (f)
+  "Show docstring for F in notification area."
+  (interactive (list (thing-at-point 'symbol t)))
+  (message
+   "%s"
+   (let* ((doc-list      (split-string (documentation (intern f)) "\n"))
+          (number-lines  (min (- (floor (* max-mini-window-height (frame-height))) 2)
+                              (- (length doc-list) 2)))
+          (subset        (concatenate 'list
+                                      (last doc-list)
+                                      '("")
+                                      (subseq doc-list 0 number-lines)))
+          (pruned-subset (if (string-equal (car (last subset)) "")
+                             (butlast subset)
+                             subset)))
+     (mapconcat #'identity pruned-subset "\n"))))
 ;;;; AGENDA
 
 ;; Do not dim blocked tasks
@@ -347,7 +401,7 @@
 (setq org-agenda-compact-blocks t)
 
 (defun bh/org-auto-exclude-function (tag)
-  "Automatic task exclusion in the agenda with / RET"
+  "Automatic task exclusion in the agenda with TAG."
   (and (cond
         ((string= tag "hold")
          t))
@@ -390,10 +444,8 @@
   (setq org-src-tab-acts-natively t)
   (add-hook 'org-mode-hook (lambda ()
 			     (visual-line-mode)
-			     (flyspell-mode)
-			     (load-theme 'org-beautify))))
-
-;;(add-hook 'org-mode-hook (lambda () (load-theme 'org-beautify)))
+			     (flyspell-mode))))
+;;			     (load-theme 'org-beautify))))
 
 ;; By default, save openoffice exports as ms word documents
 (setq org-export-odt-preferred-output-format "docx")
@@ -467,4 +519,7 @@
 (setq org-gcal-client-id "931083343613-n93s4de581lin78uknno7fs15pkmevl1.apps.googleusercontent.com"
       org-gcal-client-secret "zuDwQKI-9b0g9-tidkgcYqsa"
       org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
+
+;;(setq org-log-done 'time)
+;;(setq org-log-done 'note)
 
