@@ -7,10 +7,10 @@
 ;; First make sure the packages are installed
 (let ((package-list '(
 		      org-alert
-;;		      org-beautify-theme
+		      ;;org-beautify-theme
 		      org-ehtml
 		      org-jira
-		      org-pdfview
+		      ;;org-pdfview
 		      )))
   (dolist (package package-list) (progn
 				   (ensure-package-installed package)
@@ -35,7 +35,7 @@
 				     :after ox))))
 
 
-(setq org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
+;;(setq org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
 
 (progn
   (require 'org-num)
@@ -337,12 +337,12 @@ are equal return nil."
       (if (eq cmp t) nil (signum cmp))
       ))))
 
-(add-to-list 'org-agenda-custom-commands
-             '("z" "Tasks Overview"
-               tags "+TODO=\"DONE\"+CLOSED>\"<-3d>\""
-               ((org-agenda-cmp-user-defined (cmp-date-property
-                                              "CLOSED"))
-                (org-agenda-sorting-strategy '(user-defined-up)))))
+;; (add-to-list 'org-agenda-custom-commands
+;;              '("z" "Tasks Overview"
+;;                tags "+TODO=\"DONE\"+CLOSED>\"<-3d>\""
+;;                ((org-agenda-cmp-user-defined (cmp-date-property
+;;                                               "CLOSED"))
+;;                 (org-agenda-sorting-strategy '(user-defined-up)))))
 
 
 
@@ -515,10 +515,10 @@ are equal return nil."
 
 
 
-(require 'org-gcal)
-(setq org-gcal-client-id "931083343613-n93s4de581lin78uknno7fs15pkmevl1.apps.googleusercontent.com"
-      org-gcal-client-secret "zuDwQKI-9b0g9-tidkgcYqsa"
-      org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
+;; (require 'org-gcal)
+;; (setq org-gcal-client-id "931083343613-n93s4de581lin78uknno7fs15pkmevl1.apps.googleusercontent.com"
+;;       org-gcal-client-secret "zuDwQKI-9b0g9-tidkgcYqsa"
+;;       org-gcal-file-alist '(("pemer.com_d6a79it0p9hrimh3mnvva1r3pg@group.calendar.google.com" .  "~/org/plan.org")))
 
 ;;(setq org-log-done 'time)
 ;;(setq org-log-done 'note)
