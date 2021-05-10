@@ -1,4 +1,5 @@
 
+(require 'org-agenda)
 
 
 ;; ORG-MODE CONFIG CHANGES
@@ -337,16 +338,6 @@ are equal return nil."
       (if (eq cmp t) nil (signum cmp))
       ))))
 
-;; (add-to-list 'org-agenda-custom-commands
-;;              '("z" "Tasks Overview"
-;;                tags "+TODO=\"DONE\"+CLOSED>\"<-3d>\""
-;;                ((org-agenda-cmp-user-defined (cmp-date-property
-;;                                               "CLOSED"))
-;;                 (org-agenda-sorting-strategy '(user-defined-up)))))
-
-
-
-
 
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "PLAN(p)" "IP(i)" "|" "DONE(d)")
@@ -393,6 +384,13 @@ are equal return nil."
                              subset)))
      (mapconcat #'identity pruned-subset "\n"))))
 ;;;; AGENDA
+
+;; Place tags close to the right-hand side of the window
+(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+(defun place-agenda-tags ()
+  "Put the agenda tags by the right border of the agenda window."
+  (setq org-agenda-tags-column (- 4 (window-width)))
+  (org-agenda-align-tags))
 
 ;; Do not dim blocked tasks
 (setq org-agenda-dim-blocked-tasks nil)
@@ -465,6 +463,26 @@ are equal return nil."
 ;; (add-hook 'focus-out-hook 
 ;;   (lambda () (progn 
 ;;     (setq org-tags-column (- 5 (window-body-width)))) (org-align-all-tags)))
+
+
+;;
+;; Add view to agenda that lists past two weeks
+;;
+;; (add-to-list 'org-agenda-custom-commands
+;;              '("l" "Review Log"
+;;                agenda ""
+;;                ((org-agenda-start-day "-7d")
+;;                 (org-agenda-span 35)
+;;                 (org-agenda-start-on-weekday 1)
+;; 		(org-agenda-log-mode 'closed))))
+
+
+(setq org-agenda-start-day "-7d"
+      org-agenda-span 35
+      org-agenda-start-on-weekday 1
+      org-agenda-log-mode 'closed)
+
+
 
 
 (setq org-crypt-key "1D151FF890EE620251BC79A4E594D6C2CC9E1BAA")
