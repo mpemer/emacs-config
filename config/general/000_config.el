@@ -12,6 +12,17 @@
 
 (require 'mydefs)
 
+(progn
+  (my/ensure-package-installed 'exec-path-from-shell)
+  (use-package exec-path-from-shell
+    :config
+    (when (or (daemonp)
+              (memq window-system '(mac ns x)))
+      (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+  (add-to-list 'exec-path-from-shell-variables var))
+      (exec-path-from-shell-initialize))))
+
+
 ;; Keep custom config under config directory (a git repo).
 ;; Entry point to config repo is general.el
 (progn (my/ensure-package-installed 'edit-server)
@@ -20,16 +31,6 @@
        (unless (server-running-p) (server-start))
        (edit-server-start))
 
-(provide '00_edit_server)
-;;; 00_edit_server.el ends here
-;;; Package --- Summary:
-
-;;; Commentary:
-
-;;; Code:
-
-;; Keep custom config under config directory (a git repo).
-;; Entry point to config repo is general.el
 (progn
   (my/ensure-package-installed 'multi-term)
   (use-package multi-term
@@ -46,17 +47,6 @@
 			(lambda ()
 			  (define-key term-raw-map (kbd "C-y") 'term-paste))))))
 
-(provide '012_multi_term)
-;;; 012_multi_term.el ends here
-;;; Package --- Summary:
-
-;;; Commentary:
-
-;;; Code:
-
-;; Keep custom config under config directory (a git repo).
-;; Entry point to config repo is general.el
-
 ;; expand-region
 ;; https://github.com/magnars/expand-region.el
 (progn
@@ -65,33 +55,12 @@
     :config (progn
 	      (global-set-key (kbd "C-=") 'er/expand-region))))
 
-(provide '034_expand_region)
-;;; 034_expand_region.el ends here
-;;; Package --- Summary:
-
-;;; Commentary:
-
-;;; Code:
-
-;; Keep custom config under config directory (a git repo).
-;; Entry point to config repo is general.el
-
 ;; powerline
 (progn
   (my/ensure-package-installed 'powerline)
   (use-package powerline
     :config (progn (powerline-default-theme))))
 
-(provide '035_powerline)
-;;; 035_powerline.el ends here
-
-;;; Package --- Summary:
-
-;;; Commentary:
-
-;;; Code:
-
-;; Alert when files have been externally modified
 (defun mp/check-external-modifications ()
   (if (verify-visited-file-modtime (current-buffer))
       (setq header-line-format nil)
@@ -99,14 +68,6 @@
 	(setq header-line-format (format "*** WARNING [%s] WARNING ***"
 					 (propertize "This file has been changed externally" 'face '(:foreground "#f92672")))))) ;;)
 (run-with-timer 0 2 'mp/check-external-modifications)
-;;
-(provide '090_check_external_modifications)
-;;; 090_check_external_modifications.el ends here
-;;; Package --- Summary:
-
-;;; Commentary:
-
-;;; Code:
 
 (defun mp/narrow-or-widen-dwim (p)
     "Works like distraction-free mode toggle. If the buffer is 
@@ -125,13 +86,7 @@ narrowed."
 	  (t (narrow-to-defun))))
 
 (global-set-key (kbd "C-x =") 'mp/narrow-or-widen-dwim)
-(provide '090_narrow_or_widen)
-;;; 090_narrow_or_widen.el ends here
-;;; Package --- Summary:
 
-;;; Commentary:
-
-;;; Code:
 
 (defun my/delete-old-backup-files ()
   (interactive)
