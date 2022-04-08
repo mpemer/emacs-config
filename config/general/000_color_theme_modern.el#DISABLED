@@ -1,3 +1,0 @@
-(progn
-  (ensure-package-installed 'color-theme-modern)
-  (use-package color-theme-modern))

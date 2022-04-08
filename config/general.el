@@ -1,110 +1,126 @@
-(setq package-user-dir "~/.emacs.d/elpa"
-      gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"
+;;; Package --- Summary:
+
+;;; Commentary:
+
+
+;;; Code:
+
+(require 'mydefs)
+
+(setq package-user-dir (concat user-emacs-directory "elpa")
       package-archives '(
 			 ("melpa" . "https://melpa.org/packages/")
 			 ("elpa" . "https://tromey.com/elpa/")
 			 ("gnu" . "https://elpa.gnu.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
 			 ("ox-odt" . "https://kjambunathan.github.io/elpa/")
 			 ))
-
-(defun ensure-package-installed (package)
-  (unless (package-installed-p package) (package-install package)))
 
 ;; make sure to have downloaded archive description.
 ;; Or use package-archive-contents as suggested by Nicolas Dudebout
 (setq package-check-signature nil)
+
 (package-initialize)
-(unless (file-exists-p package-user-dir) (package-refresh-contents))
-(ensure-package-installed 'use-package)
 
-(progn
-  (ensure-package-installed 'oauth2)
-  (use-package oauth2))
+;; Refresh packages every timeout-seconds (probably 24h)
+(let* ((ts-file (my/mkfpath package-user-dir ".last-refresh"))
+       (last-ts (if (file-exists-p ts-file) (my/read-integer ts-file) 0))
+       (timeout-seconds (* 24 60 60))
+       (now (time-convert nil 'integer)))
+  (when (> (- now last-ts) timeout-seconds)
+    (package-refresh-contents) ;; update packages
+    (with-temp-file ts-file ;; we did it, so update stored time stamp
+      (insert (format "%d\n" now)))))
 
-(progn
-  (ensure-package-installed 'flycheck)
-  (use-package flycheck))
+(my/ensure-package-installed 'quelpa)
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package quelpa
+  :config (progn
+	          (setq quelpa-upgrade-p t
+		              quelpa-self-upgrade-p nil)))
 
-(progn
-  (ensure-package-installed 'zoom-window)
-  (use-package zoom-window
-    :config
-    (global-set-key (kbd "C-x C-z") 'zoom-window-zoom)
-    (custom-set-variables
-     '(zoom-window-mode-line-color "DarkGreen")) ))
+(dolist (pkg (list 'use-package
+                   'oauth2
+                   'zoom-window
+                   'darkroom
+                   'queue
+                   'clipetty
+                   'graphviz-dot-mode
+                   'csv-mode
+                   'dedicated
+                   'neotree
+                   'gruber-darker-theme))
+  
+  (my/ensure-package-installed pkg))
 
 
-(progn
-  (ensure-package-installed 'flycheck-clj-kondo)
-  (use-package flycheck-clj-kondo
-    :config (require 'flycheck-clj-kondo)))
+
+(use-package oauth2)
+
+(use-package zoom-window
+  :config (progn (global-set-key (kbd "C-x C-z") 'zoom-window-zoom)
+                 (custom-set-variables
+                  '(zoom-window-mode-line-color "DarkGreen"))))
 
 (defun toggle-darkroom-mode ()
+  "Toggle mode to darkroom mode, to be invoked from some key combination."
   (interactive)
-  (darkroom-mode))
+  (darkroom-tentative-mode nil))
 
-(progn
-  (ensure-package-installed 'darkroom)
-  (use-package darkroom
-    :config
-    (progn
-      (setq darkroom-margins 0.15)
-      (global-set-key (kbd "C-c d") 'toggle-darkroom-mode))))
+(use-package darkroom
+  :config (progn
+            (setq darkroom-margins 0.15)
+            (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
+
+;; Send emacs kill ring to remote clipboard
+(use-package clipetty
+  :config (global-clipetty-mode))
+
+
+(add-to-list 'load-path (my/mkpath user-emacs-directory "org-mode" "lisp"))
+(add-to-list 'load-path (my/mkpath user-emacs-directory "org-contrib" "lisp"))
 
 (global-set-key (kbd "<C-f11>") 'toggle-frame-fullscreen)
 
-(progn
-  (ensure-package-installed 'default-text-scale)
-  (use-package default-text-scale))
+;; general, shared settings divided into separate files
+(let ((config-path (my/mkpath user-emacs-directory "config" "general")))
+  (when (file-exists-p config-path)
+    (add-to-list 'load-path config-path)
+    (dolist (file-name (directory-files config-path))
+	    (when (or (string-match-p "\.el$" file-name)
+		            (string-match-p "\.el.gpg$" file-name))
+        (let ((pkg (intern (file-name-base (file-name-base file-name)))))
+          (require pkg))))))
 
-(progn
-  (ensure-package-installed 'quelpa)
-  (use-package quelpa
-    :config (progn
-	      (setq quelpa-upgrade-p t
-		    quelpa-self-upgrade-p nil))))
-
-(ensure-package-installed 'queue)
-
-
-;; Send emacs kill ring to remote clipboard
-(progn
-  (ensure-package-installed 'clipetty)
-  (use-package clipetty
-    :config (global-clipetty-mode)))
-
-(add-to-list 'load-path "~/.emacs.d/config/")
-
-(let ((config-path "~/.emacs.d/config/general"))
-  (if (file-exists-p config-path)
-      (dolist (file-name (directory-files config-path))
-	(if (or (string-match-p "\.el$" file-name)
-		(string-match-p "\.el.gpg$" file-name))
-	    (load (concat config-path "/" file-name))))))
-
-(require 'color)
+;; User-specific settings (files containing secret things are pgp encrypted)
+(let ((user-config-path (my/mkpath user-emacs-directory "config" my/user)))
+  (when (file-exists-p user-config-path)
+    (add-to-list 'load-path user-config-path)
+    (dolist (file-name (directory-files user-config-path))
+	    (if (or (string-match-p "\.el$" file-name)
+		          (string-match-p "\.el.gpg$" file-name))
+          (let ((pkg (intern (file-name-base (file-name-base file-name)))))
+            (require pkg))))))
 
 
-(progn
-  (ensure-package-installed 'graphviz-dot-mode)
-  (use-package graphviz-dot-mode
-    :config (setq graphviz-dot-indent-width 2)))
-
+(use-package color)
+(use-package graphviz-dot-mode :config (setq graphviz-dot-indent-width 2))
+(use-package csv-mode)
+(use-package dedicated)
+(use-package neotree :config (setq neo-window-fixed-size nil))
+(use-package gruber-darker-theme :config (global-clipetty-mode))
 
 
 ;; I like to copy stuff from web pages and make org mode documents out of them.
 (defun html-to-org-region (&optional b e)
+  "Convert HTML region to ORG format (standard input B and E)."
   (interactive "r")
   (shell-command-on-region b e "pandoc -f html -t markdown_github-raw_html | pandoc -f markdown -t org" (current-buffer) t))
 ;;  (comment-region (mark) (point)))
 (global-set-key (kbd "C-c C-i C-o") 'html-to-org-region)
 
 ;; Navigation
-(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
-(global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
+;;(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
+;;(global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
 ;; Remap the window management keys to something more manageable
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
@@ -113,73 +129,20 @@
 
 ;; Text scaling
 (global-set-key (kbd "C-=") 'text-scale-increase)
-(global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
+(global-set-key (kbd "C-+") 'font-size-increase)
+(global-set-key (kbd "C-_") 'font-size-decrease)
+(global-set-key (kbd "C-)") 'font-size-default)
 
 ;; Enable reopening of recent files via C-x C-r
 (recentf-mode 1)
 (setq recentf-max-menu-items 50)
 (global-set-key (kbd "C-x C-r") 'recentf-open-files)
 
-;; General
-(setq visible-bell nil
-      ring-bell-function 'ignore
-      inhibit-startup-message t
-      indent-tabs-mode nil
-      tab-width 2
-      column-number-mode t
-      visual-line-mode t
-      display-time-day-and-date t
-      display-time-24hr-format t
-      backup-by-copying t      ; don't clobber symlinks
-      backup-directory-alist '(("." . "~/.emacs.d/tmp"))    ; don't litter my fs tree
-      auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
-      delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 2
-      version-control t       ; use versioned backups
-      create-lockfiles nil
-      scroll-margin 2
-      scroll-conservatively 100000
-      scroll-preserve-screen-position nil
-      scroll-error-top-bottom t
-      mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil))
-      mouse-wheel-progressive-speed nil
-      mouse-wheel-progressive-speed 1 ;don't accelerate scrolling
-      mouse-wheel-follow-mouse 't ;scroll window under mouse
-      scroll-step 2) ;keyboard scroll one line at a time
-;;      epg-gpg-program "gpg")
-
-(setq epa-pinentry-mode 'loopback)
-;(pinentry-start)
-
 (setq-default abbrev-mode t)
 (read-abbrev-file "~/.emacs.d/config/abbrev_defs")
 (setq save-abbrevs t)
 
-;; Increase minibuffer font size
-(dolist
-    (buf (list " *Minibuf-0*" " *Minibuf-1*" " *Echo Area 0*" " *Echo Area 1*" "*Quail Completions*"))
-  (when (get-buffer buf)
-    (with-current-buffer buf
-      (setq-local face-remapping-alist '((default (:height 1.2)))))))
-
-
-(defun toggle-maximize-buffer () "Maximize buffer"
-  (interactive)
-  (if (= 1 (length (window-list)))
-    (jump-to-register '_)
-    (progn
-      (set-register '_ (list (current-window-configuration)))
-      (delete-other-windows))))
-
-;; Bind it to a key.
-(global-set-key [(super shift return)] 'toggle-maximize-buffer)
-
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(delete-selection-mode 1)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 (put 'scroll-left 'disabled nil)
@@ -187,7 +150,8 @@
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
 
-(progn
-  (ensure-package-installed 'gruber-darker-theme)
-  (use-package gruber-darker-theme
-    :config (global-clipetty-mode)))
+(winner-mode 1)
+
+
+(provide 'general)
+;;; general.el ends here
