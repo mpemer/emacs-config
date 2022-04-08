@@ -1,7 +1,0 @@
-(progn
-  (ensure-package-installed 'sublime-themes)
-  (use-package sublime-themes))
-
-(progn
-  (ensure-package-installed 'org-beautify-theme)
-  (use-package org-beautify-theme))

@@ -1,4 +1,0 @@
-(progn
-  (ensure-package-installed 'wgrep)
-  (use-package wgrep))
-

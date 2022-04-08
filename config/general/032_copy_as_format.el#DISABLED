@@ -1,4 +1,0 @@
-(progn
-  (ensure-package-installed 'copy-as-format)
-  (use-package copy-as-format))
-

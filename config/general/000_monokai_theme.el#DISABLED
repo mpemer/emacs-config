@@ -1,3 +1,0 @@
-(progn
-  (ensure-package-installed 'monokai-theme)
-  (use-package monokai-theme))

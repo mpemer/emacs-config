@@ -1,7 +1,0 @@
-;; neotree - tree file view
-(progn
-  (ensure-package-installed 'neotree)
-  (use-package neotree
-    :config (progn
-	      (global-set-key [f12] 'neotree-toggle))))
-

@@ -1,5 +1,0 @@
-(progn (ensure-package-installed 'edit-server)
-       (use-package edit-server)
-       (require 'server)
-       (unless (server-running-p) (server-start))
-       (edit-server-start))
