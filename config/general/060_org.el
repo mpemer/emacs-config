@@ -6,7 +6,12 @@
 ;;; Code:
 
 (require 'mydefs)
+
+(add-to-list 'load-path (my/mkpath user-emacs-directory "org-mode" "lisp"))
+(add-to-list 'load-path (my/mkpath user-emacs-directory "org-contrib" "lisp"))
+
 (require 'org-agenda)
+
 
 (let ((package-list '(org-alert
 		                  ;;org-beautify-theme
@@ -316,12 +321,10 @@ are equal return nil."
 ;;;; END AGENDA
 
 
-
 (setq org-agenda-start-day "-7d"
       org-agenda-span 35
       org-agenda-start-on-weekday 1
       org-agenda-log-mode 'closed)
-
 
 
 ; Allow setting single tags without the menu
@@ -348,6 +351,15 @@ are equal return nil."
 (advice-add 'org-refile :after
 	    (lambda (&rest _)
 	      (org-save-all-org-buffers)))
+
+;; I like to copy stuff from web pages and make org mode documents out of them.
+(defun html-to-org-region (&optional b e)
+  "Convert HTML region to ORG format (standard input B and E)."
+  (interactive "r")
+  (shell-command-on-region b e "pandoc -f html -t markdown_github-raw_html | pandoc -f markdown -t org" (current-buffer) t))
+;;  (comment-region (mark) (point)))
+(global-set-key (kbd "C-c C-i C-o") 'html-to-org-region)
+
 
 ;; (add-hook 'focus-in-hook 
 ;;   (lambda () (progn 
