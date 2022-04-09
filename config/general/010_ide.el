@@ -75,6 +75,13 @@
   (setq lsp-keymap-prefix "C-c l")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (clojure-mode . lsp)
+         (clojurescript-mode . lsp)
+         (clojurec-mode . lsp)
+         (yaml-mode . lsp)
+         (dockerfile-mode . lsp)
+         (html-mode . lsp)
+         (xml-mode . lsp)
+         (json-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
@@ -88,7 +95,7 @@
 (use-package lsp-treemacs :commands lsp-treemacs-errors-list)
 
 ;; optionally if you want to use debugger
-(use-package dap-mode)
+;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
 
 ;; optional if you want which-key integration
@@ -97,15 +104,15 @@
     (which-key-mode))
 
 
-(add-hook 'clojure-mode-hook 'lsp)
-(add-hook 'clojurescript-mode-hook 'lsp)
-(add-hook 'clojurec-mode-hook 'lsp)
+;; (add-hook 'clojure-mode-hook 'lsp)
+;; (add-hook 'clojurescript-mode-hook 'lsp)
+;; (add-hook 'clojurec-mode-hook 'lsp)
 
-(add-hook 'yaml-mode-hook 'lsp)
-(add-hook 'dockerfile-mode-hook 'lsp)
-(add-hook 'html-mode-hook 'lsp)
-(add-hook 'xml-mode-hook 'lsp)
-(add-hook 'json-mode-hook 'lsp)
+;; (add-hook 'yaml-mode-hook 'lsp)
+;; (add-hook 'dockerfile-mode-hook 'lsp)
+;; (add-hook 'html-mode-hook 'lsp)
+;; (add-hook 'xml-mode-hook 'lsp)
+;; (add-hook 'json-mode-hook 'lsp)
 
 ;; enable for all programming (not user friendly)
 ;;(add-hook 'prog-mode-hook 'lsp)
@@ -116,8 +123,8 @@
       company-minimum-prefix-length 1
       lsp-lens-enable t
       lsp-signature-auto-activate nil
-      ; lsp-enable-indentation nil ; uncomment to use cider indentation instead of lsp
-      ; lsp-enable-completion-at-point nil ; uncomment to use cider completion instead of lsp
+      lsp-enable-indentation nil ; uncomment to use cider indentation instead of lsp
+      lsp-enable-completion-at-point nil ; uncomment to use cider completion instead of lsp
       )
 
 (provide '010_ide)
