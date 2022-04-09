@@ -14,7 +14,12 @@
                    'graphviz-dot-mode
                    'dedicated
                    'neotree
-                   'gruber-darker-theme))
+                   
+                   ;;'gruber-darker-theme
+                   ;;'monokai-theme
+                   'doom-themes
+                   
+                   ))
   (my/ensure-package-installed pkg))
 
 
