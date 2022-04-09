@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(require 'mydefs)
+(require 'defs)
 
 ;; Markdown mode
 (progn

@@ -4,7 +4,7 @@
 ;;; Commentary:
 
 ;;; Code:
-(require 'mydefs)
+(require 'defs)
 
 (setq user-full-name "Marcus Pemer")
 (setq user-mail-address "marcus@pemer.com")

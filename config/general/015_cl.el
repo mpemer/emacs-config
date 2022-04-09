@@ -6,7 +6,7 @@
 
 ;; cl - common lisp development settings
 
-(require 'mydefs)
+(require 'defs)
 
 (my/ensure-package-installed 'slime)
 (use-package slime

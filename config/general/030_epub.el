@@ -4,7 +4,7 @@
 ;;; Commentary:
 
 ;;; Code:
-(require 'mydefs)
+(require 'defs)
 
 ;; EPUB Reader
 (my/ensure-package-installed 'nov)

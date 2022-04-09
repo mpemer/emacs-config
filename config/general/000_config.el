@@ -10,7 +10,7 @@
 
 ;;; Code:
 
-(require 'mydefs)
+(require 'defs)
 
 (progn
   (my/ensure-package-installed 'exec-path-from-shell)

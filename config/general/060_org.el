@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(require 'mydefs)
+(require 'defs)
 
 (add-to-list 'load-path (my/mkpath user-emacs-directory "org-mode" "lisp"))
 (add-to-list 'load-path (my/mkpath user-emacs-directory "org-contrib" "lisp"))

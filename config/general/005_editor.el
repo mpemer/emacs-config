@@ -4,7 +4,7 @@
 
 ;;; Code:
 
-(require 'mydefs)
+(require 'defs)
 
 (dolist (pkg (list 'oauth2
                    'queue

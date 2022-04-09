@@ -5,7 +5,7 @@
 
 ;;; Code:
 
-(require 'mydefs)
+(require 'defs)
 
 (setq package-user-dir (concat user-emacs-directory "elpa")
       package-archives '(

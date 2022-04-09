@@ -65,5 +65,5 @@ by using nxml's indentation rules."
       (indent-region begin end))
     (message "Ah, much better!"))
 
-(provide 'mydefs)
-;;; mydefs.el ends here
+(provide 'defs)
+;;; defs.el ends here
