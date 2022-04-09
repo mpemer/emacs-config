@@ -14,8 +14,7 @@
 ;; Entry poinqt to config repo is general.el
 (add-to-list 'load-path (concat user-emacs-directory "config"))
 
-(require 'mydefs)
-
+(require 'defs)
 (require 'general)
 
 
