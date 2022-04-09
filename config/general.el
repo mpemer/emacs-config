@@ -33,13 +33,13 @@
 
 (my/ensure-package-installed 'quelpa)
 
+(dolist (pkg (list 'use-package))
+  (my/ensure-package-installed pkg))
+
 (use-package quelpa
   :config (progn
 	          (setq quelpa-upgrade-p t
 		              quelpa-self-upgrade-p nil)))
-
-(dolist (pkg (list 'use-package))
-  (my/ensure-package-installed pkg))
 
 
 ;; general, shared settings divided into separate files
