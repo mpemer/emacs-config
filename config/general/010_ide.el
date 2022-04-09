@@ -101,6 +101,15 @@
 (add-hook 'clojurescript-mode-hook 'lsp)
 (add-hook 'clojurec-mode-hook 'lsp)
 
+(add-hook 'yaml-mode-hook 'lsp)
+(add-hook 'dockerfile-mode-hook 'lsp)
+(add-hook 'html-mode-hook 'lsp)
+(add-hook 'xml-mode-hook 'lsp)
+(add-hook 'json-mode-hook 'lsp)
+
+;; enable for all programming (not user friendly)
+;;(add-hook 'prog-mode-hook 'lsp)
+
 (setq gc-cons-threshold (* 100 1024 1024)
       read-process-output-max (* 1024 1024)
       treemacs-space-between-root-nodes nil
