@@ -34,7 +34,8 @@
  '(compilation-message-face 'default)
  '(create-lockfiles nil)
  '(custom-enabled-themes '(doom-old-hope))
- '(custom-safe-themes '(default))
+ '(custom-safe-themes
+   '("850bb46cc41d8a28669f78b98db04a46053eca663db71a001b40288a9b36796c" default))
  '(debug-on-quit nil)
  '(delete-old-versions t)
  '(delete-selection-mode t)
@@ -70,7 +71,7 @@
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(objed-cursor-color "#CC6666")
  '(package-selected-packages
-   '(yasnippet company which-key dap-mode lsp-ui lsp-mode doom-themes all-the-icons neotree dedicated exec-path-from-shell slime ledger zoom-window writeroom-mode websocket w3m use-package sublime-themes request-deferred quelpa powerline persist pdf-tools pandoc-mode pandoc ox-twbs ox-slack ox-pandoc ox-odt ox-minutes ox-jira ox-hugo ox-epub ox-clip ox-asciidoc org-jira org-ehtml org-alert oauth2 nov multi-term mu4e-views monokai-theme markdown-mode magit kubernetes k8s-mode jira-markup-mode ivy highlight-indent-guides gruber-darker-theme groovy-mode graphviz-dot-mode flycheck-clj-kondo expand-region edit-server dockerfile-mode default-text-scale dash-functional darkroom csv-mode clipetty circe cider bbdb-vcard bbdb-ext bbdb-csv-import ace-window))
+   '(ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa slime))
  '(pdf-view-midnight-colors (cons "#F8F8F0" "#5a5475"))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")

@@ -14,12 +14,8 @@
                    'graphviz-dot-mode
                    'dedicated
                    'neotree
-                   
-                   ;;'gruber-darker-theme
-                   ;;'monokai-theme
                    'all-the-icons
                    'doom-themes
-                   
                    ))
   (my/ensure-package-installed pkg))
 
@@ -72,7 +68,6 @@
 (use-package graphviz-dot-mode :config (setq graphviz-dot-indent-width 2))
 (use-package dedicated)
 (use-package neotree :config (setq neo-window-fixed-size nil))
-(use-package gruber-darker-theme :config (global-clipetty-mode))
 
 
 ;; Navigation
