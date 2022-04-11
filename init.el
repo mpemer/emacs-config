@@ -33,9 +33,9 @@
  '(column-number-mode t)
  '(compilation-message-face 'default)
  '(create-lockfiles nil)
- '(custom-enabled-themes '(doom-old-hope))
+ '(custom-enabled-themes '(org-beautify doom-old-hope))
  '(custom-safe-themes
-   '("850bb46cc41d8a28669f78b98db04a46053eca663db71a001b40288a9b36796c" default))
+   '("9685cefcb4efd32520b899a34925c476e7920725c8d1f660e7336f37d6d95764" "850bb46cc41d8a28669f78b98db04a46053eca663db71a001b40288a9b36796c" default))
  '(debug-on-quit nil)
  '(delete-old-versions t)
  '(delete-selection-mode t)
@@ -60,6 +60,7 @@
  '(horizontal-scroll-bar-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
+ '(ispell-dictionary nil)
  '(jdee-db-active-breakpoint-face-colors (cons "#464258" "#C5A3FF"))
  '(jdee-db-requested-breakpoint-face-colors (cons "#464258" "#C2FFDF"))
  '(jdee-db-spec-breakpoint-face-colors (cons "#464258" "#656565"))
@@ -71,7 +72,7 @@
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(objed-cursor-color "#CC6666")
  '(package-selected-packages
-   '(ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa slime))
+   '(org-beautify-theme ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa slime))
  '(pdf-view-midnight-colors (cons "#F8F8F0" "#5a5475"))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")

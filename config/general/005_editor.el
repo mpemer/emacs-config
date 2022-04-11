@@ -16,6 +16,7 @@
                    'neotree
                    'all-the-icons
                    'doom-themes
+                   'org-beautify-theme
                    ))
   (my/ensure-package-installed pkg))
 
@@ -39,6 +40,7 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
 
+(use-package org-beautify-theme)
 
 (use-package oauth2)
 
