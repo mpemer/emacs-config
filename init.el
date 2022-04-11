@@ -135,6 +135,7 @@
  '(org-level-1 ((t (:inherit outline-1 :extend nil :foreground "#ccbbaa")))))
 
 (set-face-attribute 'default nil :family (if (eq system-type 'darwin) "Menlo" "DejaVu Sans Mono"))
+(set-face-attribute 'default nil :height (if (eq system-type 'darwin) 140 120))
 
 (provide '.emacs)
 ;;; .emacs ends here
