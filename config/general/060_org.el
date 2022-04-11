@@ -17,6 +17,7 @@
 		                  ;;org-beautify-theme
 		                  org-ehtml
 		                  org-jira
+                      org-bullets
 		                  ;;org-pdfview
 		                  )))
   (dolist (package package-list)
@@ -40,6 +41,8 @@
 			(use-package package
 				:ensure t
 				:after ox))))
+
+(use-package org-bullets)
 
 (progn
   (require 'org-num)

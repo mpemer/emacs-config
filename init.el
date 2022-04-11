@@ -33,7 +33,7 @@
  '(column-number-mode t)
  '(compilation-message-face 'default)
  '(create-lockfiles nil)
- '(custom-enabled-themes '(org-beautify doom-old-hope))
+ '(custom-enabled-themes '(doom-old-hope org-beautify))
  '(custom-safe-themes
    '("9685cefcb4efd32520b899a34925c476e7920725c8d1f660e7336f37d6d95764" "850bb46cc41d8a28669f78b98db04a46053eca663db71a001b40288a9b36796c" default))
  '(debug-on-quit nil)
@@ -72,7 +72,7 @@
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(objed-cursor-color "#CC6666")
  '(package-selected-packages
-   '(org-beautify-theme ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa slime))
+   '(org-bullets org-beautify-theme ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa slime))
  '(pdf-view-midnight-colors (cons "#F8F8F0" "#5a5475"))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
@@ -133,10 +133,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "#000000" :foreground "#cbccd1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Monospace"))))
- '(org-level-1 ((t (:inherit outline-1 :extend nil :foreground "#ccbbaa")))))
+ '(org-document-title ((t (:inherit org-level-1 :foreground "#ee7b29" :box (:line-width 5 :color "#000000") :underline nil :height 2.0))))
+ '(org-level-1 ((t (:inherit outline-1 :extend nil :foreground "#ccbbaa" :slant normal :weight normal :height 1.5 :width normal :foundry "nil" :family "Lucida Grande"))))
+ '(org-level-2 ((t (:inherit default :extend nil :foreground "#cbccd1" :slant normal :weight normal :height 1.25 :width normal :foundry "nil" :family "Lucida Grande"))))
+ '(org-level-3 ((t (:inherit default :extend nil :foreground "#cbccd1")))))
 
 (set-face-attribute 'default nil :family (if (eq system-type 'darwin) "Menlo" "DejaVu Sans Mono"))
 (set-face-attribute 'default nil :height (if (eq system-type 'darwin) 140 120))
+
+(dolist (face '(org-level-1 org-level-2 org-level-3))
+  (set-face-attribute face nil :box nil))
 
 (provide '.emacs)
 ;;; .emacs ends here
