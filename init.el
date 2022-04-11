@@ -17,6 +17,7 @@
 (require 'defs)
 (require 'general)
 
+(setq backup-directory-alist (list (cons "." (concat user-emacs-directory "tmp"))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -29,13 +30,11 @@
    ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
  '(auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
  '(backup-by-copying t)
- '(backup-directory-alist '(("." . (concat user-emacs-directory "tmp"))))
  '(column-number-mode t)
  '(compilation-message-face 'default)
  '(create-lockfiles nil)
  '(custom-enabled-themes '(doom-old-hope))
- '(custom-safe-themes
-   '(default))
+ '(custom-safe-themes '(default))
  '(debug-on-quit nil)
  '(delete-old-versions t)
  '(delete-selection-mode t)
@@ -70,14 +69,15 @@
  '(mouse-wheel-progressive-speed 1)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(objed-cursor-color "#CC6666")
- ;;'(package-selected-packages
- ;  '(yasnippet all-the-icons doom-themes twilight-theme klere-theme exec-path-from-shell org-agenda lsp-treemacs 'use-package lsp-mode company burly neotree dedicated sticky-windows gruber-darker-theme csv-mode graphviz-dot-mode zoom-window ox-hugo org-beautify-theme sublime-themes monokai-theme ivy mu4e-views mu4e flycheck-clj-kondo darkroom org-num w3m clipetty ddg circe lui websocket org-gcal oauth2 default-text-scale org-ehtml ox-twbs ox-minutes ox-epub ox-clip ox-asciidoc ox-pandoc ox-jira ox-slack org-alert org-pdfview org-jira ox-odt highlight-indent-guides multi-term dash-functional ox-confluence htmlize ox-md ox-markdown ob-clojure expand-region powerline writeroom-mode pandoc pandoc-mode groovy-mode kubernetes k8s-mode dockerfile-mode nov markdown-mode jira-markup-mode yaml-mode cider magit ace-window bbdb-vcard bbdb-csv-import bbdb-ext bbdb edit-server quelpa use-package slime))
+ '(package-selected-packages
+   '(yasnippet company which-key dap-mode lsp-ui lsp-mode doom-themes all-the-icons neotree dedicated exec-path-from-shell slime ledger zoom-window writeroom-mode websocket w3m use-package sublime-themes request-deferred quelpa powerline persist pdf-tools pandoc-mode pandoc ox-twbs ox-slack ox-pandoc ox-odt ox-minutes ox-jira ox-hugo ox-epub ox-clip ox-asciidoc org-jira org-ehtml org-alert oauth2 nov multi-term mu4e-views monokai-theme markdown-mode magit kubernetes k8s-mode jira-markup-mode ivy highlight-indent-guides gruber-darker-theme groovy-mode graphviz-dot-mode flycheck-clj-kondo expand-region edit-server dockerfile-mode default-text-scale dash-functional darkroom csv-mode clipetty circe cider bbdb-vcard bbdb-ext bbdb-csv-import ace-window))
  '(pdf-view-midnight-colors (cons "#F8F8F0" "#5a5475"))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(ring-bell-function 'ignore)
  '(rustic-ansi-faces
    ["#5a5475" "#CC6666" "#C2FFDF" "#FFEA00" "#55b3cc" "#FFB8D1" "#96CBFE" "#F8F8F0"])
+ '(safe-local-variable-values '((auto-revert-mode . 1)))
  '(scroll-bar-mode nil)
  '(scroll-conservatively 100000)
  '(scroll-error-top-bottom t)
@@ -131,5 +131,5 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#000000" :foreground "#cbccd1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "nil" :family "Menlo"))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#000000" :foreground "#cbccd1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 140 :width normal :foundry "Bits" :family "DejaVu Sans Mono"))))
  '(org-level-1 ((t (:inherit outline-1 :extend nil :foreground "#ccbbaa")))))
