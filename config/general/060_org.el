@@ -14,16 +14,16 @@
 
 
 (let ((package-list '(org-alert
-		                  ;;org-beautify-theme
-		                  org-ehtml
-		                  org-jira
+		      org-ehtml
+		      org-jira
                       org-bullets
-		                  ;;org-pdfview
-		                  )))
+		      ;;org-pdfview
+                      ;;org-beautify-theme
+		      )))
   (dolist (package package-list)
     (progn
-			(my/ensure-package-installed package)
-			(use-package package))))
+      (my/ensure-package-installed package)
+      (use-package package))))
 
 (let ((package-list '(ox-pandoc ;; https://github.com/kawabata/ox-pandoc
 		                  ox-asciidoc
@@ -42,6 +42,7 @@
 				:ensure t
 				:after ox))))
 
+;;(use-package org-beautify-theme)
 (use-package org-bullets
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
