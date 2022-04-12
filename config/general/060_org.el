@@ -42,11 +42,12 @@
 				:ensure t
 				:after ox))))
 
-(use-package org-bullets)
+(use-package org-bullets
+  :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-(progn
-  (require 'org-num)
-  (add-hook 'org-mode-hook #'org-num-mode))
+;;(progn
+;;  (require 'org-num)
+;;  (add-hook 'org-mode-hook #'org-num-mode))
 
 
 ;; ob-clojure
