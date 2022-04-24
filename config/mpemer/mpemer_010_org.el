@@ -8,6 +8,7 @@
 ;; ORG-MODE CONFIG CHANGES
 
 ;;; Code:
+(require 'defs)
 
 (defun my/reformat-for-scrum-notes ()
   "Reformat org to confluence scrum notes."
@@ -77,8 +78,9 @@
 (global-set-key (kbd "C-c om") 'mp-org-mercury)
 (global-set-key (kbd "C-c ob") 'mp-org-bookmarks)
 
+
 ;; By default, archive into the same file name under archive subfolder, but fold items into datetree
-(setq org-archive-location (concat "archive/%s::datetree/"))
+(setq org-archive-location (my/mkpath "archive" "%s::datetree"))
 
 (defun my/org-home (filename)
   "Concat whatever FILENAME to the org-home path."
@@ -97,24 +99,14 @@
                             ;;("@errand" . ?e)
                             ;;("@office" . ?o)
                             ;;("@home" . ?H)
-                            
-                            ("waiting" . ?w)
-                            ("ip" . ?p)
-                            ("crypt" . ?c)
-                            ("hold" . ?h)
-                            ("note" . ?n)
-			                      ("iteego" . ?I)
-			                      ("kohler" . ?K)
-			                      ("mrmaster" . ?M)
-                            ("personal" . ?P)
-                            ("ratum" . ?R)
-                            ("org" . ?O)
-                            ("cancel" . ?C)
-                            ("flag" . ??)
+			                      ("iteego"   . ?i)
+			                      ("kohler"   . ?k)
+			                      ("mrmaster" . ?m)
+                            ("pemer"    . ?p)
+                            ("personal" . ?f)
+                            ("flag"     . ??)
 			                      (:endgroup))))
 
-
-(setq org-crypt-key "1D151FF890EE620251BC79A4E594D6C2CC9E1BAA")
 
 (setq org-feed-alist
       '(("Slashdot"
