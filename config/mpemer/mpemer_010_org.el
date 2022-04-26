@@ -40,7 +40,7 @@
 ;; right-alt+w
 (global-set-key (kbd "∑") 'my/to-scrum-notes)
 
-(setq org-directory "~/org")
+(setq org-directory (my/mkpath my/home "org"))
 
 (defun mp-org-notes ()
   "Open notes.org."

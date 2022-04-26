@@ -27,6 +27,7 @@
  gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (defvar my/user (getenv "USER"))
+(defvar my/home (getenv "HOME"))
 
 (defun my/mkfpath (&rest segs)
   "Combine string segments SEGS into file path."
