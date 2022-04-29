@@ -15,7 +15,7 @@
 
 (let ((package-list '(org-alert   ;; https://github.com/spegoraro/org-alert
 		                  org-bullets ;; https://github.com/sabof/org-bullets
-                      org-gcal    ;; https://github.com/kidd/org-gcal.el
+                      org-caldav  ;; https://github.com/dengste/org-caldav
 		                  )))
   (dolist (package package-list)
     (progn

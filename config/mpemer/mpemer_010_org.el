@@ -111,7 +111,10 @@
 (setq org-feed-alist
       '(("Slashdot"
          "http://rss.slashdot.org/Slashdot/slashdot"
-         "~/txt/org/feeds.org" "Slashdot Entries")))
+         "~/org/feeds.org" "Slashdot")
+        ("NYT"
+         "http://rss.art19.com/the-daily"
+         "~/org/feeds.org" "NYT")))
 
 (provide 'mpemer_010_org)
 ;;; mpemer_010_org.el ends here
