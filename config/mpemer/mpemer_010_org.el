@@ -94,7 +94,7 @@
       org-icalendad-timezone "Europe/Wien")
 
 
-                                        ; Tags with fast selection keys
+;; Tags with fast selection keys
 (setq org-tag-alist (quote ((:startgroup)
                             ;;("@errand" . ?e)
                             ;;("@office" . ?o)
@@ -105,8 +105,21 @@
                             ("pemer"    . ?p)
                             ("personal" . ?f)
                             ("flag"     . ??)
-			                      (:endgroup))))
+                            (:endgroup))))
 
+
+
+(defun my/org-caldav-sync ()
+  "syncing org-caldav with async."
+  (interactive)
+  (org-caldav-sync)
+  (let ((old-buffer (current-buffer)))
+    (dolist (b '("plan.org" "personal.org" "family.org" "iteego.org"))
+      (switch-to-buffer b)
+      (when (buffer-modified-p) (save-buffer)))
+    (switch-to-buffer old-buffer)))
+
+(global-set-key "\C-cs" 'my/org-caldav-sync)
 
 (setq org-feed-alist
       '(("Slashdot"
