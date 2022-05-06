@@ -81,6 +81,7 @@
  '(mouse-wheel-progressive-speed 1)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(org-caldav-save-directory "~/org/")
+ '(org-icalendar-timezone "CEST")
  '(package-selected-packages
    '(async emacs-async org-caldav org-gcal org-bullets ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa slime))
  '(pos-tip-background-color "#FFFACE")

@@ -195,13 +195,13 @@
 
 ;; (global-set-key (kbd "C-c os") 'my/org-sort-entries)
 
-;; (setq org-capture-templates
-;;       (quote (("t" "TODO" entry (file+headline "~/org/notes.org" "Tasks")
-;; 	       "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\nDEADLINE: %t\nSCHEDULED: \n")
-;; 	      ("n" "Note" entry (file+headline "~/org/notes.org" "Notes")
-;; 	       "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-;; 	      ("m" "Meeting" entry (file+headlines "~/org/notes.org" "Meetings")
-;; 	       "* Meeting with %?\n:PROPERTIES:\n:CREATED: %U\n:SCHEDULED: %t\n:END:\n"))))
+(setq org-capture-templates
+      (quote (("t" "Task" entry (file "~/org/notes.org")
+ 	             "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\nDEADLINE: %t\nSCHEDULED: \n")
+ 	            ("n" "Note" entry (file "~/org/notes.org")
+ 	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+ 	            ("m" "Meeting" entry (file+headline "~/org/notes.org" "Meetings")
+ 	             "* MEETING with %?\n:PROPERTIES:\n:CREATED: %U\n:SCHEDULED: %t\n:END:\n"))))
 
 ;;;; REFILE
 
