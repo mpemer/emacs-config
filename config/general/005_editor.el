@@ -57,8 +57,8 @@
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
 
 ;; Text scaling
-(global-set-key (kbd "S-C-=") 'text-scale-increase)
-(global-set-key (kbd "S-C--") 'text-scale-decrease)
+(global-set-key (kbd "C-}") 'text-scale-increase)
+(global-set-key (kbd "C-{") 'text-scale-decrease)
 ;;(global-set-key (kbd "C-+") 'font-size-increase)
 ;;(global-set-key (kbd "C-_") 'font-size-decrease)
 ;;(global-set-key (kbd "C-)") 'font-size-default)
