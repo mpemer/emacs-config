@@ -374,5 +374,42 @@
 ;;  (comment-region (mark) (point)))
 (global-set-key (kbd "C-c C-i C-o") 'html-to-org-region)
 
+
+
+;;
+;; Inject logic that adds .org extenions to path of org file links that have no suffix,
+;; but where the target file exists
+;;
+(defun org-link-open-as-file (path arg)
+  "Pretend PATH is a file name and open it.
+
+According to \"file\"-link syntax, PATH may include additional
+search options, separated from the file name with \"::\".
+
+This function is meant to be used as a possible tool for
+`:follow' property in `org-link-parameters'."
+  (let* ((option (and (string-match "::\\(.*\\)\\'" path)
+		                  (match-string 1 path)))
+	       (file-name (if (not option) path
+		                  (substring path 0 (match-beginning 0))))
+         (org-file-name (concat (string-trim-right file-name "\\.") ".org"))
+         (alt-file-name (if (and (= 0 (length (file-name-extension file-name)))
+                                 (not (file-exists-p file-name)))
+;;                                 (file-exists-p org-file-name))
+                            org-file-name
+                          file-name)))
+
+    (if (string-match "[*?{]" (file-name-nondirectory file-name))
+	      (dired file-name)
+      (apply #'org-open-file
+	     alt-file-name
+	     arg
+	     (cond ((not option) nil)
+		         ((string-match-p "\\`[0-9]+\\'" option)
+		          (list (string-to-number option)))
+		         (t (list nil option)))))))
+
+
+
 (provide '060_org)
 ;;; 060_org.el ends here
