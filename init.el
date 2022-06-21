@@ -93,7 +93,12 @@
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(objed-cursor-color "#ff4e00")
  '(org-caldav-save-directory "~/org/")
- '(org-icalendar-timezone "CEST")
+ '(org-icalendar-include-todo 'all)
+ '(org-icalendar-timezone "Europe/Vienna")
+ '(org-icalendar-use-deadline
+   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-due))
+ '(org-icalendar-use-scheduled
+   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start))
  '(package-selected-packages
    '(gruber-darker-theme 'gruber-darker-theme async emacs-async org-caldav org-gcal org-bullets ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa slime))
  '(pdf-view-midnight-colors (cons "#5b8512" "#1c1408"))
