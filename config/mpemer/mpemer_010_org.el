@@ -86,7 +86,7 @@
   "Concat whatever FILENAME to the org-home path."
   (concat "~/org/" filename))
 
-(setq prj-folders '("pemer" "mercury" "iteego" "kohler" "mrmaster" "personal"))
+(setq prj-folders '("pemer" "mercury" "iteego" "kohler" "personal"))
 
 (setq org-directory "~/org"
       org-agenda-files (cons "~/org" (mapcar (lambda (folder) (concat "~/" folder "/org")) prj-folders))
@@ -101,7 +101,6 @@
                             ;;("@home" . ?H)
 			                      ("iteego"   . ?i)
 			                      ("kohler"   . ?k)
-			                      ("mrmaster" . ?m)
                             ("pemer"    . ?p)
                             ("personal" . ?f)
                             ("flag"     . ??)

@@ -20,6 +20,7 @@
                    'dockerfile-mode
                    'kubernetes
                    'yaml-mode
+                   'json-mode
                    'csv-mode
                    'yasnippet))
   

@@ -24,11 +24,11 @@
       (use-package package))))
 
 (let ((package-list '(ox-pandoc   ;; https://github.com/kawabata/ox-pandoc
-		                  ox-clip     ;; https://github.com/jkitchin/ox-clip
+		                  ;;ox-clip     ;; https://github.com/jkitchin/ox-clip
 		                  ox-epub     ;; https://github.com/ofosos/ox-epub
 		                  ox-jira     ;; https://github.com/stig/ox-jira.el
 		                  ox-slack    ;; https://github.com/titaniumbones/ox-slack
-		                  ox-twbs     ;; https://github.com/marsmining/ox-twbs
+		                  ;;ox-twbs     ;; https://github.com/marsmining/ox-twbs
 		                  ox-odt      ;; https://github.com/kjambunathan/org-mode-ox-odt/blob/master/README.md
 		                  ox-hugo     ;; https://ox-hugo.scripter.co/
                       )))
@@ -358,6 +358,9 @@
 ;; By default, save openoffice exports as ms word documents
 (setq org-export-odt-preferred-output-format "docx")
 (setq org-odt-preferred-output-format "docx")
+
+
+;;(setq org-enable-hugo-support
 
 ;; Make it so that Agenda view stops warning about deadlines once item has been scheduled
 (setq org-agenda-skip-deadline-prewarning-if-scheduled t)
