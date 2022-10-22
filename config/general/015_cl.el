@@ -8,16 +8,19 @@
 
 (require 'defs)
 
-(my/ensure-package-installed 'slime)
-(use-package slime
-  :config (progn
-            (setq inferior-lisp-program "sbcl")
-            (add-hook 'slime-connected-hook
-		                  (lambda ()
-		                    (when (slime-eval `(cl:if (cl:find-package :cl21-user) t))
-		                      (slime-repl-set-package :cl21-user)
-		                      (slime-repl-eval-string "(cl21:enable-cl21-syntax)"))) t)))
+(my/ensure-package-installed 'sly)
+(use-package sly
+  :config (setq inferior-lisp-program "sbcl")))
+
+(my/ensure-package-installed 'sly-asdf)
+(use-package sly-asdf)
+
+(my/ensure-package-installed 'sly-quicklisp)
+(use-package sly-quicklisp)
+
+(my/ensure-package-installed 'sly-repl-ansi-color)
+(use-package sly-repl-ansi-color)
 
 
 (provide '015_cl)
-;;; 015_cl.el ends here
+;; 015_cl.el ends here
