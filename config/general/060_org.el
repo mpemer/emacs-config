@@ -17,18 +17,18 @@
 		                  org-bullets ;; https://github.com/sabof/org-bullets
                       org-caldav  ;; https://github.com/dengste/org-caldav
                       async       ;; https://github.com/jwiegley/emacs-async
+                      org-contrib
+                      org-beautify-theme
 		                  )))
   (dolist (package package-list)
     (progn
       (my/ensure-package-installed package)
       (use-package package))))
 
+;;(my/ensure-package-installed package)
+;;(require 'org-contrib)
 (let ((package-list '(ox-pandoc   ;; https://github.com/kawabata/ox-pandoc
-		                  ;;ox-clip     ;; https://github.com/jkitchin/ox-clip
 		                  ox-epub     ;; https://github.com/ofosos/ox-epub
-		                  ox-jira     ;; https://github.com/stig/ox-jira.el
-		                  ox-slack    ;; https://github.com/titaniumbones/ox-slack
-		                  ;;ox-twbs     ;; https://github.com/marsmining/ox-twbs
 		                  ox-odt      ;; https://github.com/kjambunathan/org-mode-ox-odt/blob/master/README.md
 		                  ox-hugo     ;; https://ox-hugo.scripter.co/
                       )))
@@ -39,26 +39,43 @@
 				:ensure t
 				:after ox))))
 
-;;(use-package org-beautify-theme)
+(use-package ox-extra
+    :config
+    (ox-extras-activate '(latex-header-blocks ignore-headlines)))
+
+(use-package ox-latex
+    :config
+    ;; code here will run after the package is loaded
+    (setq org-latex-pdf-process
+          '("pdflatex -interaction nonstopmode -output-directory %o %f"
+            "bibtex %b"
+            "pdflatex -interaction nonstopmode -output-directory %o %f"
+            "pdflatex -interaction nonstopmode -output-directory %o %f"))
+    (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
+    ;; (setq org-latex-prefer-user-labels t)
+
+    ;; deleted unwanted file extensions after latexMK
+    (setq org-latex-logfiles-extensions
+          (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
+
+    (unless (boundp 'org-latex-classes)
+      (setq org-latex-classes nil)))
+
+(use-package org-beautify-theme)
 (use-package org-bullets
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-;;(progn
-;;  (require 'org-num)
-;;  (add-hook 'org-mode-hook #'org-num-mode))
-
-
 ;; ob-clojure
 ;; https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-clojure.html
-(progn
-  (use-package ob-clojure
-    :config (progn
-	      (setq org-babel-clojure-backend 'cider))))
+;;(progn
+;;  (use-package ob-clojure
+;;    :config (progn
+;;	      (setq org-babel-clojure-backend 'cider))))
 
 (progn
-  (use-package ob-clojure)
+  ;;(use-package ob-clojure)
   (use-package ob-emacs-lisp)
-  (use-package ob-java)
+  ;;(use-package ob-java)
   (use-package ob-lisp)
   (use-package ob-org)
   (use-package ob-shell)
@@ -73,39 +90,6 @@
   ;;(use-package ob-)
 )
 
-;; ;; TODO: Do I really need to do this?
-;; (org-babel-do-load-languages
-;;  'org-babel-load-languages '(
-;; 			     (clojure . t)
-;; 			     (emacs-lisp . t)
-;; 			     (java . t)
-;; 			     (lisp . t)
-;; 			     (org . t)
-;; 			     (shell . t)
-;; 			     (sql . t)
-;; 			     ))
-
-
-;; (add-to-list 'org-latex-packages-alist '("" "listings" nil))
-;; (setq org-latex-listings t)
-;; (setq org-latex-listings-options '(("breaklines" "true")))
-;; (setf org-enable-reveal-js-support nil)
-
-;; ;; org-crypt settings
-;; ;; I don't use this much anymore, but keeping it
-;; ;; for backwards compatibility, until I have
-;; ;; removed all usage instances of it
-;; (require 'org-crypt)
-;; (org-crypt-use-before-save-magic)
-;; (setq org-tags-exclude-from-inheritance (quote ("crypt")))
-
-
-
-
-;; ;; If I wanted to remove the above and instead use css styling for exported code blocks
-;; (setq org-html-htmlize-output-type 'css)
-;; ;;(setq org-html-htmlize-output-type 'inline-css)
-
 (setq org-export-with-toc nil)
 
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -114,24 +98,8 @@
 (global-set-key (kbd "C-c C-a") 'org-agenda)
 (global-set-key (kbd "C-c b") 'org-switchb)
 (global-set-key (kbd "C-c C-b") 'org-switchb)
-;;(global-set-key (kbd "<f12>") 'org-agenda)
 (global-set-key (kbd "<f8>") 'org-cycle-agenda-files)
 (global-set-key (kbd "C-c c") 'org-capture)
-;;(global-set-key (kbd "C-<f9>") 'previous-buffer)
-;;(global-set-key (kbd "C-<f10>") 'next-buffer)
-
-
-
-
-;; (defun my/org-print-wrap-hook (exporter)
-;;   (when (eq exporter 'html)
-;;     "@media print {
-;;        pre {
-;;          white-space: pre-wrap;
-;;        }
-;;       }"))
-
-;; (add-hook 'org-export-before-processing-hook 'my/org-print-wrap-hook)
 
 
 ;; Shortcut to inserting structured templates, like code blocks (list below)
@@ -153,47 +121,6 @@
 (setq org-lowest-priority ?F
       org-default-priority ?B)
 
-
-
-;; (defun todo-to-int (todo)
-;;   "Convert TODO item to int value, for sorting."
-;;     (first (-non-nil
-;;             (mapcar (lambda (keywords)
-;;                       (let ((todo-seq
-;;                              (-map (lambda (x) (first (split-string  x "(")))
-;;                                    (rest keywords))))
-;;                         (cl-position-if (lambda (x) (string= x todo)) todo-seq)))
-;;                     org-todo-keywords))))
-
-;; (defun my/org-sort-key ()
-;;   "Assign an integer sort value to org entries based on type, priority and date."
-;;   (let* ((todo-max (apply #'max (mapcar #'length org-todo-keywords)))
-;;          (todo (org-entry-get (point) "TODO"))
-;;          (todo-int (if todo (todo-to-int todo) todo-max))
-;;          (priority (org-entry-get (point) "PRIORITY"))
-;;          (priority-int (if priority (string-to-char priority) org-default-priority))
-;;          (deadline (org-entry-get (point) "DEADLINE"))
-;;          (scheduled (org-entry-get (point) "SCHEDULED"))
-;;          (timestamp (org-entry-get (point) "TIMESTAMP"))
-;;          (closed (org-entry-get (point) "CLOSED"))
-;;          (dstr (or closed deadline scheduled timestamp "<3000-00-00>"))
-;; 	 (keystr (format "%03d %03d %s%s%s"
-;; 			 todo-int
-;; 			 priority-int
-;; 			 (substring dstr 1 5)
-;; 			 (substring dstr 6 8)
-;; 			 (substring dstr 9 11)
-;; 			 )))
-;;     (message keystr)
-;;     keystr))
-
-
-;; (defun my/org-sort-entries ()
-;;   "Sort ORG entries according to my rules."
-;;   (interactive)
-;;   (org-sort-entries nil ?f #'my/org-sort-key))
-
-;; (global-set-key (kbd "C-c os") 'my/org-sort-entries)
 
 (setq org-capture-templates
       (quote (("t" "Task" entry (file "~/org/notes.org")
@@ -241,30 +168,15 @@
 
 ;;;; END REFILE
 
-;; (defun cmp-date-property (prop)
-;;   "Compare two `org-mode' agenda entries, `A' and `B', by some date property.
-
-;; If a is before b, return -1. If a is after b, return 1. If they
-;; are equal return nil."
-;;   (lexical-let ((prop prop))
-;;   #'(lambda (a b)
-
-;;     (let* ((a-pos (get-text-property 0 'org-marker a))
-;;            (b-pos (get-text-property 0 'org-marker b))
-;;            (a-date (or (org-entry-get a-pos prop)
-;;                        (format "<%s>" (org-read-date t nil "now"))))
-;;            (b-date (or (org-entry-get b-pos prop)
-;;                        (format "<%s>" (org-read-date t nil "now"))))
-;;            (cmp (compare-strings a-date nil nil b-date nil nil))
-;;            )
-;;       (if (eq cmp t) nil (signum cmp))
-;;       ))))
-
-
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "FILE(f)" "IP(i)" "|" "DONE(d)")
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)")
               (sequence "MEETING(m)" "EVENT(e)"))))
+
+(setq org-caldav-todo-percent-states
+      (quote ((0 "TODO") (0 "FILE") (50 "IP") (100 "DONE")
+              (0 "WAITING") (0 "HOLD") (0 "CANCELLED")
+              (0 "MEETING") (0 "EVENT"))))
 
 (setq org-todo-keyword-faces
       (quote (("TODO" :foreground "light gray" :weight bold)

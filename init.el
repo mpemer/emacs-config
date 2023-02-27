@@ -92,22 +92,28 @@
  '(mouse-wheel-progressive-speed 1)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(objed-cursor-color "#ff4e00")
- '(org-caldav-save-directory "~/org/")
- '(org-icalendar-include-todo 'all)
- '(org-icalendar-timezone "Europe/Vienna")
- '(org-icalendar-use-deadline
-   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-due))
+ '(org-caldav-debug-level 1 t)
+ '(org-caldav-oauth2-client-secret "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" t)
+ '(org-caldav-resume-aborted 'never)
+ '(org-caldav-save-directory "~/org/" t)
+ '(org-caldav-sync-todo t t)
+ '(org-caldav-url 'google t)
  '(org-icalendar-use-scheduled
    '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start))
+ '(org-icalendar-with-timestamps t)
  '(package-selected-packages
-   '(json-mode fzf gruber-darker-theme 'gruber-darker-theme async emacs-async org-caldav org-gcal org-bullets ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa slime))
+   '(sly-contribs org-contrib "ox-extra" ox-extra json-mode fzf gruber-darker-theme 'gruber-darker-theme async emacs-async org-caldav org-gcal org-bullets ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-jira ox-epub ox-clip ox-asciidoc ox-pandoc org-jira org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa))
  '(pdf-view-midnight-colors (cons "#5b8512" "#1c1408"))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
  '(ring-bell-function 'ignore)
  '(rustic-ansi-faces
    ["#1c1408" "#ff4e00" "#7cb518" "#ffbf00" "#0075c4" "#d72638" "#898989" "#5b8512"])
- '(safe-local-variable-values '((auto-revert-mode . 1)))
+ '(safe-local-variable-values
+   '((encoding . utf-8)
+     (eval put 'test-js-eval 'common-lisp-indent-function 1)
+     (eval put 'test-ps-js 'common-lisp-indent-function 1)
+     (auto-revert-mode . 1)))
  '(scroll-bar-mode nil)
  '(scroll-conservatively 100000)
  '(scroll-error-top-bottom t)
@@ -161,7 +167,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#080604" :foreground "#e4e4ef" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "PfEd" :family "DejaVu Sans Mono")))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "#080604" :foreground "#e4e4ef" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 141 :width normal :foundry "nil" :family "Menlo")))))
 
 ;; Different fonts between MacOS and GNU/Linux
 (set-face-attribute 'default nil :family (if (eq system-type 'darwin) "Menlo" "DejaVu Sans Mono"))

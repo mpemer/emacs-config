@@ -10,10 +10,18 @@
 
 (my/ensure-package-installed 'sly)
 (use-package sly
-  :config (setq inferior-lisp-program "sbcl")))
+  :config (setq inferior-lisp-program "ros -Q run"
+                slime-lisp-implementations '((sbcl ("sbcl" "--dynamic-space-size" "2000"))
+                                             (roswell ("ros" "-Q" "run")))
+                slime-default-lisp 'roswell))
+
+;;  :config (setq inferior-lisp-program "sbcl"))
 
 (my/ensure-package-installed 'sly-asdf)
 (use-package sly-asdf)
+
+;;(my/ensure-package-installed 'sly-contribs)
+;;(use-package sly-asdf)
 
 (my/ensure-package-installed 'sly-quicklisp)
 (use-package sly-quicklisp)

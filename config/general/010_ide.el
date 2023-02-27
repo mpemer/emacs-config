@@ -63,7 +63,9 @@
             (global-company-mode)))
 ;;          (global-set-key (kbd "TAB") #'company-indent-or-complete-common)))
 
-(use-package csv-mode)
+(use-package csv-mode
+  :config (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode)))
+
 (use-package yaml-mode
   :config (progn
             (add-hook 'yaml-mode-hook

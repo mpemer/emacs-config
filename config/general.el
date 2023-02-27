@@ -13,6 +13,7 @@
 			 ("elpa" . "https://tromey.com/elpa/")
 			 ("gnu" . "https://elpa.gnu.org/packages/")
 			 ("ox-odt" . "https://kjambunathan.github.io/elpa/")
+       ("nongnu" . "https://elpa.nongnu.org/nongnu/")
 			 ))
 
 ;; make sure to have downloaded archive description.
