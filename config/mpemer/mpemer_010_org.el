@@ -47,7 +47,7 @@
       org-agenda-files (list "~/org")
       org-caldav-save-directory "~/org/"
       org-default-notes-file "~/org/notes.org"
-      org-icalendar-timezone "Europe/Wien"
+      org-icalendar-timezone "CET"
       plstore-cache-passphrase-for-symmetric-encryption t
 
       org-caldav-sync-todo nil
