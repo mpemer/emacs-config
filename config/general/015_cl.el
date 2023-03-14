@@ -6,7 +6,7 @@
 
 ;; cl - common lisp development settings
 
-(require 'defs)
+;;(require 'defs)
 
 (defun roswell-configdir ()
   (substring (shell-command-to-string "ros roswell-internal-use version confdir") 0 -1))
@@ -57,13 +57,11 @@
 (my/ensure-package-installed 'sly-repl-ansi-color)
 (use-package sly-repl-ansi-color)
 
-(setq inferior-lisp-program "ros -Q dynamic-space-size=8192 -L sbcl-bin -l ~/.sbclrc run"
-      sly-lisp-implementations '((sbcl ("sbcl" "--dynamic-space-size" "8192"))
-                                 (roswell ("ros" "-Q" "dynamic-space-size=8192" "-L" "sbcl-bin" "-l" "~/.sbclrc" "run")))
+(setq inferior-lisp-program "ros dynamic-space-size=2048 -L sbcl -l ~/.sbclrc run"
+      sly-lisp-implementations '((sbcl ("sbcl" "dynamic-space-size=2048" "-l" "~/.sbclrc"))
+                                 (roswell ("ros" "dynamic-space-size=2048" "-L" "sbcl" "-l" "~/.sbclrc" "run")))
       sly-default-lisp 'roswell
-      inferior-lisp-program "ros -Q dynamic-space-size=8192 -L sbcl-bin -l ~/.sbclrc run")
+      inferior-lisp-program "ros dynamic-space-size=2048 -L sbcl -l ~/.sbclrc run")
 
 (provide '015_cl)
 ;; 015_cl.el ends here
-
-

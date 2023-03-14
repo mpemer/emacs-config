@@ -13,7 +13,6 @@
                    'clipetty
                    'graphviz-dot-mode
                    'dedicated
-                   'neotree
                    ))
   (my/ensure-package-installed pkg))
 
@@ -44,8 +43,6 @@
 (use-package color)
 (use-package graphviz-dot-mode :config (setq graphviz-dot-indent-width 2))
 (use-package dedicated)
-(use-package neotree :config (setq neo-window-fixed-size nil))
-
 
 ;; Navigation
 ;;(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
@@ -59,9 +56,9 @@
 ;; Text scaling
 (global-set-key (kbd "C-}") 'text-scale-increase)
 (global-set-key (kbd "C-{") 'text-scale-decrease)
-;;(global-set-key (kbd "C-+") 'font-size-increase)
-;;(global-set-key (kbd "C-_") 'font-size-decrease)
-;;(global-set-key (kbd "C-)") 'font-size-default)
+(global-set-key (kbd "C-+") 'font-size-increase)
+(global-set-key (kbd "C-_") 'font-size-decrease)
+(global-set-key (kbd "C-)") 'font-size-default)
 
 ;; Enable reopening of recent files via C-x C-r
 (recentf-mode 1)

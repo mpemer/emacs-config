@@ -1,4 +1,4 @@
-;;; Package --- Summary:
+;; Package --- Summary:
 
 ;;; Commentary:
 
@@ -19,7 +19,7 @@
 (defun mp-org-plan ()
   "Open plan.org."
   (interactive)
-  (find-file (concat org-directory "/plan.org")))
+  (find-file (concat or1,020.98g-directory "/plan.org")))
 (defun mp-org-mercury ()
   "Open mercury.org."
   (interactive)
@@ -76,7 +76,16 @@
 (defun my/org-caldav-sync ()
   "Syncing org-caldav with async."
   (interactive)
-  (org-caldav-sync)
+  
+  (let ((counter 5))
+    (while (> counter 0)
+      (condition-case nil
+          (progn
+            (org-caldav-sync)
+            (setq counter 0))
+        
+        (error (setq counter (1- counter))))))
+      
   (let ((old-buffer (current-buffer)))
     (dolist (b '("notes.org" "plan.org" "family.org"))
       (switch-to-buffer b)
