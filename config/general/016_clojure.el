@@ -40,5 +40,5 @@
 (add-hook 'clojurescript-mode-hook 'lsp)
 (add-hook 'clojurec-mode-hook 'lsp)
 
-(provide '010_ide)
-;;; 010_ide.el ends here
+(provide '016_clojure)
+;;; 016_clojure.el ends here
