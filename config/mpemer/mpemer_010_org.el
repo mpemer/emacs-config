@@ -12,26 +12,53 @@
 
 (setq org-directory (my/mkpath my/home "org"))
 
+(defun mp-org-tasks ()
+  "Open tasks.org."
+  (interactive)
+  (find-file (concat org-directory "/tasks.org")))
+
 (defun mp-org-notes ()
   "Open notes.org."
   (interactive)
   (find-file (concat org-directory "/notes.org")))
+
+(defun mp-org-meetings ()
+  "Open meetings.org."
+  (interactive)
+  (find-file (concat org-directory "/meetings.org")))
+
 (defun mp-org-plan ()
   "Open plan.org."
   (interactive)
-  (find-file (concat or1,020.98g-directory "/plan.org")))
-(defun mp-org-mercury ()
-  "Open mercury.org."
+  (find-file (concat org-directory "/plan.org")))
+
+(defun mp-org-goals ()
+  "Open goals.org."
   (interactive)
-  (find-file "~/org/mercury.org"))
+  (find-file (concat org-directory "/goals.org")))
+
+(defun mp-org-ideas ()
+  "Open ideas.org."
+  (interactive)
+  (find-file (concat org-directory "/ideas.org")))
+
+(defun mp-org-family ()
+  "Open family.org."
+  (interactive)
+  (find-file (concat org-directory "/family.org")))
+
 (defun mp-org-bookmarks ()
   "Open bookmarks.org."
   (interactive)
   (find-file (concat org-directory "/bookmarks.org")))
 
+(global-set-key (kbd "C-c oo") 'mp-org-tasks)
 (global-set-key (kbd "C-c on") 'mp-org-notes)
+(global-set-key (kbd "C-c om") 'mp-org-meetings)
 (global-set-key (kbd "C-c op") 'mp-org-plan)
-(global-set-key (kbd "C-c om") 'mp-org-mercury)
+(global-set-key (kbd "C-c og") 'mp-org-goals)
+(global-set-key (kbd "C-c oi") 'mp-org-ideas)
+(global-set-key (kbd "C-c of") 'mp-org-family)
 (global-set-key (kbd "C-c ob") 'mp-org-bookmarks)
 
 
@@ -59,16 +86,28 @@
 
       )
 
+(setq org-capture-templates
+      (quote (("t" "Task" entry (file "~/org/tasks.org")
+ 	             "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\nDEADLINE: %t\nSCHEDULED: \n")
+ 	            ("n" "Note" entry (file "~/org/notes.org")
+ 	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+ 	            ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
+ 	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+ 	            ("g" "Goal" entry (file "~/org/goals.org")
+ 	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+ 	            ("m" "Meeting" entry (file "~/org/meetings.org")
+ 	             "* MEETING with %?\n:PROPERTIES:\n:CREATED: %U\n:SCHEDULED: %t\n:END:\n")
+              )))
+
+
 
 ;; Tags with fast selection keys
 (setq org-tag-alist (quote ((:startgroup)
                             ;;("@errand" . ?e)
                             ;;("@office" . ?o)
                             ;;("@home" . ?H)
-			                      ;;("iteego"   . ?i)
-			                      ;;("kohler"   . ?k)
-                            ("pemer"    . ?p)
-                            ("personal" . ?f)
+                            ("business" . ?b)
+                            ("personal" . ?p)
                             ("flag"     . ??)
                             (:endgroup))))
 
@@ -87,7 +126,7 @@
         (error (setq counter (1- counter))))))
       
   (let ((old-buffer (current-buffer)))
-    (dolist (b '("notes.org" "plan.org" "family.org"))
+    (dolist (b '("tasks.org" "plan.org" "family.org"))
       (switch-to-buffer b)
       (when (buffer-modified-p) (save-buffer)))
     (switch-to-buffer old-buffer)))

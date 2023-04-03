@@ -122,14 +122,6 @@
       org-default-priority ?B)
 
 
-(setq org-capture-templates
-      (quote (("t" "Task" entry (file "~/org/notes.org")
- 	             "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\nDEADLINE: %t\nSCHEDULED: \n")
- 	            ("n" "Note" entry (file "~/org/notes.org")
- 	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
- 	            ("m" "Meeting" entry (file+headline "~/org/notes.org" "Meetings")
- 	             "* MEETING with %?\n:PROPERTIES:\n:CREATED: %U\n:SCHEDULED: %t\n:END:\n"))))
-
 ;;;; REFILE
 
 ;; Targets include this file and any file contributing to the agenda - up to 3 levels deep
@@ -174,7 +166,11 @@
               (sequence "MEETING(m)" "EVENT(e)"))))
 
 (setq org-caldav-todo-percent-states
-      (quote ((0 "TODO") (0 "FILE") (50 "IP") (100 "DONE")
+      (quote ((0 "TODO") (0 "FILE") (50 "IP") (100 "DONE")   (:calendar-id "marcus@pemer.com"
+                 :files ("~/org/tasks.org")
+                 :inbox "~/org/tasks.org"
+                 )
+
               (0 "WAITING") (0 "HOLD") (0 "CANCELLED")
               (0 "MEETING") (0 "EVENT"))))
 
@@ -253,6 +249,7 @@
       org-agenda-start-on-weekday 1
       org-agenda-log-mode 'closed)
 
+(setq org-id-search-archives nil)
 
 ; Allow setting single tags without the menu
 (setq org-fast-tag-selection-single-key (quote expert))
