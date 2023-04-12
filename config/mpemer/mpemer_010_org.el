@@ -1,3 +1,4 @@
+;;; -*- mode: emacs-lisp  -*-
 ;; Package --- Summary:
 
 ;;; Commentary:
@@ -126,12 +127,12 @@
         (error (setq counter (1- counter))))))
       
   (let ((old-buffer (current-buffer)))
-    (dolist (b '("tasks.org" "plan.org" "family.org"))
+    (dolist (b '("tasks.org" "plan.org" "family.org" "fun.org" "car.org"))
       (switch-to-buffer b)
       (when (buffer-modified-p) (save-buffer)))
     (switch-to-buffer old-buffer)))
 
-(global-set-key "\C-cs" 'my/org-caldav-sync)
+(global-set-key "\C-cs" 'org-caldav-sync)
 
 (setq org-feed-alist
       '(("Slashdot"
