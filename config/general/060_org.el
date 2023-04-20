@@ -39,6 +39,9 @@
 				:ensure t
 				:after ox))))
 
+(with-eval-after-load 'ox
+  (require 'ox-hugo))
+
 (use-package ox-extra
     :config
     (ox-extras-activate '(latex-header-blocks ignore-headlines)))
