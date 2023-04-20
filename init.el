@@ -149,8 +149,7 @@
  '(version-control t)
  '(visible-bell nil)
  '(visual-line-mode t t)
- '(warning-suppress-types
-   '((comp)))
+ '(warning-suppress-types '((comp)))
  '(window-divider-default-places t)
  '(xterm-mouse-mode t)
  '(zoom-window-mode-line-color "DarkGreen"))
