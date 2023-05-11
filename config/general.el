@@ -8,19 +8,27 @@
 (require 'defs)
 
 (setq package-user-dir (concat user-emacs-directory "elpa")
-      package-archives '(
-			 ("melpa" . "https://melpa.org/packages/")
-			 ("elpa" . "https://tromey.com/elpa/")
-			 ("gnu" . "https://elpa.gnu.org/packages/")
-			 ("ox-odt" . "https://kjambunathan.github.io/elpa/")
-       ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-			 ))
+      package-archives '(("melpa"  . "https://melpa.org/packages/")
+			 ("elpa"   . "https://tromey.com/elpa/")
+			 ("org"    . "https://orgmode.org/elpa/")
+			 ("gnu"    . "https://elpa.gnu.org/packages/")
+			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+			 ("ox-odt" . "https://kjambunathan.github.io/elpa/"))
+      package-archive-priorities '(("melpa"  . 20)
+				   ("elpa"   . 10)
+				   ("org"    . 30)
+                                   ("gnu"    . 25)
+                                   ("nongnu" . 15)
+                                   ("ox-odt" . 10)))
 
 ;; make sure to have downloaded archive description.
 ;; Or use package-archive-contents as suggested by Nicolas Dudebout
 (setq package-check-signature nil)
 
 (package-initialize)
+
+;; Ensure emacs can handle pgp key passowrds using loopback
+(setq epa-pinentry-mode 'loopback)
 
 ;; Refresh packages every timeout-seconds (probably 24h)
 (let* ((ts-file (my/mkfpath package-user-dir ".last-refresh"))
