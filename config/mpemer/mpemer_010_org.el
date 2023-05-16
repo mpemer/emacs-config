@@ -73,7 +73,7 @@
 
 (setq org-directory "~/org"
       org-agenda-files (list "~/org")
-      org-caldav-save-directory "~/org/"
+      org-caldav-save-directory "~/org/.caldav"
       org-default-notes-file "~/org/notes.org"
       org-icalendar-timezone "CET"
       plstore-cache-passphrase-for-symmetric-encryption t

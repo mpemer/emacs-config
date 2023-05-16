@@ -9,17 +9,20 @@
 
 (setq package-user-dir (concat user-emacs-directory "elpa")
       package-archives '(("melpa"  . "https://melpa.org/packages/")
-			 ("elpa"   . "https://tromey.com/elpa/")
-			 ;;("org"    . "https://orgmode.org/elpa/")
+			 ;;("elpa"   . "https://tromey.com/elpa/")
+		 	 ;;("org"    . "https://orgmode.org/elpa/")
 			 ("gnu"    . "https://elpa.gnu.org/packages/")
-			 ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-			 ("ox-odt" . "https://kjambunathan.github.io/elpa/"))
-      package-archive-priorities '(("melpa"  . 20)
-				                           ("elpa"   . 10)
-				                           ;;("org"    . 30)
-                                   ("gnu"    . 25)
-                                   ("nongnu" . 15)
-                                   ("ox-odt" . 10)))
+			 ;;("nongnu" . "https://elpa.nongnu.org/nongnu/")
+			 ;;("ox-odt" . "https://kjambunathan.github.io/elpa/")
+                         )
+      package-archive-priorities '(("melpa"  . 50)
+				   ;;("elpa"   . 10)
+				   ;;("org"    . 30)
+                                   ("gnu"    . 20)
+                                   ;;("nongnu" . 30)
+                                   ;;("ox-odt" . 40)
+                                  ))
+
 
 ;; make sure to have downloaded archive description.
 ;; Or use package-archive-contents as suggested by Nicolas Dudebout

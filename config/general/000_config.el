@@ -35,7 +35,7 @@
   (my/ensure-package-installed 'multi-term)
   (use-package multi-term
     :config (progn
-	      (setq multi-term-program "zsh")
+	      (setq multi-term-program "fish")
 	      (add-hook 'term-mode-hook
 			(lambda ()
 			  (setq term-buffer-maximum-size 10000)))

@@ -10,9 +10,9 @@
                    'queue
                    'zoom-window
                    'darkroom
-                   'clipetty
-                   'graphviz-dot-mode
-                   'dedicated
+                   ;;'clipetty
+                   ;;'graphviz-dot-mode
+                   ;;'dedicated
                    ))
   (my/ensure-package-installed pkg))
 
@@ -34,15 +34,15 @@
             (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
 
 ;; Send emacs kill ring to remote clipboard
-(use-package clipetty
-  :config (global-clipetty-mode))
+;;(use-package clipetty
+;;  :config (global-clipetty-mode))
 
 
 (global-set-key (kbd "<C-f11>") 'toggle-frame-fullscreen)
 
-(use-package color)
-(use-package graphviz-dot-mode :config (setq graphviz-dot-indent-width 2))
-(use-package dedicated)
+;;(use-package color)
+;;(use-package graphviz-dot-mode :config (setq graphviz-dot-indent-width 2))
+;;(use-package dedicated)
 
 ;; Navigation
 ;;(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)

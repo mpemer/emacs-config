@@ -17,7 +17,7 @@
 		                  org-bullets ;; https://github.com/sabof/org-bullets
                       org-caldav  ;; https://github.com/dengste/org-caldav
                       async       ;; https://github.com/jwiegley/emacs-async
-                      org-contrib
+                      ;;org-contrib
                       org-beautify-theme
 		                  )))
   (dolist (package package-list)
@@ -29,7 +29,7 @@
 ;;(require 'org-contrib)
 (let ((package-list '(ox-pandoc   ;; https://github.com/kawabata/ox-pandoc
 		                  ox-epub     ;; https://github.com/ofosos/ox-epub
-		                  ox-odt      ;; https://github.com/kjambunathan/org-mode-ox-odt/blob/master/README.md
+		                  ;;ox-odt      ;; https://github.com/kjambunathan/org-mode-ox-odt/blob/master/README.md
 		                  ox-hugo     ;; https://ox-hugo.scripter.co/
                       )))
   (dolist (package package-list)
@@ -42,27 +42,27 @@
 (with-eval-after-load 'ox
   (require 'ox-hugo))
 
-(use-package ox-extra
-    :config
-    (ox-extras-activate '(latex-header-blocks ignore-headlines)))
+;;(use-package ox-extra
+;;    :config
+;;    (ox-extras-activate '(latex-header-blocks ignore-headlines)))
 
-(use-package ox-latex
-    :config
-    ;; code here will run after the package is loaded
-    (setq org-latex-pdf-process
-          '("pdflatex -interaction nonstopmode -output-directory %o %f"
-            "bibtex %b"
-            "pdflatex -interaction nonstopmode -output-directory %o %f"
-            "pdflatex -interaction nonstopmode -output-directory %o %f"))
-    (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
-    ;; (setq org-latex-prefer-user-labels t)
+;; (use-package ox-latex
+;;     :config
+;;     ;; code here will run after the package is loaded
+;;     (setq org-latex-pdf-process
+;;           '("pdflatex -interaction nonstopmode -output-directory %o %f"
+;;             "bibtex %b"
+;;             "pdflatex -interaction nonstopmode -output-directory %o %f"
+;;             "pdflatex -interaction nonstopmode -output-directory %o %f"))
+;;     (setq org-latex-with-hyperref nil) ;; stop org adding hypersetup{author..} to latex export
+;;     ;; (setq org-latex-prefer-user-labels t)
 
-    ;; deleted unwanted file extensions after latexMK
-    (setq org-latex-logfiles-extensions
-          (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
+;;     ;; deleted unwanted file extensions after latexMK
+;;     (setq org-latex-logfiles-extensions
+;;           (quote ("lof" "lot" "tex~" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg" "brf" "fls" "entoc" "ps" "spl" "bbl" "xmpi" "run.xml" "bcf" "acn" "acr" "alg" "glg" "gls" "ist")))
 
-    (unless (boundp 'org-latex-classes)
-      (setq org-latex-classes nil)))
+;;     (unless (boundp 'org-latex-classes)
+;;       (setq org-latex-classes nil)))
 
 (use-package org-beautify-theme)
 (use-package org-bullets
