@@ -95,7 +95,6 @@
  '(org-caldav-debug-level 1 t)
  '(org-caldav-oauth2-client-secret "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" t)
  '(org-caldav-resume-aborted 'never)
- '(org-caldav-save-directory "~/org/" t)
  '(org-caldav-sync-todo t t)
  '(org-caldav-url 'google t)
  '(org-icalendar-use-scheduled

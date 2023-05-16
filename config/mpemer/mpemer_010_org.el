@@ -46,7 +46,7 @@
 (defun mp-org-family ()
   "Open family.org."
   (interactive)
-  (find-file (concat org-directory "/family.org")))
+  (find-file (concat org-directory "/calendars/family.org")))
 
 (defun mp-org-bookmarks ()
   "Open bookmarks.org."
@@ -73,7 +73,7 @@
 
 (setq org-directory "~/org"
       org-agenda-files (list "~/org")
-      org-caldav-save-directory "~/org/.caldav"
+      org-caldav-save-directory "~/org/.caldav/"
       org-default-notes-file "~/org/notes.org"
       org-icalendar-timezone "CET"
       plstore-cache-passphrase-for-symmetric-encryption t
@@ -117,7 +117,7 @@
   "Syncing org-caldav with async."
   (interactive)
   
-  (let ((counter 5))
+  (let ((counter 10))
     (while (> counter 0)
       (condition-case nil
           (progn
