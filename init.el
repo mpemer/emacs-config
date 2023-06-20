@@ -98,7 +98,7 @@
  '(org-caldav-sync-todo t t)
  '(org-caldav-url 'google t)
  '(org-icalendar-use-scheduled
-   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start))
+   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start) t)
  '(org-icalendar-with-timestamps t)
  '(package-selected-packages
    '(ox-coleslaw sly-named-readtables sly-contribs org-contrib "ox-extra" ox-extra json-mode fzf gruber-darker-theme 'gruber-darker-theme async emacs-async org-caldav org-gcal org-bullets ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-epub ox-clip ox-asciidoc ox-pandoc org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa))
