@@ -11,6 +11,7 @@
       package-archives '(("melpa"  . "https://melpa.org/packages/")
 			 ;;("elpa"   . "https://tromey.com/elpa/")
 		 	 ;;("org"    . "https://orgmode.org/elpa/")
+			 ("jcs-elpa"    . "https://jcs-emacs.github.io/jcs-elpa/packages/")
 			 ("gnu"    . "https://elpa.gnu.org/packages/")
 			 ;;("nongnu" . "https://elpa.nongnu.org/nongnu/")
 			 ;;("ox-odt" . "https://kjambunathan.github.io/elpa/")

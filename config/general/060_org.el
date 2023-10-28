@@ -18,7 +18,7 @@
                       org-caldav  ;; https://github.com/dengste/org-caldav
                       async       ;; https://github.com/jwiegley/emacs-async
                       ;;org-contrib
-                      org-beautify-theme
+                      ;;org-beautify-theme
 		                  )))
   (dolist (package package-list)
     (progn
@@ -64,7 +64,7 @@
 ;;     (unless (boundp 'org-latex-classes)
 ;;       (setq org-latex-classes nil)))
 
-(use-package org-beautify-theme)
+;;(use-package org-beautify-theme)
 (use-package org-bullets
   :config (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
