@@ -91,13 +91,13 @@
  '(mouse-wheel-progressive-speed 1)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
  '(objed-cursor-color "#ff4e00")
- '(org-caldav-debug-level 1)
- '(org-caldav-oauth2-client-secret "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")
+ '(org-caldav-debug-level 1 t)
+ '(org-caldav-oauth2-client-secret "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" t)
  '(org-caldav-resume-aborted 'never)
- '(org-caldav-sync-todo t)
- '(org-caldav-url 'google)
+ '(org-caldav-sync-todo t t)
+ '(org-caldav-url 'google t)
  '(org-icalendar-use-scheduled
-   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start))
+   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start) t)
  '(org-icalendar-with-timestamps t)
  '(org-startup-folded t)
  '(package-selected-packages
@@ -109,7 +109,8 @@
  '(rustic-ansi-faces
    ["#1c1408" "#ff4e00" "#7cb518" "#ffbf00" "#0075c4" "#d72638" "#898989" "#5b8512"])
  '(safe-local-variable-values
-   '((encoding . utf-8)
+   '((eval add-hook 'after-save-hook #'org-hugo-export-wim-to-md-after-save :append :local)
+     (encoding . utf-8)
      (eval put 'test-js-eval 'common-lisp-indent-function 1)
      (eval put 'test-ps-js 'common-lisp-indent-function 1)
      (auto-revert-mode . 1)))
