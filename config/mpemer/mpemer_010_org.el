@@ -113,26 +113,58 @@
                             (:endgroup))))
 
 
-(defun my/org-caldav-sync ()
-  "Syncing org-caldav with async."
-  (interactive)
+;; (defun my/org-caldav-sync ()
+;;   "Syncing org-caldav with async."
+;;   (interactive)
   
-  (let ((counter 10))
-    (while (> counter 0)
-      (condition-case nil
+;;   (let ((counter 10))
+;;     (while (> counter 0)
+;;       (condition-case nil
+;;           (progn
+;;             (org-caldav-sync)
+;;             (setq counter 0))
+        
+;;         (error (setq counter (1- counter))))))
+      
+;;   (let ((old-buffer (current-buffer)))
+;;     (dolist (b '("tasks.org" "plan.org" "family.org" "fun.org" "car.org"))
+;;       (switch-to-buffer b)
+;;       (when (buffer-modified-p) (save-buffer)))
+;;     (switch-to-buffer old-buffer)))
+
+
+(defun my/org-caldav-sync ()
+  (interactive)
+  (let ((message-log-max))
+    (message "Synchronizing calendars..."))
+  (let ((remaining-retries 10))
+    (while (> remaining-retries 0)
+      (condition-case ex                  ;
           (progn
             (org-caldav-sync)
-            (setq counter 0))
-        
-        (error (setq counter (1- counter))))))
-      
-  (let ((old-buffer (current-buffer)))
-    (dolist (b '("tasks.org" "plan.org" "family.org" "fun.org" "car.org"))
-      (switch-to-buffer b)
-      (when (buffer-modified-p) (save-buffer)))
-    (switch-to-buffer old-buffer)))
+            (setq remaining-retries 0)) ;; all done
+        ('error
+         (progn 
+           (if (string-match-p "https://apidata.googleusercontent.com/caldav/v2.*401 Unauthorized"
+                               (error-message-string ex))
+               (progn
+                 (kill-matching-buffers
+                  "^ \\*http apidata\\.googleusercontent\\.com:443\\*.*" :no-ask t)
+                 (let ((message-log-max))
+                   (message "Retrying to synchronize calendars..."))
+                 ;; There was a synchronization error, most likely due to an
+                 ;; expired oauth2 access token. Trying again should work fine.
+                 (sleep-for 1)
+                 (setq remaining-retries (- remaining-retries 1)))
+             (error "%s" (error-message-string ex))))))))
+  (cl-letf (((symbol-function 'kill-buffer--possibly-save) (lambda (buffer) t)))
+    (kill-matching-buffers "^org-caldav-*" :no-ask t))
+  (message "Calendar sync complete."))
 
-(global-set-key "\C-cs" 'org-caldav-sync)
+
+;; kill-buffer kill-buffer-possibly-save
+
+(global-set-key "\C-cs" 'my/org-caldav-sync)
 
 (setq org-feed-alist
       '(("Slashdot"
