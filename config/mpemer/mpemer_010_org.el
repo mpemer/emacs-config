@@ -113,26 +113,6 @@
                             (:endgroup))))
 
 
-;; (defun my/org-caldav-sync ()
-;;   "Syncing org-caldav with async."
-;;   (interactive)
-  
-;;   (let ((counter 10))
-;;     (while (> counter 0)
-;;       (condition-case nil
-;;           (progn
-;;             (org-caldav-sync)
-;;             (setq counter 0))
-        
-;;         (error (setq counter (1- counter))))))
-      
-;;   (let ((old-buffer (current-buffer)))
-;;     (dolist (b '("tasks.org" "plan.org" "family.org" "fun.org" "car.org"))
-;;       (switch-to-buffer b)
-;;       (when (buffer-modified-p) (save-buffer)))
-;;     (switch-to-buffer old-buffer)))
-
-
 (defun my/org-caldav-sync ()
   (interactive)
   (let ((message-log-max))
@@ -162,9 +142,38 @@
   (message "Calendar sync complete."))
 
 
-;; kill-buffer kill-buffer-possibly-save
-
 (global-set-key "\C-cs" 'my/org-caldav-sync)
+
+(defun my/remove-id-properties-from-archive ()
+  "Remove all :ID: properties from org entries in files under /org/archive."
+  (interactive)
+  (message "Starting to remove :ID: properties from archive...")
+  (let ((files (directory-files-recursively (my/mkpath org-directory "archive") "\\.org$"))
+        (files-processed 0)
+        (total-ids-removed 0))
+    (dolist (file files)
+      (let ((ids-removed 0))
+        (message "Processing file: %s" file)
+        (with-current-buffer (find-file-noselect file)
+          (org-mode)
+          (goto-char (point-min))
+          (while (re-search-forward "^:ID:" nil t)
+            (setq ids-removed (1+ ids-removed))
+            (org-delete-property "ID"))
+          (when (> ids-removed 0)
+            (save-buffer))
+          (kill-buffer))
+        (setq files-processed (1+ files-processed))
+        (setq total-ids-removed (+ total-ids-removed ids-removed))
+        (message "Removed %d :ID: properties from %s" ids-removed file)))
+    (message "Finished processing %d files. Total :ID: properties removed: %d"
+             files-processed total-ids-removed)))
+
+
+(add-hook 'org-load-hook 'my/remove-id-properties-from-archive)
+(advice-add 'org-archive-subtree :after #'my/remove-id-properties-from-archive)
+
+
 
 (setq org-feed-alist
       '(("Slashdot"

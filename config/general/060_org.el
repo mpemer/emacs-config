@@ -325,6 +325,5 @@ This function is meant to be used as a possible tool for
 		         (t (list nil option)))))))
 
 
-
 (provide '060_org)
 ;;; 060_org.el ends here
