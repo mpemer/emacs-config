@@ -173,6 +173,15 @@
 (add-hook 'org-load-hook 'my/remove-id-properties-from-archive)
 (advice-add 'org-archive-subtree :after #'my/remove-id-properties-from-archive)
 
+(defun diary-second-thursday-of-month (date)
+  "Return `t` if DATE is the second Thursday of the month."
+  (let* ((day (calendar-extract-day date))
+         (month (calendar-extract-month date))
+         (year (calendar-extract-year date))
+         (day-of-week (calendar-day-of-week date)))
+    (and (= day-of-week 4)  ; Thursday in Emacs Lisp starts from 0 (Sunday) so Thursday is 4
+         (<= 8 day)         ; Second Thursday can't be earlier than the 8th
+         (<= day 14))))     ; and not later than the 14th
 
 
 (setq org-feed-alist
