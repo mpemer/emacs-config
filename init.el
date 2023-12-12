@@ -101,7 +101,7 @@
  '(org-icalendar-with-timestamps t)
  '(org-startup-folded t)
  '(package-selected-packages
-   '(chatgpt ox-coleslaw sly-named-readtables sly-contribs org-contrib "ox-extra" ox-extra json-mode fzf gruber-darker-theme 'gruber-darker-theme async emacs-async org-caldav org-gcal org-bullets ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-epub ox-clip ox-asciidoc ox-pandoc org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa))
+   '(chatgpt ox-coleslaw org-contrib "ox-extra" ox-extra json-mode fzf gruber-darker-theme 'gruber-darker-theme async emacs-async org-caldav org-gcal org-bullets ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-epub ox-clip ox-asciidoc ox-pandoc org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa))
  '(pdf-view-midnight-colors (cons "#5b8512" "#1c1408"))
  '(pos-tip-background-color "#FFFACE")
  '(pos-tip-foreground-color "#272822")
@@ -120,7 +120,6 @@
  '(scroll-margin 2)
  '(scroll-preserve-screen-position nil)
  '(scroll-step 2)
- '(show-paren-mode t)
  '(size-indication-mode t)
  '(tab-width 2)
  '(tool-bar-mode nil)
@@ -191,6 +190,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "black" :foreground "#e4e4ef" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 140 :width normal :foundry "nil" :family "Menlo")))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "black" :foreground "#e4e4ef" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 102 :width normal :foundry "PfEd" :family "DejaVu Sans Mono")))))
 
 

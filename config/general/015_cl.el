@@ -8,32 +8,12 @@
 
 ;;(require 'defs)
 
-(defun roswell-configdir ()
-  (substring (shell-command-to-string "ros roswell-internal-use version confdir") 0 -1))
+;; Define the path to the Roswell helper file
+(defvar roswell-helper-file "~/.roswell/helper.el")
 
-(defun roswell-load (system)
-  (let ((result (substring (shell-command-to-string
-                            (concat "ros -L sbcl-bin -e \"(format t \\\"~A~%\\\" (uiop:native-namestring (ql:where-is-system \\\""
-                                    system
-                                    "\\\")))\"")) 0 -1)))
-    (unless (equal "NIL" result)
-      (load (concat result "roswell/elisp/init.el")))))
-
-(defun roswell-opt (var)
-  (with-temp-buffer
-    (insert-file-contents (concat (roswell-configdir) "config"))
-    (goto-char (point-min))
-    (re-search-forward (concat "^" var "\t[^\t]+\t\\(.*\\)$"))
-    (match-string 1)))
-
-(defun roswell-directory (type)
-  (concat
-   (roswell-configdir)
-   "lisp/"
-   type
-   "/"
-   (roswell-opt (concat type ".version"))
-   "/"))
+;; Check if the Roswell helper file exists and load it
+(if (file-exists-p roswell-helper-file)
+    (load roswell-helper-file))
 
 (my/ensure-package-installed 'sly)
 (use-package sly)
@@ -60,8 +40,7 @@
 (setq inferior-lisp-program "ros dynamic-space-size=2048 -L sbcl -l ~/.sbclrc run"
       sly-lisp-implementations '((sbcl ("sbcl" "dynamic-space-size=2048" "-l" "~/.sbclrc"))
                                  (roswell ("ros" "dynamic-space-size=2048" "-L" "sbcl" "-l" "~/.sbclrc" "run")))
-      sly-default-lisp 'roswell
-      inferior-lisp-program "ros dynamic-space-size=2048 -L sbcl -l ~/.sbclrc run")
+      sly-default-lisp 'roswell)
 
 (provide '015_cl)
 ;; 015_cl.el ends here
