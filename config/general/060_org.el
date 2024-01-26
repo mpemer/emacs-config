@@ -13,10 +13,11 @@
 (require 'org-agenda)
 
 
-(let ((package-list '(org-alert   ;; https://github.com/spegoraro/org-alert
+(let ((package-list '(
+                      ;;org-alert   ;; https://github.com/spegoraro/org-alert
 		                  org-bullets ;; https://github.com/sabof/org-bullets
                       org-caldav  ;; https://github.com/dengste/org-caldav
-                      async       ;; https://github.com/jwiegley/emacs-async
+                      ;;async       ;; https://github.com/jwiegley/emacs-async
                       ;;org-contrib
                       ;;org-beautify-theme
 		                  )))
@@ -169,9 +170,10 @@
               (sequence "MEETING(m)" "EVENT(e)"))))
 
 (setq org-caldav-todo-percent-states
-      (quote ((0 "TODO") (0 "FILE") (50 "IP") (100 "DONE")   (:calendar-id "marcus@pemer.com"
-                 :files ("~/org/tasks.org")
-                 :inbox "~/org/tasks.org"
+      (quote ((0 "TODO") (0 "FILE") (50 "IP") (100 "DONE")
+                           (:calendar-id "marcus@pemer.com"
+                            :files ("~/org/tasks.org")
+                            :inbox "~/org/tasks.org"
                  )
 
               (0 "WAITING") (0 "HOLD") (0 "CANCELLED")

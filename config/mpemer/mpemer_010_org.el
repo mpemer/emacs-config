@@ -16,42 +16,42 @@
 (defun mp-org-tasks ()
   "Open tasks.org."
   (interactive)
-  (find-file (concat org-directory "/tasks.org")))
+  (find-file (expand-file-name "tasks.org" org-directory)))
 
 (defun mp-org-notes ()
   "Open notes.org."
   (interactive)
-  (find-file (concat org-directory "/notes.org")))
+  (find-file (expand-file-name "notes.org" org-directory)))
 
 (defun mp-org-meetings ()
   "Open meetings.org."
   (interactive)
-  (find-file (concat org-directory "/meetings.org")))
+  (find-file (expand-file-name "meetings.org" org-directory)))
 
 (defun mp-org-plan ()
   "Open plan.org."
   (interactive)
-  (find-file (concat org-directory "/plan.org")))
+  (find-file (expand-file-name "plan.org" org-directory)))
 
 (defun mp-org-goals ()
   "Open goals.org."
   (interactive)
-  (find-file (concat org-directory "/goals.org")))
+  (find-file (expand-file-name "goals.org" org-directory)))
 
 (defun mp-org-ideas ()
   "Open ideas.org."
   (interactive)
-  (find-file (concat org-directory "/ideas.org")))
+  (find-file (expand-file-name "ideas.org" org-directory)))
 
 (defun mp-org-family ()
   "Open family.org."
   (interactive)
-  (find-file (concat org-directory "/calendars/family.org")))
+  (find-file (expand-file-name "calendars/family.org" org-directory)))
 
 (defun mp-org-bookmarks ()
   "Open bookmarks.org."
   (interactive)
-  (find-file (concat org-directory "/bookmarks.org")))
+  (find-file (expand-file-name "bookmarks.org" org-directory)))
 
 (global-set-key (kbd "C-c oo") 'mp-org-tasks)
 (global-set-key (kbd "C-c on") 'mp-org-notes)
@@ -66,15 +66,14 @@
 ;; By default, archive into the same file name under archive subfolder, but fold items into datetree
 (setq org-archive-location (my/mkpath "archive" "%s::datetree"))
 
-(defun my/org-home (filename)
-  "Concat whatever FILENAME to the org-home path."
-  (concat "~/org/" filename))
-
-
-(setq org-directory "~/org"
-      org-agenda-files (list "~/org")
-      org-caldav-save-directory "~/org/.caldav/"
-      org-default-notes-file "~/org/notes.org"
+(setq org-directory (expand-file-name "~/org")
+      org-agenda-files (append (list (expand-file-name "tasks.org" org-directory)
+                                     (expand-file-name "plan.org" org-directory)
+                                     (expand-file-name "goals.org" org-directory))
+                               (directory-files-recursively
+                                (expand-file-name "calendars" org-directory) "\\.org$"))
+      org-caldav-save-directory (expand-file-name ".caldav" org-directory)
+      org-default-notes-file (expand-file-name "notes.org" org-directory)
       org-icalendar-timezone "CET"
       plstore-cache-passphrase-for-symmetric-encryption t
 
@@ -88,15 +87,15 @@
       )
 
 (setq org-capture-templates
-      (quote (("t" "Task" entry (file "~/org/tasks.org")
+      (quote (("t" "Task" entry (file (expand-file-name "tasks.org" org-directory))
  	             "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\nDEADLINE: %t\nSCHEDULED: \n")
- 	            ("n" "Note" entry (file "~/org/notes.org")
+ 	            ("n" "Note" entry (file (expand-file-name "notes.org" org-directory))
  	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
- 	            ("i" "Idea" entry (file+headline "~/org/ideas.org" "Ideas")
+ 	            ("i" "Idea" entry (file+headline (expand-file-name "ideas.org" org-directory) "Ideas")
  	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
- 	            ("g" "Goal" entry (file "~/org/goals.org")
+ 	            ("g" "Goal" entry (file (expand-file-name "goals.org" org-diretory))
  	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
- 	            ("m" "Meeting" entry (file "~/org/meetings.org")
+ 	            ("m" "Meeting" entry (file (expand-file-name "meetings.org" org-directory))
  	             "* MEETING with %?\n:PROPERTIES:\n:CREATED: %U\n:SCHEDULED: %t\n:END:\n")
               )))
 
