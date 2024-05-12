@@ -72,8 +72,6 @@
    '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start))
  '(org-icalendar-with-timestamps t)
  '(org-startup-folded t)
- '(package-selected-packages
-   '(chatgpt ox-coleslaw org-contrib ox-extra json-mode fzf gruber-darker-theme 'gruber-darker-theme async emacs-async org-caldav org-gcal org-bullets ox-hugo ox-odt ox-twbs ox-slack ox-minutes ox-epub ox-clip ox-asciidoc ox-pandoc org-ehtml org-alert pandoc nov yasnippet csv-mode yaml-mode kubernetes dockerfile-mode magit flycheck-clj-kondo company flycheck cider which-key dap-mode lsp-ui lsp-mode clojure-mode doom-themes all-the-icons neotree dedicated graphviz-dot-mode clipetty darkroom zoom-window queue oauth2 powerline expand-region multi-term edit-server exec-path-from-shell use-package quelpa))
  '(ring-bell-function 'ignore)
  '(safe-local-variable-values
    '((eval add-hook 'after-save-hook #'org-hugo-export-wim-to-md-after-save :append :local)
@@ -81,7 +79,7 @@
      (eval put 'test-js-eval 'common-lisp-indent-function 1)
      (eval put 'test-ps-js 'common-lisp-indent-function 1)
      (auto-revert-mode . 1)))
- '(scroll-bar-mode nil)
+ '(scroll-bar-mode 'right)
  '(scroll-conservatively 100000)
  '(scroll-error-top-bottom t)
  '(scroll-margin 2)
@@ -110,7 +108,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :extend nil :stipple nil :background "#000000" :foreground "#e4e4ef" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 1 :width normal :foundry "default" :family "default")))))
+ '(default ((t (:inherit nil :extend nil :stipple nil :background "black" :foreground "#e4e4ef" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 120 :width normal :foundry "nil" :family "DejaVu Sans Mono")))))
 
 (provide '.emacs)
 ;;; .emacs ends here

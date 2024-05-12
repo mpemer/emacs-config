@@ -6,17 +6,21 @@
 
 (require 'defs)
 
-(dolist (pkg (list 'clojure-mode
-                   'lsp-mode
+(dolist (pkg (list 'lsp-mode
                    'lsp-ui
                    'dap-mode
                    'which-key
-                   'cider
                    'lsp-treemacs
-                   'flycheck
                    'company
-                   'flycheck-clj-kondo
                    'magit
+                   'focus
+                   'flycheck
+                   'flymake
+
+                   ;; Modes that don't have their own config file:
+                   'flycheck-grammarly
+                   'flymake-grammarly
+                   'flymake-eldev
                    'dockerfile-mode
                    'kubernetes
                    'yaml-mode

@@ -8,6 +8,11 @@
 
 ;;(require 'defs)
 
+(dolist (pkg (list 'flylisp))
+  
+  (my/ensure-package-installed pkg))
+
+
 ;; Define the path to the Roswell helper file
 (defvar roswell-helper-file "~/.roswell/helper.el")
 
