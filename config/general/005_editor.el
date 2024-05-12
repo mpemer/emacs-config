@@ -6,14 +6,16 @@
 
 (require 'defs)
 
-(dolist (pkg (list 'oauth2
-                   'queue
-                   'zoom-window
-                   'darkroom
-                   ;;'clipetty
-                   ;;'graphviz-dot-mode
-                   ;;'dedicated
-                   ))
+(dolist (pkg '(oauth2
+               queue
+               zoom-window
+               darkroom
+               which-key
+               focus
+               ;;clipetty
+               ;;graphviz-dot-mode
+               ;;dedicated
+               ))
   (my/ensure-package-installed pkg))
 
 (use-package oauth2)
@@ -23,15 +25,24 @@
                  (custom-set-variables
                   '(zoom-window-mode-line-color "DarkGreen"))))
 
-(defun toggle-darkroom-mode ()
-  "Toggle mode to darkroom mode, to be invoked from some key combination."
-  (interactive)
-  (darkroom-tentative-mode nil))
+(progn
+  (defun toggle-darkroom-mode ()
+    "Toggle mode to darkroom mode, to be invoked from some key combination."
+    (interactive)
+    (darkroom-tentative-mode nil))
+  
+  (use-package darkroom
+    :config (progn
+              (setq darkroom-margins 0.15)
+              (global-set-key (kbd "C-c d") 'toggle-darkroom-mode))))
 
-(use-package darkroom
-  :config (progn
-            (setq darkroom-margins 0.15)
-            (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
+
+;; optional if you want which-key integration
+;; https://github.com/justbur/emacs-which-key
+(use-package which-key
+    :config
+    (which-key-mode))
+
 
 ;; Send emacs kill ring to remote clipboard
 ;;(use-package clipetty

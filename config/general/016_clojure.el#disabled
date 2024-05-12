@@ -8,6 +8,7 @@
 
 (dolist (pkg (list 'clojure-mode
                    'cider
+                   'flycheck-clojure
                    'flycheck-clj-kondo))
   
   (my/ensure-package-installed pkg))

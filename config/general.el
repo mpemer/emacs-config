@@ -32,21 +32,19 @@
 (package-initialize)
 
 ;; Ensure emacs can handle pgp key passowrds using loopback
-(setq epa-pinentry-mode 'loopback)
+;;(setq epa-pinentry-mode 'loopback)
 
 ;; Refresh packages every timeout-seconds (probably 24h)
-(let* ((ts-file (my/mkfpath package-user-dir ".last-refresh"))
-       (last-ts (if (file-exists-p ts-file) (my/read-integer ts-file) 0))
-       (timeout-seconds (* 24 60 60))
-       (now (time-convert nil 'integer)))
-  (when (> (- now last-ts) timeout-seconds)
-    (package-refresh-contents) ;; update packages
-    (with-temp-file ts-file ;; we did it, so update stored time stamp
-      (insert (format "%d\n" now)))))
+;;(let* ((ts-file (my/mkfpath package-user-dir ".last-refresh"))
+;;       (last-ts (if (file-exists-p ts-file) (my/read-integer ts-file) 0))
+;;       (timeout-seconds (* 24 60 60))
+;;       (now (time-convert nil 'integer)))
+;;  (when (> (- now last-ts) timeout-seconds)
+;;    (package-refresh-contents) ;; update packages
+;;    (with-temp-file ts-file ;; we did it, so update stored time stamp
+;;      (insert (format "%d\n" now)))))
 
-(my/ensure-package-installed 'quelpa)
-
-(dolist (pkg (list 'use-package))
+(dolist (pkg '(use-package quelpa))
   (my/ensure-package-installed pkg))
 
 (use-package quelpa

@@ -1,4 +1,5 @@
 *
+/local.el
 !config
 !config/**
 !.gitignore

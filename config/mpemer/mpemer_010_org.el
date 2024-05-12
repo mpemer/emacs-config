@@ -48,6 +48,11 @@
   (interactive)
   (find-file (expand-file-name "calendars/family.org" org-directory)))
 
+(defun mp-org-journal ()
+  "Open journal.org."
+  (interactive)
+  (find-file (expand-file-name "journal.org" org-directory)))
+
 (defun mp-org-bookmarks ()
   "Open bookmarks.org."
   (interactive)
@@ -59,6 +64,7 @@
 (global-set-key (kbd "C-c op") 'mp-org-plan)
 (global-set-key (kbd "C-c og") 'mp-org-goals)
 (global-set-key (kbd "C-c oi") 'mp-org-ideas)
+(global-set-key (kbd "C-c oj") 'mp-org-journal)
 (global-set-key (kbd "C-c of") 'mp-org-family)
 (global-set-key (kbd "C-c ob") 'mp-org-bookmarks)
 
@@ -86,18 +92,62 @@
 
       )
 
-(setq org-capture-templates
-      (quote (("t" "Task" entry (file (expand-file-name "tasks.org" org-directory))
- 	             "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\nDEADLINE: %t\nSCHEDULED: \n")
- 	            ("n" "Note" entry (file (expand-file-name "notes.org" org-directory))
- 	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
- 	            ("i" "Idea" entry (file+headline (expand-file-name "ideas.org" org-directory) "Ideas")
- 	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
- 	            ("g" "Goal" entry (file (expand-file-name "goals.org" org-diretory))
- 	             "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
- 	            ("m" "Meeting" entry (file (expand-file-name "meetings.org" org-directory))
- 	             "* MEETING with %?\n:PROPERTIES:\n:CREATED: %U\n:SCHEDULED: %t\n:END:\n")
-              )))
+(let ((org-dir (file-name-as-directory org-directory)))
+  (setq org-capture-templates
+        `(("t" "Task" entry (file ,(concat org-dir "tasks.org"))
+ 	         "* TODO %?
+:PROPERTIES:
+:CREATED: %U
+:END:
+DEADLINE: %t
+SCHEDULED: 
+")
+ 	        ("n" "Note" entry (file ,(concat org-dir "notes.org"))
+ 	         "* %?
+:PROPERTIES:
+:CREATED: %U
+:END:
+")
+ 	        ("i" "Idea" entry (file+headline ,(concat org-dir "ideas.org") "Ideas")
+ 	         "* %?
+:PROPERTIES:
+:CREATED: %U
+:END:
+")
+ 	        ("g" "Goal" entry (file ,(concat org-dir "goals.org"))
+ 	         "* %?
+:PROPERTIES:
+:CREATED: %U
+:END:
+")
+ 	        ("m" "Meeting" entry (file ,(concat org-dir "meetings.org"))
+ 	         "* MEETING with %?
+:PROPERTIES:
+:CREATED: %U
+:SCHEDULED: %t
+:END:
+")
+ 	        ("j" "Journal" entry (file+datetree ,(concat org-dir "journal.org"))
+ 	         "* Scrum
+:PROPERTIES:
+:CREATED: %U
+:END:
+** Current Goals
+    1. 
+
+** Since Last [/]
+    - [ ]
+
+** Until Next
+    - [ ]
+
+** Impediments
+    - 
+
+** Notes
+
+")
+          )))
 
 
 

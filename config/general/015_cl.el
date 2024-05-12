@@ -8,14 +8,39 @@
 
 ;;(require 'defs)
 
+(dolist (pkg '(flylisp))  
+  (my/ensure-package-installed pkg))
+
+;; N.B. You need to have roswell installed
+;; ideally with a source-compiled sbcl
+;; and "ros install sly"
+;; after this, you should have helper.el available
+
 ;; Define the path to the Roswell helper file
-(defvar roswell-helper-file "~/.roswell/helper.el")
+;;(defvar roswell-helper-file "~/.roswell/helper.el")
+
+;; Check if the Roswell helper file exists and load it
+;;(when (file-exists-p roswell-helper-file)
+;;    (load roswell-helper-file)
+;;    (add-to-list 'load-path (roswell-directory "sly"))
+;;    )
+
+;; Define the path to the Roswell helper file in a platform-independent way
+(defvar roswell-helper-file
+  (expand-file-name (concat (getenv "HOME") "/.roswell/helper.el")))
+
+;; Function to determine the Roswell installation directory
+(defun ros-dir ()
+  (if-let ((roswell-bin (executable-find "ros")))
+      (file-name-directory roswell-bin)))
+
+;;(expand-file-name "lisp/sly" (ros-dir))
 
 ;; Check if the Roswell helper file exists and load it
 (when (file-exists-p roswell-helper-file)
-    (load roswell-helper-file)
-    (add-to-list 'load-path (roswell-directory "sly"))
-    )
+  (load roswell-helper-file)
+  (if-let ((rd (ros-dir)))
+      (add-to-list 'load-path (expand-file-name "lisp/sly" rd))))
 
 (my/ensure-package-installed 'sly)
 (use-package sly)
