@@ -26,7 +26,7 @@
  ;; Prefer TLS1.3
  gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
-(defvar my/user (getenv "USER"))
+(defvar my/user (user-login-name))
 (defvar my/home (getenv "HOME"))
 
 (defun my/mkfpath (&rest segs)
