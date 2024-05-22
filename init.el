@@ -31,10 +31,6 @@
 ;   (let ((path (split-string (getenv "PATH") path-separator)))
 ;     (setq exec-path path)
 ;     (setenv "PATH" (mapconcat 'identity path path-separator))))
-
-;; Optional: Print exec-path for debugging purposes
-;;(message "exec-path is: %s" exec-path)
-
 ; (if (daemonp)
 ;    (add-hook 'after-make-frame-functions
 ;              (lambda (frame)
