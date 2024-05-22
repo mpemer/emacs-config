@@ -1,5 +1,4 @@
 *
-/local.el
 !config
 !config/**
 !.gitignore
@@ -7,5 +6,3 @@
 *.log
 *~
 *.elc
-disabled/
-.DS_Store
