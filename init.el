@@ -63,13 +63,13 @@
  '(mouse-wheel-follow-mouse 't)
  '(mouse-wheel-progressive-speed 1)
  '(mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control))))
- '(org-caldav-debug-level 1)
- '(org-caldav-oauth2-client-secret "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")
+ '(org-caldav-debug-level 1 t)
+ '(org-caldav-oauth2-client-secret "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" t)
  '(org-caldav-resume-aborted 'never)
- '(org-caldav-sync-todo t)
- '(org-caldav-url 'google)
+ '(org-caldav-sync-todo t t)
+ '(org-caldav-url 'google t)
  '(org-icalendar-use-scheduled
-   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start))
+   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start) t)
  '(org-icalendar-with-timestamps t)
  '(org-startup-folded t)
  '(package-selected-packages
