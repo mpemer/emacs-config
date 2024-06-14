@@ -160,7 +160,9 @@
 (setq org-indirect-buffer-display 'current-window)
 
 ;; Adds a CLOSED property time stamp to the TODO entry if marked as done
-(setq org-log-done 'time)
+(setq org-log-done 'time
+      org-log-repeat 'time
+      org-log-into-drawer t)
 
 ;;;; END REFILE
 
