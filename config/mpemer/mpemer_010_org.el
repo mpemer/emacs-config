@@ -92,7 +92,8 @@
 (setq org-directory (expand-file-name "~/org")
       org-agenda-files (append (list (expand-file-name "tasks.org" org-directory)
                                      (expand-file-name "plan.org" org-directory)
-                                     (expand-file-name "goals.org" org-directory))
+                                     (expand-file-name "goals.org" org-directory)
+                                     (expand-file-name "platform.org" org-directory))
                                (directory-files-recursively
                                 (expand-file-name "calendars" org-directory) "\\.org$"))
       org-caldav-save-directory (expand-file-name ".caldav" org-directory)
