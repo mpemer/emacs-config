@@ -26,7 +26,8 @@
                    'yaml-mode
                    'json-mode
                    'csv-mode
-                   'yasnippet))
+                   ;;'yasnippet
+		   ))
   
   (my/ensure-package-installed pkg))
 
@@ -37,30 +38,9 @@
     (global-set-key (kbd "C-x g") 'magit-status)
     (global-set-key (kbd "C-x C-g") 'magit-status)))
 
-(use-package clojure-mode)
-
-(use-package cider
-  :config (progn
-	          (global-set-key (kbd "<insert>") 'cider-pprint-eval-defun-at-point)
-	          (setq cider-show-error-buffer 'only-in-repl)
-	          (setq cider-lein-parameters "repl :headless :host localhost")
-	          ;;(setq cider-jdk-src-paths '("~/src/clojure"
-		        ;;			  "~/src/openjdk-8"))
-	          (setq cider-font-lock-dynamically '(macro core function var))
-	          (setq cider-overlays-use-font-lock t)
-	          (setq cider-clojure-cli-global-options "-A:dev")
-	          (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
-	          (add-hook 'cider-mode-hook #'turn-on-eldoc-mode)
-	          (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
-	          (add-hook 'cider-mode-hook #'eldoc-mode)
-		  ;;(add-hook 'cider-mode-hook #'lsp)
-		  ))
 
 (use-package flycheck
   :config (add-hook 'after-init-hook #'global-flycheck-mode))
-
-(use-package flycheck-clj-kondo
-  :config (require 'flycheck-clj-kondo))
 
 (use-package company
   :config (progn
@@ -80,7 +60,7 @@
 (use-package dockerfile-mode)
 (use-package kubernetes)
 
-(use-package yasnippet)
+;;(use-package yasnippet)
 (use-package lsp-mode
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")

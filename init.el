@@ -69,7 +69,7 @@
  '(org-caldav-sync-todo t t)
  '(org-caldav-url 'google t)
  '(org-icalendar-use-scheduled
-   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start) t)
+   '(event-if-not-todo event-if-todo event-if-todo-not-done todo-start))
  '(org-icalendar-with-timestamps t)
  '(org-startup-folded t)
  '(package-selected-packages
@@ -101,12 +101,12 @@
  '(xterm-mouse-mode t)
  '(zoom-window-mode-line-color "DarkGreen"))
 
-(if (daemonp)
-   (add-hook 'after-make-frame-functions
-             (lambda (frame)
-               (with-selected-frame frame
-                 (set-cursor-color "#eebbaa"))))
- (set-cursor-color "#eebbaa"))
+;; (if (daemonp)
+;;    (add-hook 'after-make-frame-functions
+;;              (lambda (frame)
+;;                (with-selected-frame frame
+;;                  (set-cursor-color "#eebbaa"))))
+;;  (set-cursor-color "#eebbaa"))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -115,5 +115,5 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "black" :foreground "#e4e4ef" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight regular :height 120 :width normal :foundry "nil" :family "DejaVu Sans Mono")))))
 
-(provide '.emacs)
-;;; .emacs ends here
+(provide '.init)
+;;; init.el ends here
