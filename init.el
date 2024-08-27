@@ -28,7 +28,7 @@
 (setq backup-directory-alist (list (cons "." (concat user-emacs-directory "tmp"))))
 
 ;; Specify the file to save custom settings
-(setq custom-file "~/.emacs-custom.el")
+(setq custom-file (concat user-emacs-directory ".emacs-custom.el"))
 
 ;; Load the custom settings from the file, if it exists
 (when (file-exists-p custom-file)
