@@ -30,7 +30,7 @@
 
 (use-package darkroom
   :config (progn
-            (setq darkroom-margins 0.15)
+            (setq darkroom-margins 0.1)
             (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
 
 ;; Send emacs kill ring to remote clipboard
