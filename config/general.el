@@ -46,14 +46,19 @@
 
 (my/ensure-package-installed 'quelpa)
 
-(dolist (pkg (list 'use-package))
+(dolist (pkg (list 'use-package 'exec-path-from-shell))
   (my/ensure-package-installed pkg))
 
 (use-package quelpa
   :config (progn
-	          (setq quelpa-upgrade-p t
-		              quelpa-self-upgrade-p nil)))
+	    (setq quelpa-upgrade-p t
+		  quelpa-self-upgrade-p nil)))
 
+(use-package exec-path-from-shell
+  :config (progn
+	    (when (memq window-system '(mac ns x))
+	      (exec-path-from-shell-initialize)
+	      (exec-path-from-shell-copy-env "PATH"))))
 
 ;; general, shared settings divided into separate files
 (let ((config-path (my/mkpath user-emacs-directory "config" "general")))
