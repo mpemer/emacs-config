@@ -76,7 +76,5 @@
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
 
-(winner-mode 1)
-
 (provide '005_editor)
 ;;; 005_editor.el ends here
