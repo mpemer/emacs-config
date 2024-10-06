@@ -30,7 +30,7 @@
 
 (use-package darkroom
   :config (progn
-            (setq darkroom-margins 0.15)
+            (setq darkroom-margins 0.1)
             (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
 
 ;; Send emacs kill ring to remote clipboard
@@ -82,8 +82,6 @@
 
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
-
-(winner-mode 1)
 
 (provide '005_editor)
 ;;; 005_editor.el ends here

@@ -31,29 +31,21 @@
        (unless (server-running-p) (server-start))
 ;;       (edit-server-start))
 
-;; (progn
-;;   (my/ensure-package-installed 'multi-term)
-;;   (use-package multi-term
-;;     :config (progn
-;; 	      (setq multi-term-program "fish")
-;; 	      (add-hook 'term-mode-hook
-;; 			(lambda ()
-;; 			  (setq term-buffer-maximum-size 10000)))
-;; 	      (add-hook 'term-mode-hook
-;; 			(lambda ()
-;; 			  (add-to-list 'term-bind-key-alist '("M-[" . multi-term-prev))
-;; 			  (add-to-list 'term-bind-key-alist '("M-]" . multi-term-next))))
-;; 	      (add-hook 'term-mode-hook
-;; 			(lambda ()
-;; 			  (define-key term-raw-map (kbd "C-y") 'term-paste))))))
-
-;; expand-region
-;; https://github.com/magnars/expand-region.el
 (progn
-  (my/ensure-package-installed 'expand-region)
-  (use-package expand-region
+  (my/ensure-package-installed 'multi-term)
+  (use-package multi-term
     :config (progn
-	      (global-set-key (kbd "C-=") 'er/expand-region))))
+	      (setq multi-term-program "fish")
+	      (add-hook 'term-mode-hook
+			(lambda ()
+			  (setq term-buffer-maximum-size 10000)))
+	      (add-hook 'term-mode-hook
+			(lambda ()
+			  (add-to-list 'term-bind-key-alist '("M-[" . multi-term-prev))
+			  (add-to-list 'term-bind-key-alist '("M-]" . multi-term-next))))
+	      (add-hook 'term-mode-hook
+			(lambda ()
+			  (define-key term-raw-map (kbd "C-y") 'term-paste))))))
 
 ;; powerline
 (progn
@@ -62,6 +54,7 @@
     :config (progn (powerline-default-theme))))
 
 (defun mp/check-external-modifications ()
+  "Check if any buffers have been modified externally, and if so, prompt an action from user."
   (if (verify-visited-file-modtime (current-buffer))
       (setq header-line-format nil)
     ;;(if (buffer-modified-p (current-buffer))
@@ -87,6 +80,15 @@ narrowed."
 
 (global-set-key (kbd "C-x =") 'mp/narrow-or-widen-dwim)
 
+
+(defun mp/toggle-frame-undecorated (p)
+  "Toggle frame title bar on or off.  The parameter P is not used."
+    (interactive "P")
+    (declare (interactive-only))
+    (set-frame-parameter nil 'undecorated
+			 (not (frame-parameter nil 'undecorated))))
+  
+(global-set-key (kbd "C-x W") 'mp/toggle-frame-undecorated)
 
 (defun my/delete-old-backup-files ()
   (interactive)
