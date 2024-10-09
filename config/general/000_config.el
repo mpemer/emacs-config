@@ -23,6 +23,9 @@
       (exec-path-from-shell-initialize))))
 
 
+(unless (display-graphic-p)
+  (xterm-mouse-mode 1))
+
 ;; Keep custom config under config directory (a git repo).
 ;; Entry point to config repo is general.el
 ;;(progn (my/ensure-package-installed 'edit-server)
