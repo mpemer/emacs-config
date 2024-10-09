@@ -31,21 +31,6 @@
        (unless (server-running-p) (server-start))
 ;;       (edit-server-start))
 
-(progn
-  (my/ensure-package-installed 'multi-term)
-  (use-package multi-term
-    :config (progn
-	      (setq multi-term-program "fish")
-	      (add-hook 'term-mode-hook
-			(lambda ()
-			  (setq term-buffer-maximum-size 10000)))
-	      (add-hook 'term-mode-hook
-			(lambda ()
-			  (add-to-list 'term-bind-key-alist '("M-[" . multi-term-prev))
-			  (add-to-list 'term-bind-key-alist '("M-]" . multi-term-next))))
-	      (add-hook 'term-mode-hook
-			(lambda ()
-			  (define-key term-raw-map (kbd "C-y") 'term-paste))))))
 
 ;; powerline
 (progn

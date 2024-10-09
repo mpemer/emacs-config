@@ -10,9 +10,10 @@
                    'queue
                    'zoom-window
                    'darkroom
+;;		   'centered-window
                    ;;'clipetty
                    ;;'graphviz-dot-mode
-                   ;;'dedicated
+                   'dedicated
                    ))
   (my/ensure-package-installed pkg))
 
@@ -33,7 +34,15 @@
             (setq darkroom-margins 0.1)
             (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
 
-;; Send emacs kill ring to remote clipboard
+;;(setq header-line-format " ")
+
+;; (use-package centered-window
+;;   :config (progn
+;; 	    (setf cwm-use-vertical-padding t
+;; 		  cwm-frame-internal-border 70)))
+;; This is too far from ideal. internal border does the whole app. I want to center within the window vertically.
+
+  ;; Send emacs kill ring to remote clipboard
 ;;(use-package clipetty
 ;;  :config (global-clipetty-mode))
 
@@ -42,7 +51,7 @@
 
 ;;(use-package color)
 ;;(use-package graphviz-dot-mode :config (setq graphviz-dot-indent-width 2))
-;;(use-package dedicated)
+(use-package dedicated)
 
 ;; Navigation
 ;;(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)

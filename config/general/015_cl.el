@@ -9,7 +9,6 @@
 ;;(require 'defs)
 
 (dolist (pkg (list 'flylisp))
-  
   (my/ensure-package-installed pkg))
 
 
@@ -18,9 +17,8 @@
 
 ;; Check if the Roswell helper file exists and load it
 (when (file-exists-p roswell-helper-file)
-    (load roswell-helper-file)
-    (add-to-list 'load-path (roswell-directory "sly"))
-    )
+  (load roswell-helper-file)
+   (add-to-list 'load-path (roswell-directory "sly")))
 
 (my/ensure-package-installed 'sly)
 (use-package sly)
@@ -49,6 +47,10 @@
       sly-default-lisp (if (file-exists-p roswell-helper-file)
 			   'roswell
 			 'sbcl))
+
+;; (setq inferior-lisp-program "~/src/sbcl/sbcl-core --dynamic-space-size 2048"
+;;       sly-lisp-implementations '((sbcl ("~/src/sbcl/sbcl-core" "--dynamic-space-size" "2048")))
+;;       sly-default-lisp 'sbcl)
 
 (provide '015_cl)
 ;; 015_cl.el ends here

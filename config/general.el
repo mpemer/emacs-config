@@ -46,13 +46,20 @@
 
 (my/ensure-package-installed 'quelpa)
 
-(dolist (pkg (list 'use-package 'exec-path-from-shell))
-  (my/ensure-package-installed pkg))
-
 (use-package quelpa
   :config (progn
 	    (setq quelpa-upgrade-p t
 		  quelpa-self-upgrade-p nil)))
+(quelpa
+ '(quelpa-use-package
+   :fetcher git
+   :url "https://github.com/quelpa/quelpa-use-package.git"))
+
+(require 'quelpa-use-package)
+
+
+(dolist (pkg (list 'use-package 'exec-path-from-shell))
+  (my/ensure-package-installed pkg))
 
 (use-package exec-path-from-shell
   :config (progn
