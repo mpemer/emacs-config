@@ -58,9 +58,13 @@
 ;;(global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
 ;; Remap the window management keys to something more manageable
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-x C-j") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-x C-l") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "C-x C-m") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+(global-set-key (kbd "C-x C-i") 'enlarge-window)
 
 ;; Text scaling
 (global-set-key (kbd "C-}") 'text-scale-increase)
@@ -68,6 +72,9 @@
 (global-set-key (kbd "C-+") 'font-size-increase)
 (global-set-key (kbd "C-_") 'font-size-decrease)
 (global-set-key (kbd "C-)") 'font-size-default)
+
+;; Marking text with blutooth keyboard
+(global-set-key (kbd "C-x x") 'set-mark-command)
 
 ;; Enable reopening of recent files via C-x C-r
 (recentf-mode 1)
