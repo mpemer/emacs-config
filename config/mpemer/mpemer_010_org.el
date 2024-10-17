@@ -53,6 +53,11 @@
   (interactive)
   (find-file (expand-file-name "journal.org" org-directory)))
 
+(defun mp-org-system ()
+  "Open system.org."
+  (interactive)
+  (find-file (expand-file-name "system.org" org-directory)))
+
 (defun mp-org-bookmarks ()
   "Open bookmarks.org."
   (interactive)
@@ -66,19 +71,33 @@
 (global-set-key (kbd "C-c oi") 'mp-org-ideas)
 (global-set-key (kbd "C-c oj") 'mp-org-journal)
 (global-set-key (kbd "C-c of") 'mp-org-family)
+(global-set-key (kbd "C-c os") 'mp-org-system)
+
 (global-set-key (kbd "C-c ob") 'mp-org-bookmarks)
 
 
 ;; By default, archive into the same file name under archive subfolder, but fold items into datetree
-(setq org-archive-location (my/mkpath "archive" "%s::datetree"))
+;; (defun my/org-archive-path (dir filename)
+;;   "Create a full path for DIR and FILENAME, appending '_archive' before the file extension."
+;;   (let* ((file (file-name-nondirectory filename))
+;;          (name (file-name-sans-extension file))
+;;          (ext (file-name-extension file))
+;;          (archive-file (concat name "_archive." ext)))
+;;     (concat (file-name-as-directory dir) archive-file)))
+
+;; (setq org-archive-location (my/org-archive-path "archive" "%s::datetree"))
+(setq org-archive-location "archive/%s_archive::datetree")
+
 
 (setq org-directory (expand-file-name "~/org")
       org-agenda-files (append (list (expand-file-name "tasks.org" org-directory)
                                      (expand-file-name "plan.org" org-directory)
-                                     (expand-file-name "goals.org" org-directory))
+                                     (expand-file-name "goals.org" org-directory)
+                                     (expand-file-name "platform.org" org-directory))
                                (directory-files-recursively
                                 (expand-file-name "calendars" org-directory) "\\.org$"))
       org-caldav-save-directory (expand-file-name ".caldav" org-directory)
+      org-caldav-exclude-tags '("no_sync")
       org-default-notes-file (expand-file-name "notes.org" org-directory)
       org-icalendar-timezone "CET"
       plstore-cache-passphrase-for-symmetric-encryption t
@@ -90,7 +109,12 @@
 
       org-caldav-debug-level 0
 
-      )
+      org-agenda-custom-commands
+      '(("o" "Hide meds"
+         ((agenda "")
+          (alltodo ""))
+         ((org-agenda-files (remove (expand-file-name "calendars/meds.org" org-directory) (org-agenda-files)))))))
+
 
 (let ((org-dir (file-name-as-directory org-directory)))
   (setq org-capture-templates
@@ -197,7 +221,7 @@ SCHEDULED:
   "Remove all :ID: properties from org entries in files under /org/archive."
   (interactive)
   (message "Starting to remove :ID: properties from archive...")
-  (let ((files (directory-files-recursively (my/mkpath org-directory "archive") "\\.org$"))
+  (let ((files (directory-files-recursively (my/mkpath org-directory "archive") "\\.org_archive$"))
         (files-processed 0)
         (total-ids-removed 0))
     (dolist (file files)
@@ -240,6 +264,7 @@ SCHEDULED:
 ;;        ("NYT"
 ;;         "http://rss.art19.com/the-daily"
 ;;         "~/org/feeds.org" "NYT")))
+
 
 (provide 'mpemer_010_org)
 ;;; mpemer_010_org.el ends here

@@ -25,6 +25,9 @@
       (exec-path-from-shell-initialize))))
 
 
+(unless (display-graphic-p)
+  (xterm-mouse-mode 1))
+
 ;; Keep custom config under config directory (a git repo).
 ;; Entry point to config repo is general.el
 ;; (progn (my/ensure-package-installed 'edit-server)
@@ -56,6 +59,12 @@
 ;;   (use-package expand-region
 ;;     :config (progn
 ;; 	      (global-set-key (kbd "C-=") 'er/expand-region))))
+;;(progn (my/ensure-package-installed 'edit-server)
+;;       (use-package edit-server)
+       (require 'server)
+       (unless (server-running-p) (server-start))
+;;       (edit-server-start))
+
 
 ;; powerline
 ;; https://github.com/milkypostman/powerline
@@ -117,6 +126,47 @@
 ;; Function to remove ^M characters from the buffer
 (defun remove-dos-eol ()
   "Replace DOS eolns CR LF with Unix eolns CR."
+=======
+    :config (progn (powerline-default-theme))))
+
+(defun mp/check-external-modifications ()
+  "Check if any buffers have been modified externally, and if so, prompt an action from user."
+  (if (verify-visited-file-modtime (current-buffer))
+      (setq header-line-format nil)
+    ;;(if (buffer-modified-p (current-buffer))
+	(setq header-line-format (format "*** WARNING [%s] WARNING ***"
+					 (propertize "This file has been changed externally" 'face '(:foreground "#f92672")))))) ;;)
+(run-with-timer 0 2 'mp/check-external-modifications)
+
+(defun mp/narrow-or-widen-dwim (p)
+    "Works like distraction-free mode toggle. If the buffer is 
+narrowed, it widens. Otherwise, it narrows intelligently.
+Intelligently means: region, subtree, or defun, whichever applies
+first.
+
+With prefix P, don't widen, just narrow even if buffer is already
+narrowed."
+    (interactive "P")
+    (declare (interactive-only))
+    (cond ((and (buffer-narrowed-p) (not p)) (widen))
+	  ((region-active-p)
+	   (narrow-to-region (region-beginning) (region-end)))
+	  ((derived-mode-p 'org-mode) (org-narrow-to-subtree))
+	  (t (narrow-to-defun))))
+
+(global-set-key (kbd "C-x =") 'mp/narrow-or-widen-dwim)
+
+
+(defun mp/toggle-frame-undecorated (p)
+  "Toggle frame title bar on or off.  The parameter P is not used."
+    (interactive "P")
+    (declare (interactive-only))
+    (set-frame-parameter nil 'undecorated
+			 (not (frame-parameter nil 'undecorated))))
+  
+(global-set-key (kbd "C-x W") 'mp/toggle-frame-undecorated)
+
+(defun my/delete-old-backup-files ()
   (interactive)
   (goto-char (point-min))
   (while (search-forward "\r" nil t) (replace-match "")))

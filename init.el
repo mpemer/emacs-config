@@ -38,18 +38,18 @@
 ;                  (set-cursor-color "#eebbaa"))))
 ;  (set-cursor-color "#eebbaa"))
 
-;; Set the path to your custom file
-(setq custom-file (expand-file-name "local.el" user-emacs-directory))
+;; Specify the file to save custom settings
+(setq custom-file (concat user-emacs-directory ".emacs-custom.el"))
 
-;; Load the custom file if it exists
+;; Load the custom settings from the file, if it exists
 (when (file-exists-p custom-file)
   (load custom-file))
-
 (require 'general)
 
 (require 'server)
 (unless (server-running-p)
   (server-start))
+
 
 (provide '.init)
 ;;; init.el ends here

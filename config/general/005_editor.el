@@ -6,16 +6,15 @@
 
 (require 'defs)
 
-(dolist (pkg '(oauth2
-               queue
-               zoom-window
-               darkroom
-               which-key
-               focus
-               ;;clipetty
-               ;;graphviz-dot-mode
-               ;;dedicated
-               ))
+(dolist (pkg (list 'oauth2
+                   'queue
+                   'zoom-window
+                   'darkroom
+;;		   'centered-window
+                   ;;'clipetty
+                   ;;'graphviz-dot-mode
+                   'dedicated
+                   ))
   (my/ensure-package-installed pkg))
 
 (use-package oauth2)
@@ -43,8 +42,20 @@
     :config
     (which-key-mode))
 
+(use-package darkroom
+  :config (progn
+            (setq darkroom-margins 0.1)
+            (global-set-key (kbd "C-c d") 'toggle-darkroom-mode)))
 
-;; Send emacs kill ring to remote clipboard
+;;(setq header-line-format " ")
+
+;; (use-package centered-window
+;;   :config (progn
+;; 	    (setf cwm-use-vertical-padding t
+;; 		  cwm-frame-internal-border 70)))
+;; This is too far from ideal. internal border does the whole app. I want to center within the window vertically.
+
+  ;; Send emacs kill ring to remote clipboard
 ;;(use-package clipetty
 ;;  :config (global-clipetty-mode))
 
@@ -53,16 +64,20 @@
 
 ;;(use-package color)
 ;;(use-package graphviz-dot-mode :config (setq graphviz-dot-indent-width 2))
-;;(use-package dedicated)
+(use-package dedicated)
 
 ;; Navigation
 ;;(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
 ;;(global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
 ;; Remap the window management keys to something more manageable
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-x C-j") 'shrink-window-horizontally)
 (global-set-key (kbd "S-C-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "C-x C-l") 'enlarge-window-horizontally)
 (global-set-key (kbd "S-C-<down>") 'shrink-window)
+(global-set-key (kbd "C-x C-m") 'shrink-window)
 (global-set-key (kbd "S-C-<up>") 'enlarge-window)
+(global-set-key (kbd "C-x C-i") 'enlarge-window)
 
 ;; Text scaling
 (global-set-key (kbd "C-}") 'text-scale-increase)
@@ -70,6 +85,9 @@
 (global-set-key (kbd "C-+") 'font-size-increase)
 (global-set-key (kbd "C-_") 'font-size-decrease)
 (global-set-key (kbd "C-)") 'font-size-default)
+
+;; Marking text with blutooth keyboard
+(global-set-key (kbd "C-x x") 'set-mark-command)
 
 ;; Enable reopening of recent files via C-x C-r
 (recentf-mode 1)
@@ -86,8 +104,6 @@
 
 ;; I like to see what time it is also when in full screen mode and OS menu bar is hidden
 (display-time)
-
-(winner-mode 1)
 
 (provide '005_editor)
 ;;; 005_editor.el ends here

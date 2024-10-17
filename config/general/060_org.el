@@ -178,7 +178,9 @@ narrowed."
 (setq org-indirect-buffer-display 'current-window)
 
 ;; Adds a CLOSED property time stamp to the TODO entry if marked as done
-(setq org-log-done 'time)
+(setq org-log-done 'time
+      org-log-repeat 'time
+      org-log-into-drawer t)
 
 ;;;; END REFILE
 
@@ -343,6 +345,141 @@ This function is meant to be used as a possible tool for
 		         ((string-match-p "\\`[0-9]+\\'" option)
 		          (list (string-to-number option)))
 		         (t (list nil option)))))))
+
+
+(require 'calendar)
+(require 'holidays)
+
+(defun my/org-next-business-day (date)
+  "Calculate the next business day after DATE, excluding weekends and holidays."
+  (let ((next-date (calendar-gregorian-from-absolute
+                    (+ 1 (calendar-absolute-from-gregorian date)))))
+    (message "Calculating next business day from %s" date)
+    (while (or (member (calendar-day-of-week next-date) '(0 6)) ; 0 = Sunday, 6 = Saturday
+               (holiday-p next-date))
+      (setq next-date (calendar-gregorian-from-absolute
+                       (+ 1 (calendar-absolute-from-gregorian next-date)))))
+    (message "Next business day is %s" next-date)
+    next-date))
+
+(defun my/org-format-date (date)
+  "Format DATE as an org-mode date string."
+  (format "[%04d-%02d-%02d %s]"
+          (nth 2 date) (nth 0 date) (nth 1 date)
+          (calendar-day-name date)))
+
+(defun my/org-get-next-scrum-date ()
+  "Calculate the next business day for the next scrum date."
+  (let ((today (calendar-current-date)))
+    (message "Today's date is %s" today)
+    (my/org-format-date (my/org-next-business-day today))))
+
+(defun my/org-get-journal-file-path ()
+  "Get the path to the journal.org file in a platform-agnostic way."
+  (expand-file-name "~/org/journal.org"))
+
+(defun my/org-get-last-scrum-date-from-journal ()
+  "Retrieve the most recent scrum date from journal.org."
+  (message "Retrieving last scrum date from journal.org")
+  (with-current-buffer (find-file-noselect (my/org-get-journal-file-path))
+    (goto-char (point-max))
+    (if (re-search-backward "^\\*\\{3\\} \\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\) " nil t)
+        (let ((date (org-read-date nil t (match-string-no-properties 1))))
+          (message "Last scrum date is %s" date)
+          date)
+      (error "No valid scrum date found in journal.org"))))
+
+(defun my/org-get-done-and-ip-tasks ()
+  "Get tasks completed or in progress since the last scrum across all agenda files."
+  (let ((last-scrum-date (my/org-get-last-scrum-date-from-journal))
+        (agenda-files (org-agenda-files)))
+    (message "Getting done and IP tasks since %s" (format-time-string "%Y-%m-%d" last-scrum-date))
+    (dolist (file agenda-files)
+      (message "Processing file: %s" file)
+      (with-current-buffer (find-file-noselect file)
+        (org-map-entries
+         (lambda ()
+           (let ((heading (nth 4 (org-heading-components))))
+             (message "Task done or in progress: %s" heading)
+             (insert (format "- [X] %s\n" heading))))
+         (format "CLOSED>=\"%s\"|+IP" (format-time-string "%Y-%m-%d" last-scrum-date)))))))
+
+(defun my/org-get-next-tasks ()
+  "Get tasks scheduled until the next scrum across all agenda files."
+  (let ((next-scrum-date (org-read-date nil nil (my/org-get-next-scrum-date)))
+        (agenda-files (org-agenda-files)))
+    (message "Getting next tasks until %s" (format-time-string "%Y-%m-%d" next-scrum-date))
+    (dolist (file agenda-files)
+      (message "Processing file: %s" file)
+      (with-current-buffer (find-file-noselect file)
+        (org-map-entries
+         (lambda ()
+           (let ((heading (nth 4 (org-heading-components))))
+             (message "Next task: %s" heading)
+             (insert (format "- %s\n" heading))))
+         (format "+SCHEDULED<=\"%s\"" (format-time-string "%Y-%m-%d" next-scrum-date)))))))
+
+(defun my/org-get-current-goals-from-journal ()
+  "Retrieve the Current Goals from the last entry in journal.org."
+  (message "Retrieving Current Goals from journal.org")
+  (with-current-buffer (find-file-noselect (my/org-get-journal-file-path))
+    (goto-char (point-max))
+    (when (re-search-backward "^\\*\\* Current Goals" nil t)
+      (let ((start (point)))
+        (forward-paragraph)
+        (let ((goals (buffer-substring-no-properties start (point))))
+          (message "Current Goals found: %s" goals)
+          goals)))))
+
+(defun my/org-update-scrum-section ()
+  "Update the Scrum section with done and next tasks."
+  (interactive)
+  (message "Updating Scrum section")
+  (save-excursion
+    (org-find-exact-headline-in-buffer "Scrum")
+    (outline-next-visible-heading 1)
+    (org-narrow-to-subtree)
+    (goto-char (point-min))
+    (outline-next-visible-heading 1)
+    (delete-region (point) (progn (outline-next-visible-heading 1) (point)))
+    (insert "** Current Goals\n")
+    (let ((current-goals (my/org-get-current-goals-from-journal)))
+      (when current-goals
+        (insert current-goals)))
+    (insert "** Since Last\n")
+    (message "Starting to get done and IP tasks")
+    (my/org-get-done-and-ip-tasks)
+    (message "Finished getting done and IP tasks")
+    (insert "** Until Next\n")
+    (message "Starting to get next tasks")
+    (my/org-get-next-tasks)
+    (message "Finished getting next tasks")
+    (insert "** Impediments\n")
+    (insert "** Notes\n")
+    (widen))
+  (message "Scrum section updated"))
+
+(defun my/org-copy-to-journal ()
+  "Copy the Scrum section to journal.org under today's date."
+  (interactive)
+  (message "Copying Scrum section to journal.org")
+  (let ((scrum-section (save-excursion
+                         (org-find-exact-headline-in-buffer "Scrum")
+                         (org-copy-subtree))))
+    (with-current-buffer (find-file-noselect (my/org-get-journal-file-path))
+      (goto-char (point-max))
+      (unless (org-find-entry-with-id (format-time-string "%Y-%m-%d")))
+        (org-insert-heading)
+        (insert (format-time-string "%Y-%m-%d")))
+      (org-narrow-to-subtree)
+      (goto-char (point-max))
+      (insert scrum-section)
+      (widen)
+      (save-buffer))
+  (message "Scrum section copied to journal.org"))
+
+;;(global-set-key (kbd "C-c s u") 'my/org-update-scrum-section)
+;;(global-set-key (kbd "C-c s j") 'my/org-copy-to-journal)
 
 
 (provide '060_org)
