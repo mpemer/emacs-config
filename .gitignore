@@ -1,6 +1,8 @@
 *
 !config
 !config/**
+!profiles
+!profiles/**
 !.gitignore
 !README.md
 *.log

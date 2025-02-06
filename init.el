@@ -718,7 +718,7 @@ narrowed."
 
 
 ;; User-specific settings (files containing secret things are pgp encrypted)
-(let ((user-config-path (my/mkpath user-emacs-directory (user-login-name))))
+(let ((user-config-path (my/mkpath user-emacs-directory "profiles" (user-login-name))))
   (when (file-exists-p user-config-path)
     (add-to-list 'load-path user-config-path)
     (dolist (file-name (directory-files user-config-path))
