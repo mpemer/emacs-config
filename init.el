@@ -727,6 +727,39 @@ narrowed."
 	(when (string-match-p "\.el.gpg$" file-name)
 	  (load file-name))))))
 
+
+;;;; chatgpt
+
+(use-package chatgpt-shell
+  :config
+  (progn
+    (setq chatgpt-shell-api-url "https://api.openai.com/v1/chat/completions")
+    (setq chatgpt-shell-model "gpt-o3-mini-high")))
+
+(global-set-key (kbd "C-c r") 'chatgpt-shell-send-region)
+(global-set-key (kbd "C-c e") 'chatgpt-shell-quick-insert)
+
+
+
+
+
+
+
+
+
+;;;; chatgpt_end
+
+
+
+
+
+
+
+
+
+
+
+
 ;; Keep custom config under config directory (a git repo).
 ;; Specify the file to save custom settings
 (setq custom-file (concat user-emacs-directory ".emacs-custom.el"))
