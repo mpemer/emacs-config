@@ -734,17 +734,11 @@ narrowed."
   :config
   (progn
     (setq chatgpt-shell-api-url "https://api.openai.com/v1/chat/completions")
-    (setq chatgpt-shell-model "gpt-o3-mini-high")))
+    (setq chatgpt-shell-model "o3-mini")))
+;;    (setq chatgpt-shell-model "gpt-o3-mini-high")))
 
 (global-set-key (kbd "C-c r") 'chatgpt-shell-send-region)
 (global-set-key (kbd "C-c e") 'chatgpt-shell-quick-insert)
-
-
-
-
-
-
-
 
 
 ;;;; chatgpt_end
