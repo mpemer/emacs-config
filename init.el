@@ -301,8 +301,8 @@ by using nxml's indentation rules."
 
 (setq-default abbrev-mode t)
 (let ((abbrev-file "~/.emacs.d/abbrev_defs"))
-(when (file-exists-p abbrev-file)
-  (read-abbrev-file abbrev-file)))
+  (when (file-exists-p abbrev-file)
+    (read-abbrev-file abbrev-file)))
 (setq save-abbrevs t)
 
 (put 'downcase-region 'disabled nil)
@@ -767,5 +767,9 @@ narrowed."
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(edit-server-start)
+;;(require 'edit-server)
+(unless (and (fboundp 'edit-server-start) (process-status "edit-server"))
+  (edit-server-start))
+
 (unless (server-running-p) (server-start))
+
