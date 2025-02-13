@@ -29,12 +29,22 @@
 (setq straight-use-package-by-default t)
 
 ;; Define the path to the Roswell helper file
-(defvar roswell-helper-file "~/.roswell/helper.el")
+(defvar roswell-helper-file "~/.roswell/helper.el"
+  "Path to Roswell helper.el file.")
 
 ;; Check if the Roswell helper file exists and load it
-(when (file-exists-p roswell-helper-file)
-  (load roswell-helper-file)
-   (add-to-list 'load-path (roswell-directory "sly")))
+;;(when (file-exists-p roswell-helper-file)
+;;  (load roswell-helper-file)
+;;   (add-to-list 'load-path (roswell-directory "sly")))
+
+(defun my/load-roswell-helper ()
+  "Load the Roswell helper file and update the load-path for SLY if not already loaded."
+  (when (and (file-exists-p roswell-helper-file)
+             (not (featurep 'roswell-helper)))
+    (load roswell-helper-file)
+    (add-to-list 'load-path (roswell-directory "sly"))))
+
+(advice-add 'sly :before #'my/load-roswell-helper)
 
 
 (eval-when-compile
@@ -272,8 +282,9 @@ by using nxml's indentation rules."
 
 (global-set-key (kbd "<C-f11>") 'toggle-frame-fullscreen)
 ;; Navigation
-;;(global-set-key (kbd "M-j") 'avy-goto-word-or-subword-1)
-;;(global-set-key (kbd "C-v") 'yank) ; 【Ctrl+v - I compulsively hit this chord for "paste"】
+(windmove-default-keybindings) ;; Move between windows with shift-arrows
+
+;; ctrl-shift-arrows to resize windows, but also add c-x chords to support remove phone sessions
 ;; Remap the window management keys to something more manageable
 (global-set-key (kbd "S-C-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "C-x C-j") 'shrink-window-horizontally)
@@ -293,6 +304,11 @@ by using nxml's indentation rules."
 
 ;; Marking text with blutooth keyboard
 (global-set-key (kbd "C-x x") 'set-mark-command)
+
+
+(setq display-time-mode t
+      tool-bar-mode nil
+      menu-bar-mode nil)
 
 ;; Enable reopening of recent files via C-x C-r
 (recentf-mode 1)
