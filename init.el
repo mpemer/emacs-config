@@ -32,12 +32,7 @@
 (defvar roswell-helper-file "~/.roswell/helper.el"
   "Path to Roswell helper.el file.")
 
-;; Check if the Roswell helper file exists and load it
-;;(when (file-exists-p roswell-helper-file)
-;;  (load roswell-helper-file)
-;;   (add-to-list 'load-path (roswell-directory "sly")))
-
-(defun my/load-roswell-helper ()
+(defun my/load-roswell-helper (&rest _args) ;; _args ignored; required to be used in advice below
   "Load the Roswell helper file and update the load-path for SLY if not already loaded."
   (when (and (file-exists-p roswell-helper-file)
              (not (featurep 'roswell-helper)))
