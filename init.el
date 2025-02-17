@@ -262,9 +262,18 @@ by using nxml's indentation rules."
 
 ;;;; Configurations
 
-(unless (display-graphic-p)
-  (xterm-mouse-mode 1))
+(if (display-graphic-p)
+    (progn
+      (window-divider-mode 1)
+      )
+  (progn
+    (xterm-mouse-mode 1)
+    )
+  )
 
+(setq display-time-mode t
+      tool-bar-mode nil
+      menu-bar-mode nil)
 
 
 (setq inferior-lisp-program "ros dynamic-space-size=2048 -L sbcl -l ~/.sbclrc run"
@@ -298,11 +307,6 @@ by using nxml's indentation rules."
 
 ;; Marking text with blutooth keyboard
 (global-set-key (kbd "C-x x") 'set-mark-command)
-
-(window-divider-mode 1)
-(setq display-time-mode t
-      tool-bar-mode nil
-      menu-bar-mode nil)
 
 ;; Enable reopening of recent files via C-x C-r
 (recentf-mode 1)
