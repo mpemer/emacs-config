@@ -299,7 +299,7 @@ by using nxml's indentation rules."
 ;; Marking text with blutooth keyboard
 (global-set-key (kbd "C-x x") 'set-mark-command)
 
-
+(window-divider-mode 1)
 (setq display-time-mode t
       tool-bar-mode nil
       menu-bar-mode nil)
