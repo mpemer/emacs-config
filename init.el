@@ -166,19 +166,18 @@ by using nxml's indentation rules."
 	      (global-set-key (kbd "C-x C-g") 'magit-status)))
 
 (use-package company
-    :defer 0.1
-    :config
-    (global-company-mode t)
-    (setq-default
-        company-idle-delay 0.05
-        company-require-match nil
-        company-minimum-prefix-length 0
+  :defer 0.1
+  :config
+  (global-company-mode t)
+  (setq-default
+   company-idle-delay nil  ;; Disable automatic suggestions
+   company-require-match nil
+   company-minimum-prefix-length 0
+   company-frontends '(company-pseudo-tooltip-frontend company-preview-frontend))
 
-        ;; get only preview
-        company-frontends '(company-preview-frontend)
-        ;; also get a drop down
-        company-frontends '(company-pseudo-tooltip-frontend company-preview-frontend)
-        ))
+  ;; Bind M-TAB (Alt+TAB) to manually trigger completion
+  (define-key company-mode-map (kbd "M-TAB") 'company-complete))
+
 
 (use-package markdown-mode
   :config (add-to-list 'auto-mode-alist '("\\.eml\\'" . markdown-mode)))
