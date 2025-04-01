@@ -262,15 +262,9 @@ by using nxml's indentation rules."
 
 ;;;; Configurations
 
-(if (display-graphic-p)
-    (progn
-      (window-divider-mode 1)
-      )
-  (progn
-    (xterm-mouse-mode 1)
-    )
-  )
-
+(xterm-mouse-mode 1)
+(window-divider-mode 1)
+(delete-selection-mode 1)
 (setq display-time-mode t
       tool-bar-mode nil
       menu-bar-mode nil)
